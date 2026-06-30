@@ -4,11 +4,11 @@ import java.io.Serializable;
 
 public class Response implements Serializable {
 
-    private RequestType type;
+    private ResponseType type;
 
-    public Response(RequestType type) {
+    public Response(ResponseType type) {
         this.type = type;
     }
 
-    private RequestType getType() { return type; }
+    private ResponseType getType() { return type; }
 }
