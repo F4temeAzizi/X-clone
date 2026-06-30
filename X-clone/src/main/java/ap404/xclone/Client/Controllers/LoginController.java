@@ -41,5 +41,7 @@ public class LoginController
     @FXML
     private void handleSignup() throws IOException
     {
+        Parent root = FXMLLoader.load(getClass().getResource("/signup.fxml"));
+        usernameField.getScene().setRoot(root);
     }
 }
