@@ -1,4 +1,9 @@
 package ap404.xclone.Shared;
 
-public class MessageType {
+import java.io.Serializable;
+
+public enum MessageType implements Serializable {
+    LOGIN,
+    LOGIN_SUCCESS,
+    LOGIN_FAILED
 }
