@@ -24,7 +24,7 @@
 
             <Button fx:id="loginButton" text="Continue" onAction="#handleLogin" styleClass="login-btn"/>
 
-            <Label fx:id="errorMessageLabel" text="" styleClass="error-label" visible="false"/>
+            <Label fx:id="errorLabel" text="" styleClass="error-label" visible="false"/>
 
             <Separator/>
 

@@ -14,7 +14,7 @@ public class LoginController
 {
     @FXML private TextField usernameField;
     @FXML private PasswordField passwordField;
-    @FXML private Label errorMessageLabel;
+    @FXML private Label errorLabel;
 
     @FXML
     private void handleLogin()
@@ -22,9 +22,9 @@ public class LoginController
         String username = usernameField.getText();
         String password = passwordField.getText();
 
-        if (username.isEmpty() || password.isEmpty())
+        if (username.isBlank() || password.isBlank())
         {
-            MessageUtil.setErrorMessage(errorMessageLabel, "fields cannot be empty!");
+            MessageUtil.setErrorMessage(errorLabel, "fields cannot be empty!");
             return;
         }
     }
