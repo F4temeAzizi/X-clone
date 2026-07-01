@@ -79,3 +79,8 @@
     -fx-background-color: #1A1A1A;
     -fx-text-fill: #ffffff;
 }
+
+.separator .line {
+    -fx-border-color: #2f3336;
+    -fx-border-width: 1px;
+}
