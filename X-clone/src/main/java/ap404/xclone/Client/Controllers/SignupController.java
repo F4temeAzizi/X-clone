@@ -1,5 +1,6 @@
 package ap404.xclone.Client.Controllers;
 
+import ap404.xclone.Client.MessageUtil;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -13,6 +14,7 @@ public class SignupController
     @FXML private TextField emailField;
     @FXML private PasswordField passwordField;
     @FXML private PasswordField confirmPasswordField;
+    @FXML private Label errorLabel;
 
     @FXML
     private void handleSignup()
@@ -22,6 +24,7 @@ public class SignupController
                 || emailField.getText().isBlank()
                 || passwordField.getText().isBlank()
                 || confirmPasswordField.getText().isBlank()) {
+            MessageUtil.setErrorMessage(errorLabel, "All fields are required!");
             return;
         }
     }
