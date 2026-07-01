@@ -1,5 +1,6 @@
 package ap404.xclone.Client.Controllers;
 
+import ap404.xclone.Client.MessageUtil;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -23,18 +24,8 @@ public class LoginController
 
         if (username.isEmpty() || password.isEmpty())
         {
-            setErrorMessage("fields can't be empty!");
+            MessageUtil.setErrorMessage(errorMessageLabel, "fields cannot be empty!");
             return;
-        }
-    }
-
-    private void setErrorMessage(String message)
-    {
-        if (message.isEmpty()) errorMessageLabel.setVisible(false);
-        else
-        {
-            errorMessageLabel.setText(message);
-            errorMessageLabel.setVisible(true);
         }
     }
 
