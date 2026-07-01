@@ -8,7 +8,7 @@ public class Server {
 
     private final int port = 5000;
 
-    public void start() throws IOException {
+    public void main(String[] args) throws IOException {
 
         try(ServerSocket serverSocket = new ServerSocket(port)) {
 
@@ -16,7 +16,7 @@ public class Server {
 
                 try {
                     Socket socket = serverSocket.accept();
-
+                    System.out.println("new client accepted");
                     ClientHandler clientHandler = new ClientHandler(socket);
                     Thread thread = new Thread(clientHandler);
                     thread.start();
