@@ -42,3 +42,23 @@
     -fx-text-fill: #ffffff;
 }
 
+.tweet-nav-btn {
+    -fx-background-color: #ffffff;
+    -fx-text-fill: #000000;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-padding: 12 20;
+    -fx-background-radius: 30px;
+    -fx-pref-width: 280;
+    -fx-cursor: hand;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+.tweet-nav-btn:hover {
+    -fx-background-color: #e0e0e0;
+}
+
+.tweet-nav-btn:pressed {
+    -fx-background-color: #cccccc;
+}
