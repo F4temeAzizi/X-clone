@@ -47,7 +47,7 @@
                             </ImageView>
                             <VBox spacing="2">
                                 <Label text="Guest" style="-fx-text-fill: #ffffff; -fx-font-weight: bold;"/>
-                                <Label text="guestuser@" style="-fx-text-fill: #71767b; -fx-font-size: 12px;"/>
+                                <Label text=" @username" style="-fx-text-fill: #71767b; -fx-font-size: 12px;"/>
                             </VBox>
                         </HBox>
                     </graphic>
