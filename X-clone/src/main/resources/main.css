@@ -62,3 +62,20 @@
 .tweet-nav-btn:pressed {
     -fx-background-color: #cccccc;
 }
+
+.profile-btn {
+    -fx-background-color: transparent;
+    -fx-text-fill: #e7e9ea;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-padding: 10 16;
+    -fx-pref-width: 280;
+    -fx-background-radius: 30px;
+    -fx-cursor: hand;
+    -fx-alignment: CENTER_LEFT;
+}
+
+.profile-btn:hover {
+    -fx-background-color: #1A1A1A;
+    -fx-text-fill: #ffffff;
+}
