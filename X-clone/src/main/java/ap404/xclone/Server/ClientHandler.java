@@ -29,7 +29,6 @@ public class ClientHandler implements Runnable {
 
             try {
                 Object object = inputStream.readObject();
-
                 if (object instanceof Request request) {
                     handleRequest(request);
                 }
@@ -44,6 +43,7 @@ public class ClientHandler implements Runnable {
             case LOGIN :
                 //TODO: check with database
                 outputStream.writeObject(new Response(ResponseType.LOGIN_SUCCESS));
+                outputStream.flush();
                 break;
 
             //TODO
