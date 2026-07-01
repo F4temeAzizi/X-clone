@@ -129,6 +129,14 @@
     -fx-border-width: 1px;
 }
 
+.error-label {
+    -fx-text-fill: #ff0000;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-alignment: center;
+    -fx-padding: 5 0 5 0;
+}
+
 .login-label {
     -fx-text-fill: #71767b;
     -fx-font-size: 14px;

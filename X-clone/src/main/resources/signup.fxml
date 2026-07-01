@@ -31,7 +31,7 @@
 
             <Button text="Create Account" onAction="#handleSignup" styleClass="signup-btn"/>
 
-            <Label fx:id="errorLabel" visible="false"/>
+            <Label fx:id="errorLabel" styleClass="error-label" visible="false"/>
 
             <Separator/>
 
