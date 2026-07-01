@@ -8,7 +8,7 @@
 <BorderPane xmlns="http://javafx.com/javafx/18"
             stylesheets="@main.css">
     <left>
-        <VBox styleClass="nav-column" prefWidth="220" minWidth="220" maxWidth="220"
+        <VBox styleClass="nav-column" prefWidth="300" minWidth="300" maxWidth="300"
               VBox.vgrow="ALWAYS">
             <padding><Insets top="16" right="8" bottom="12" left="16"/></padding>
 
