@@ -1,0 +1,44 @@
+.nav-column {
+    -fx-background-color: #000000;
+    -fx-border-color: #4A5056;
+    -fx-border-width: 0 2px 0 0;
+    -fx-border-style: solid;
+    -fx-padding: 10 0;
+}
+
+.nav-btn {
+    -fx-background-color: transparent;
+    -fx-text-fill: #e7e9ea;
+    -fx-font-size: 18px;
+    -fx-font-weight:bold;
+    -fx-padding: 10 16;
+    -fx-alignment: CENTER_LEFT;
+    -fx-cursor: hand;
+    -fx-background-radius: 30px;
+    -fx-pref-width: 280;
+    -fx-max-width: 280;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+.nav-btn:hover {
+    -fx-background-color: #1A1A1A;
+    -fx-text-fill: #ffffff;
+}
+
+.nav-btn:focused {
+    -fx-background-color: #1;
+    -fx-border-color: transparent;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+.nav-btn:pressed {
+    -fx-background-color: #2A2A2A;
+}
+
+.logo-small {
+    -fx-font-size: 28px;
+    -fx-text-fill: #ffffff;
+}
+
