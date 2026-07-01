@@ -1,7 +1,6 @@
 package ap404.xclone.Server;
 
 import ap404.xclone.Shared.Request;
-import ap404.xclone.Shared.RequestType;
 import ap404.xclone.Shared.Response;
 import ap404.xclone.Shared.ResponseType;
 
@@ -25,16 +24,15 @@ public class ClientHandler implements Runnable {
 
     @Override
     public void run() {
-        while (true){
-
-            try {
+        try {
+            while (true){
                 Object object = inputStream.readObject();
                 if (object instanceof Request request) {
                     handleRequest(request);
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
             }
+        } catch (Exception e) {
+            System.out.println("Client disconnected");
         }
     }
 
