@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<HBox xmlns="http://javafx.com/javafx/18"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="ap404.xclone.Client.Controllers.LoginController"
+      stylesheets="@login.css"
+      alignment="CENTER"
+      spacing="400"
+      prefWidth="800" prefHeight="600">
+
+    <VBox alignment="CENTER" spacing="60" prefWidth="400">
+
+        <Label text="Happening now" styleClass="happening-title"/>
+
+        <VBox spacing="15" alignment="CENTER">
+
+            <TextField fx:id="usernameField" promptText="Username or Email" styleClass="login-field"/>
+
+            <PasswordField fx:id="passwordField" promptText="Password" styleClass="login-field"/>
+
+            <Button fx:id="loginButton" text="Continue" onAction="#handleLogin" styleClass="login-btn"/>
+
+            <Label fx:id="errorLabel" text="" styleClass="error-label" visible="false"/>
+
+            <Separator/>
+
+            <HBox spacing="5" alignment="CENTER">
+                <Label text="Don't have an account?" styleClass="signup-label"/>
+                <Hyperlink text="Sign up" onAction="#handleSignup" styleClass="signup-link"/>
+            </HBox>
+        </VBox>
+    </VBox>
+
+    <Label text="𝕏" styleClass="logo" alignment="CENTER_RIGHT">
+        <HBox.margin>
+            <Insets right="50"/>
+        </HBox.margin>
+    </Label>
+</HBox>
