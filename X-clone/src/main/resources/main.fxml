@@ -62,7 +62,11 @@
     </center>
 
     <right>
-
+        <VBox styleClass="widget-column" spacing="15" alignment="TOP_CENTER"
+              prefWidth="300" minWidth="300" maxWidth="300">
+            <padding><Insets top="20" right="12" bottom="20" left="12"/></padding>
+            <TextField promptText="🔍 Search" styleClass="search-field"/>
+        </VBox>
     </right>
 
 </BorderPane>
