@@ -4,33 +4,47 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox xmlns="http://javafx.com/javafx"
+<HBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="ap404.xclone.Client.Controllers.SignupController"
       alignment="CENTER"
-      spacing="15"
+      spacing="400"
       prefWidth="800"
-      prefHeight="600">
+      prefHeight="600"
+      stylesheets="signup.css">
 
-    <Label text="Create your account" styleClass="title"/>
+    <VBox alignment="CENTER" spacing="60" prefWidth="400">
 
-    <TextField fx:id="nameField" promptText="Full Name"/>
+        <Label text="Create your account" styleClass="title"/>
 
-    <TextField fx:id="usernameField" promptText="Username"/>
+        <VBox spacing="15" alignment="CENTER">
 
-    <TextField fx:id="emailField" promptText="Email"/>
+            <TextField fx:id="nameField" promptText="Name" styleClass="name-field"/>
 
-    <PasswordField fx:id="passwordField" promptText="Password"/>
+            <TextField fx:id="usernameField" promptText="Username" styleClass="username-field"/>
 
-    <PasswordField fx:id="confirmPasswordField" promptText="Confirm Password"/>
+            <TextField fx:id="emailField" promptText="Email" styleClass="email-field"/>
 
-    <Button text="Create Account" onAction="#handleSignup"/>
+            <PasswordField fx:id="passwordField" promptText="Password" styleClass="password-field"/>
 
-    <Label fx:id="errorLabel" visible="false"/>
+            <PasswordField fx:id="confirmPasswordField" promptText="Confirm Password" styleClass="confirmPassword-field"/>
 
-    <HBox alignment="CENTER" spacing="5">
-        <Label text="Already have an account?"/>
-        <Hyperlink text="Login" onAction="#goToLogin"/>
-    </HBox>
+            <Button text="Create Account" onAction="#handleSignup" styleClass="signup-btn"/>
 
-</VBox>
+            <Label fx:id="errorLabel" visible="false"/>
+
+            <Separator/>
+
+            <HBox alignment="CENTER" spacing="5">
+                <Label text="Already have an account?" styleClass="login-label"/>
+                <Hyperlink text="Login" onAction="#goToLogin" styleClass="login-link"/>
+            </HBox>
+        </VBox>
+    </VBox>
+
+    <Label text="𝕏" styleClass="logo" alignment="CENTER_RIGHT">
+        <HBox.margin>
+            <Insets right="50"/>
+        </HBox.margin>
+    </Label>
+</HBox>
