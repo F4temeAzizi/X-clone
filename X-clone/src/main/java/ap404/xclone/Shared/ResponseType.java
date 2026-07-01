@@ -4,5 +4,7 @@ import java.io.Serializable;
 
 public enum ResponseType implements Serializable {
     LOGIN_SUCCESS,
-    LOGIN_FAILED
+    LOGIN_FAILED,
+    SIGNUP_SUCCESS,
+    SIGNUP_FAILED
 }
