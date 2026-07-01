@@ -47,7 +47,7 @@ public class LoginController
             }
 
         } catch (Exception e) {
-            MessageUtil.setErrorMessage(errorLabel, "Cannot connect to serves!");
+            MessageUtil.setErrorMessage(errorLabel, "Cannot connect to server!");
         }
     }
 
