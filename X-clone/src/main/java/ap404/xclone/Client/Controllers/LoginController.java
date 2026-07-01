@@ -43,11 +43,11 @@ public class LoginController
                 navigateToMain();
             }
             else {
-                MessageUtil.setErrorMessage(errorLabel, "invalid username or password!");
+                MessageUtil.setErrorMessage(errorLabel, "invalid username or password");
             }
 
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            MessageUtil.setErrorMessage(errorLabel, "Cannot connect to serves!");
         }
     }
 
