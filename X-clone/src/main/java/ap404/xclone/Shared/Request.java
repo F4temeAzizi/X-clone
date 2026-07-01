@@ -1,6 +1,8 @@
 package ap404.xclone.Shared;
 
-public class Request {
+import java.io.Serializable;
+
+public class Request implements Serializable {
 
     private final RequestType type;
     private final Object body;
