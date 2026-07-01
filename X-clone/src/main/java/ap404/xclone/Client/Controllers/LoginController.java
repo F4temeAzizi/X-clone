@@ -15,6 +15,7 @@ public class LoginController
     @FXML private TextField usernameField;
     @FXML private PasswordField passwordField;
     @FXML private Label errorLabel;
+    @FXML private Button loginButton;
 
     @FXML
     private void handleLogin()
@@ -27,6 +28,7 @@ public class LoginController
             MessageUtil.setErrorMessage(errorLabel, "fields cannot be empty!");
             return;
         }
+        navigateToMain();
     }
 
     @FXML
@@ -34,5 +36,15 @@ public class LoginController
     {
         Parent root = FXMLLoader.load(getClass().getResource("/signup.fxml"));
         usernameField.getScene().setRoot(root);
+    }
+
+    private void navigateToMain() {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/main.fxml"));
+            Stage stage = (Stage) loginButton.getScene().getWindow();
+            stage.getScene().setRoot(root);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
