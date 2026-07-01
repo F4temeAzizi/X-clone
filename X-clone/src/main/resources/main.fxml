@@ -12,7 +12,7 @@
     <left>
         <VBox styleClass="nav-column" prefWidth="300" minWidth="300" maxWidth="300"
               VBox.vgrow="ALWAYS">
-            <padding><Insets top="16" right="8" bottom="12" left="16"/></padding>
+            <padding><Insets top="40" right="8" bottom="12" left="16"/></padding>
 
             <HBox alignment="CENTER" prefWidth="196">
                 <padding><Insets left="0" right="0"/></padding>
@@ -50,7 +50,6 @@
                         </HBox>
                     </graphic>
                 </Button>
-
 
             </VBox>
         </VBox>
