@@ -10,5 +10,5 @@ public class Response implements Serializable {
         this.type = type;
     }
 
-    private ResponseType getType() { return type; }
+    public ResponseType getType() { return type; }
 }
