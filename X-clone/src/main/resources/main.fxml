@@ -12,7 +12,10 @@
               VBox.vgrow="ALWAYS">
             <padding><Insets top="16" right="8" bottom="12" left="16"/></padding>
 
-            <Label text="𝕏" alignment="TOP_CENTER" styleClass="logo-small"/>
+            <HBox alignment="CENTER" prefWidth="196">
+                <padding><Insets left="0" right="0"/></padding>
+                <Label text="𝕏" styleClass="logo-small"/>
+            </HBox>
 
             <VBox spacing="6" alignment="CENTER_LEFT" VBox.vgrow="ALWAYS">
                 <Button text="🏠  Home" styleClass="nav-btn"/>
@@ -21,7 +24,7 @@
                 <Button text="💬  Chat" styleClass="nav-btn"/>
                 <Button text="🔖  Bookmarks" styleClass="nav-btn"/>
                 <Button text="👤  Profile" styleClass="nav-btn" />
-                <Button text="⚙️ Settings" styleClass="nav-btn" />
+                <Button text="⚙   Settings" styleClass="nav-btn" />
 
                 <Region VBox.vgrow="ALWAYS"/>
 
