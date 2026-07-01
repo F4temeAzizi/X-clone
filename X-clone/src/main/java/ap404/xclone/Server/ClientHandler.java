@@ -43,6 +43,11 @@ public class ClientHandler implements Runnable {
                 outputStream.writeObject(new Response(ResponseType.LOGIN_SUCCESS));
                 outputStream.flush();
                 break;
+            case SIGNUP:
+                //TODO: check and to database
+                outputStream.writeObject(new Response(ResponseType.SIGNUP_SUCCESS));
+                outputStream.flush();
+                break;
 
             //TODO
         }
