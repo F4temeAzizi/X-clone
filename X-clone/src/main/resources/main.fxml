@@ -5,6 +5,8 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.Circle?>
 
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
 <BorderPane xmlns="http://javafx.com/javafx/18"
             stylesheets="@main.css">
     <left>
@@ -29,6 +31,27 @@
                 <Region VBox.vgrow="ALWAYS"/>
 
                 <Button text="Post" styleClass="tweet-nav-btn"/>
+
+                <Button  styleClass="profile-btn" VBox.vgrow="ALWAYS">
+                    <graphic>
+                        <HBox spacing="10" alignment="CENTER_LEFT">
+                            <ImageView fitWidth="36" fitHeight="36" preserveRatio="true">
+                                <clip>
+                                    <Circle centerX="18" centerY="18" radius="18"/>
+                                </clip>
+                                <image>
+                                    <Image url="@images/avatar.jpeg"/>
+                                </image>
+                            </ImageView>
+                            <VBox spacing="2">
+                                <Label text="Guest" style="-fx-text-fill: #ffffff; -fx-font-weight: bold;"/>
+                                <Label text="guestuser@" style="-fx-text-fill: #71767b; -fx-font-size: 12px;"/>
+                            </VBox>
+                        </HBox>
+                    </graphic>
+                </Button>
+
+
             </VBox>
         </VBox>
     </left>
