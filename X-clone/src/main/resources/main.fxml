@@ -32,6 +32,8 @@
 
                 <Button text="Post" styleClass="tweet-nav-btn"/>
 
+                <Separator/>
+
                 <Button  styleClass="profile-btn" VBox.vgrow="ALWAYS">
                     <graphic>
                         <HBox spacing="10" alignment="CENTER_LEFT">
