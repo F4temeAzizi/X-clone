@@ -8,26 +8,23 @@ public class Server {
 
     private final int port = 5000;
 
-    public void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException {
+        new Server().start();
+    }
 
+    public void start() throws IOException{
         try(ServerSocket serverSocket = new ServerSocket(port)) {
+            System.out.println("server started on port " + port);
 
             while (!serverSocket.isClosed()) {
 
-                try {
-                    Socket socket = serverSocket.accept();
-                    System.out.println("new client accepted");
-                    ClientHandler clientHandler = new ClientHandler(socket);
-                    Thread thread = new Thread(clientHandler);
-                    thread.start();
-                }
-                catch (IOException e) {
-                    System.out.println(e.getMessage());
-                }
+
+                Socket socket = serverSocket.accept();
+                System.out.println("new client accepted");
+                ClientHandler clientHandler = new ClientHandler(socket);
+                Thread thread = new Thread(clientHandler);
+                thread.start();
             }
-        }
-        catch (IOException e) {
-            System.out.println(e.getMessage());
         }
     }
 }
