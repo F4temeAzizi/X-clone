@@ -58,6 +58,10 @@
     </left>
 
     <center>
+        <HBox styleClass="tab-container" spacing="0" alignment="TOP_CENTER">
+            <Label  text="Live feeds" styleClass="tab-label-active"/>
+            <Label  text="Following" styleClass="tab-label"/>
+        </HBox>
 
     </center>
 
