@@ -58,11 +58,27 @@
     </left>
 
     <center>
-        <HBox styleClass="tab-container" spacing="0" alignment="TOP_CENTER">
-            <Label  text="Live feeds" styleClass="tab-label-active"/>
-            <Label  text="Following" styleClass="tab-label"/>
-        </HBox>
+        <VBox spacing="0" styleClass="main-center-container">
 
+            <HBox styleClass="tab-container" spacing="25" alignment="TOP_CENTER" HBox.hgrow="NEVER">
+                <Label text="Live feeds" styleClass="tab-label-active"/>
+                <Label text="Following" styleClass="tab-label"/>
+            </HBox>
+
+            <VBox styleClass="compose-section" spacing="8">
+                <padding><Insets top="8" right="16" bottom="12" left="16"/></padding>
+
+                <HBox spacing="12" alignment="TOP_LEFT">
+
+                    <Circle radius="30" fill="white"/>
+
+                    <VBox spacing="8" HBox.hgrow="ALWAYS">
+                        <TextArea promptText="What's happening?" styleClass="tweet-text-area"/>
+                    </VBox>
+                </HBox>
+            </VBox>
+
+        </VBox>
     </center>
 
     <right>
