@@ -87,7 +87,7 @@
 
 .widget-column {
     -fx-background-color: #000000;
-    -fx-border-color: #2f3336;
+    -fx-border-color: #4A5056;
     -fx-border-width: 0 0 0 5px;
 }
 
@@ -107,4 +107,37 @@
 .search-field:focused {
     -fx-border-color: white;
     -fx-border-radius: 30px;
+}
+
+.tab-container {
+    -fx-background-color: #000000;
+    -fx-border-color: #2f3336;
+    -fx-border-width: 0 0 1 0;
+    -fx-padding: 0 16;
+    -fx-spacing: 20;
+}
+
+.tab-label {
+    -fx-text-fill: #71767b;
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-padding: 12 4 12 4;
+    -fx-cursor: hand;
+    -fx-border-color: transparent;
+    -fx-border-width: 0 0 4 0;
+}
+
+.tab-label-active {
+    -fx-text-fill: #e7e9ea;
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-padding: 12 4 12 4;
+    -fx-cursor: hand;
+    -fx-border-color: #1d9bf0;
+    -fx-border-color-radius: 30px;
+    -fx-border-width: 0 0 4 0;
+}
+
+.tab-label:hover {
+    -fx-background-color: #181818;
 }
