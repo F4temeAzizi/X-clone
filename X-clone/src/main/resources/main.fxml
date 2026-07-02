@@ -85,6 +85,21 @@
                 </HBox>
             </VBox>
 
+            <VBox styleClass="option-container">
+                <HBox styleClass="option-btn" spacing="20" alignment="CENTER_LEFT">
+                    <Button text="🖼" styleClass="option-icon-btn"/>
+                    <Button text="🎥" styleClass="option-icon-btn"/>
+                    <Button text="🎙" styleClass="option-icon-btn"/>
+                    <Button text="📊" styleClass="option-icon-btn"/>
+                    <Button text="📎" styleClass="option-icon-btn"/>
+
+                    <Pane HBox.hgrow="ALWAYS" />
+
+                    <Button text="  Post  " styleClass="option-icon-btn,post-btn" alignment="CENTER"/>
+
+                </HBox>
+            </VBox>
+
         </VBox>
     </center>
 
