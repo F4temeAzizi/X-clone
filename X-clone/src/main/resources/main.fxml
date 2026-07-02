@@ -70,7 +70,14 @@
 
                 <HBox spacing="12" alignment="TOP_LEFT">
 
-                    <Circle radius="30" fill="white"/>
+                    <ImageView fitWidth="60" fitHeight="60" preserveRatio="true">
+                        <clip>
+                            <Circle centerX="30" centerY="30" radius="30"/>
+                        </clip>
+                        <image>
+                            <Image url="@images/avatar.jpeg"/>
+                        </image>
+                    </ImageView>
 
                     <VBox spacing="8" HBox.hgrow="ALWAYS">
                         <TextArea promptText="What's happening?" styleClass="tweet-text-area"/>
