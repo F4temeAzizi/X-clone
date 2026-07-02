@@ -149,6 +149,8 @@
     -fx-border-radius: 0;
     -fx-padding: 8 16 12 16;
     -fx-background-radius: 0;
+    -fx-max-height: 180px;
+    -fx-pref-height: 180px;
 }
 
 .tweet-text-area {
