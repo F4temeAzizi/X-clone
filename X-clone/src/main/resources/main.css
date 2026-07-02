@@ -152,7 +152,10 @@
 }
 
 .tweet-text-area {
-    fx-background-color: transparent;
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
     -fx-text-fill: #e7e9ea;
     -fx-prompt-text-fill: #71767b;
     -fx-font-size: 18px;
@@ -163,8 +166,11 @@
 
 .tweet-text-area .content {
     -fx-background-color: #000000;
-    -fx-border-color: #000000;
+    -fx-border-color: transparent;
+    -fx-background-radius: 0;
+    -fx-border-width: 0;
 }
+
 .tweet-text-area:focused {
     -fx-background-color: transparent;
     -fx-border-color: transparent;
