@@ -141,3 +141,31 @@
 .tab-label:hover {
     -fx-background-color: #181818;
 }
+
+.compose-section {
+    -fx-background-color: #000000;
+    -fx-border-color: #2f3336;
+    -fx-border-width: 0 0 1 0;
+    -fx-border-radius: 0;
+    -fx-padding: 8 16 12 16;
+    -fx-background-radius: 0;
+}
+
+.tweet-text-area {
+    fx-background-color: transparent;
+    -fx-text-fill: #e7e9ea;
+    -fx-prompt-text-fill: #71767b;
+    -fx-font-size: 18px;
+    -fx-wrap-text: true;
+    -fx-border-width: 0;
+    -fx-background-radius: 0;
+}
+
+.tweet-text-area .content {
+    -fx-background-color: #000000;
+    -fx-border-color: #000000;
+}
+.tweet-text-area:focused {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
