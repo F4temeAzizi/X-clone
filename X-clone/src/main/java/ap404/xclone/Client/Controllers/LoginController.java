@@ -1,6 +1,8 @@
 package ap404.xclone.Client.Controllers;
 
+import ap404.xclone.Client.Client;
 import ap404.xclone.Client.MessageUtil;
+import ap404.xclone.Shared.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -27,6 +29,26 @@ public class LoginController
             MessageUtil.setErrorMessage(errorLabel, "fields cannot be empty!");
             return;
         }
+
+        try {
+
+            Client client = new Client();
+
+            LoginRequest loginRequest = new LoginRequest(username, password);
+            client.sendRequest(new Request(RequestType.LOGIN, loginRequest));
+
+            Response response = client.getResponse();
+
+            if (response.getType().equals(ResponseType.LOGIN_SUCCESS)) {
+                navigateToMain();
+            }
+            else {
+                MessageUtil.setErrorMessage(errorLabel, "invalid username or password");
+            }
+
+        } catch (Exception e) {
+            MessageUtil.setErrorMessage(errorLabel, "Cannot connect to server!");
+        }
     }
 
     @FXML
@@ -34,5 +56,9 @@ public class LoginController
     {
         Parent root = FXMLLoader.load(getClass().getResource("/signup.fxml"));
         usernameField.getScene().setRoot(root);
+    }
+
+    private void navigateToMain() {
+
     }
 }
