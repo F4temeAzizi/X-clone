@@ -8,6 +8,8 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
 <BorderPane xmlns="http://javafx.com/javafx/18"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="ap404.xclone.Client.Controllers.MainController"
             stylesheets="@main.css">
     <left>
         <VBox styleClass="nav-column" prefWidth="300" minWidth="300" maxWidth="300"
@@ -100,12 +102,27 @@
                 </HBox>
             </VBox>
 
+            <ScrollPane fx:id="tweetScrollPane"
+                        fitToWidth="true"
+                        hbarPolicy="NEVER"
+                        vbarPolicy="AS_NEEDED"
+                        styleClass="tweet-scroll"
+                        VBox.vgrow="ALWAYS">
+
+                <content>
+                    <VBox fx:id="tweetContainer"
+                          spacing="18"
+                          styleClass="tweet-container"/>
+                </content>
+
+            </ScrollPane>
+
         </VBox>
     </center>
 
     <right>
         <VBox styleClass="widget-column" spacing="15" alignment="TOP_CENTER"
-              prefWidth="300" minWidth="300" maxWidth="300">
+              prefWidth="400" minWidth="400" maxWidth="400">
             <padding><Insets top="20" right="12" bottom="20" left="12"/></padding>
             <TextField promptText="🔍 Search" styleClass="search-field"/>
         </VBox>
