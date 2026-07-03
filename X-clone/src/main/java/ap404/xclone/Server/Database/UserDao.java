@@ -1,7 +1,5 @@
 package ap404.xclone.Server.Database;
 
-import ap404.xclone.Shared.Models.User;
-
 import java.sql.*;
 
 public class UserDao {
