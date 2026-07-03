@@ -30,5 +30,27 @@ public class UserDao {
         }
     }
 
-    
+    public boolean login(String usernameOrEmail, String password) {
+        String sql = """
+                SELECT * FROM users
+                WHERE (username = ? OR email = ?)
+                AND password_hash = ?
+                """;
+
+        try (
+                Connection connection = DatabaseConnection.getConnection();
+                PreparedStatement statement = connection.prepareStatement(sql)
+        ) {
+            statement.setString(1, usernameOrEmail);
+            statement.setString(2, usernameOrEmail);
+            statement.setString(3, password);
+
+            ResultSet resultSet = statement.executeQuery();
+            return resultSet.next();
+
+        } catch (SQLException e) {
+            System.out.println("Login error: " + e.getMessage());
+            return false;
+        }
+    }
 }
