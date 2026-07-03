@@ -180,7 +180,7 @@
 
 .option-container {
     -fx-border-color: #555555;
-    -fx-border-width: 0 0 0 0;
+    -fx-border-width: 0 0 2 0;
     -fx-background-color: transparent;
     -fx-padding: 0;
 }
@@ -210,4 +210,23 @@
     -fx-font-weight: bold;
     -fx-font-size: 20px;
     -fx-background-radius: 30;
+}
+
+.tweet-scroll,
+.tweet-scroll:focused,
+.tweet-scroll .viewport {
+
+    -fx-focus-color: #000000;
+    -fx-faint-focus-color: #000000;
+
+    -fx-background-insets: 0;
+    -fx-border-insets: 0;
+
+    -fx-border-color: #000000;
+}
+
+.tweet-container {
+    -fx-background-color: #000000;
+    -fx-fill-width: true;
+    -fx-focus-color: #000000
 }
