@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+
+<HBox xmlns="http://javafx.com/javafx/18"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="ap404.xclone.Client.Controllers.TweetController"
+      spacing="18"
+      alignment="TOP_LEFT"
+      maxWidth="-Infinity"
+      maxHeight="-Infinity"
+      styleClass="tweet-item"
+      stylesheets="tweet.css">
+
+    <ImageView fitWidth="60" fitHeight="60" preserveRatio="true">
+        <clip>
+            <Circle centerX="30" centerY="30" radius="30"/>
+        </clip>
+        <image>
+            <Image url="@images/avatar.jpeg"/>
+        </image>
+    </ImageView>
+
+    <VBox spacing="8" HBox.hgrow="ALWAYS">
+        <HBox spacing="8">
+            <Label fx:id="nameLabel" style="-fx-font-weight:bold;" text="Name" styleClass="tweet-name"/>
+            <Label fx:id="usernameLabel" text=" @username" styleClass="tweet-username"/>
+        </HBox>
+        <Label fx:id="contentLabel" wrapText="true" text="Tweet Content" styleClass="tweet-content"/>
+    </VBox>
+</HBox>
