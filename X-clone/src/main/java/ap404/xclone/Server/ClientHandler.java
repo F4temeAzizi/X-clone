@@ -1,10 +1,7 @@
 package ap404.xclone.Server;
 
 import ap404.xclone.Server.Database.UserDao;
-import ap404.xclone.Shared.Request;
-import ap404.xclone.Shared.Response;
-import ap404.xclone.Shared.ResponseType;
-import ap404.xclone.Shared.SignupRequest;
+import ap404.xclone.Shared.*;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -40,11 +37,28 @@ public class ClientHandler implements Runnable {
 
     public void handleRequest(Request request) throws IOException {
         switch (request.getType()) {
-            case LOGIN :
-                //TODO: check with database
-                outputStream.writeObject(new Response(ResponseType.LOGIN_SUCCESS));
+            case LOGIN: {
+
+                LoginRequest loginRequest = (LoginRequest) request.getBody();
+
+                UserDao userDao = new UserDao();
+
+                boolean success = userDao.login(
+                        loginRequest.getUsername(),
+                        loginRequest.getPassword()
+                );
+
+                if (success) {
+                    outputStream.writeObject(
+                            new Response(ResponseType.LOGIN_SUCCESS));
+                } else {
+                    outputStream.writeObject(
+                            new Response(ResponseType.LOGIN_FAILED));
+                }
+
                 outputStream.flush();
                 break;
+            }
             case SIGNUP: {
 
                 SignupRequest signupRequest = (SignupRequest) request.getBody();
