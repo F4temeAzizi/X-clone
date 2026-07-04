@@ -60,64 +60,7 @@
     </left>
 
     <center>
-        <VBox spacing="0" styleClass="main-center-container">
-
-            <HBox styleClass="tab-container" spacing="25" alignment="TOP_CENTER" HBox.hgrow="NEVER">
-                <Label text="Live feeds" styleClass="tab-label-active"/>
-                <Label text="Following" styleClass="tab-label"/>
-            </HBox>
-
-            <VBox styleClass="compose-section" spacing="8">
-                <padding><Insets top="8" right="16" bottom="12" left="16"/></padding>
-
-                <HBox spacing="12" alignment="TOP_LEFT">
-
-                    <ImageView fitWidth="60" fitHeight="60" preserveRatio="true">
-                        <clip>
-                            <Circle centerX="30" centerY="30" radius="30"/>
-                        </clip>
-                        <image>
-                            <Image url="@images/avatar.jpeg"/>
-                        </image>
-                    </ImageView>
-
-                    <VBox spacing="8" HBox.hgrow="ALWAYS">
-                        <TextArea promptText="What's happening?" styleClass="tweet-text-area"/>
-                    </VBox>
-                </HBox>
-            </VBox>
-
-            <VBox styleClass="option-container">
-                <HBox styleClass="option-btn" spacing="20" alignment="CENTER_LEFT">
-                    <Button text="🖼" styleClass="option-icon-btn"/>
-                    <Button text="🎥" styleClass="option-icon-btn"/>
-                    <Button text="🎙" styleClass="option-icon-btn"/>
-                    <Button text="📊" styleClass="option-icon-btn"/>
-                    <Button text="📎" styleClass="option-icon-btn"/>
-
-                    <Pane HBox.hgrow="ALWAYS" />
-
-                    <Button text="  Post  " styleClass="option-icon-btn,post-btn" alignment="CENTER"/>
-
-                </HBox>
-            </VBox>
-
-            <ScrollPane fx:id="tweetScrollPane"
-                        fitToWidth="true"
-                        hbarPolicy="NEVER"
-                        vbarPolicy="AS_NEEDED"
-                        styleClass="tweet-scroll"
-                        VBox.vgrow="ALWAYS">
-
-                <content>
-                    <VBox fx:id="tweetContainer"
-                          spacing="18"
-                          styleClass="tweet-container"/>
-                </content>
-
-            </ScrollPane>
-
-        </VBox>
+        <StackPane fx:id="center"/>
     </center>
 
     <right>
