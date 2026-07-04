@@ -15,6 +15,10 @@ public class XApplication extends Application
 
         stage.setTitle("𝕏");
         stage.setScene(scene);
+
+        stage.setMaximized(true);      
+        stage.setResizable(false);
+
         stage.show();
     }
 
