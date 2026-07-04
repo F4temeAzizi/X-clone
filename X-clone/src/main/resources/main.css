@@ -235,3 +235,9 @@
     -fx-background: #000000;
     -fx-background-color: #000000;
 }
+
+.tweet-scroll .scroll-bar:vertical {
+    -fx-opacity: 0;
+    -fx-pref-width: 0;
+    -fx-pref-height: 0;
+}
