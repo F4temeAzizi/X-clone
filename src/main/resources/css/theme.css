@@ -1,0 +1,11 @@
+.root {
+    -color-bg: #000000;
+    -color-surface: #16181c;
+    -color-border: #2f3336;
+
+    -color-text: #ffffff;
+    -color-secondary: #71767b;
+
+    -color-accent: #1d9bf0;
+    -color-danger: #f91880;
+}

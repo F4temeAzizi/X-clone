@@ -11,7 +11,7 @@
       spacing="400"
       prefWidth="800"
       prefHeight="600"
-      stylesheets="signup.css">
+      stylesheets="@css/signup.css">
 
     <VBox alignment="CENTER" spacing="60" prefWidth="400">
 

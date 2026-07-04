@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.Circle?>
+
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<BorderPane xmlns="http://javafx.com/javafx/18"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="ap404.xclone.Client.Controllers.MainController"
+            stylesheets="@css/main.css,@css/theme.css">
+    <left>
+        <VBox styleClass="nav-column" prefWidth="300" minWidth="300" maxWidth="300"
+              VBox.vgrow="ALWAYS">
+            <padding><Insets top="40" right="8" bottom="12" left="16"/></padding>
+
+            <HBox alignment="CENTER" prefWidth="196">
+                <padding><Insets left="0" right="0"/></padding>
+                <Label text="𝕏" styleClass="logo-small"/>
+            </HBox>
+
+            <VBox spacing="6" alignment="CENTER_LEFT" VBox.vgrow="ALWAYS">
+                <Button text="🏠  Home" styleClass="nav-btn"/>
+                <Button text="🔍  Explore" styleClass="nav-btn"/>
+                <Button text="🔔  Notifications" styleClass="nav-btn" />
+                <Button text="💬  Chat" styleClass="nav-btn"/>
+                <Button text="🔖  Bookmarks" styleClass="nav-btn"/>
+                <Button text="👤  Profile" styleClass="nav-btn" />
+                <Button text="⚙   Settings" styleClass="nav-btn" />
+
+                <Region VBox.vgrow="ALWAYS"/>
+
+                <Button text="Post" styleClass="tweet-nav-btn"/>
+
+                <Separator/>
+
+                <Button  styleClass="profile-btn" VBox.vgrow="ALWAYS">
+                    <graphic>
+                        <HBox spacing="10" alignment="CENTER_LEFT">
+                            <ImageView fitWidth="36" fitHeight="36" preserveRatio="true">
+                                <clip>
+                                    <Circle centerX="18" centerY="18" radius="18"/>
+                                </clip>
+                                <image>
+                                    <Image url="@images/avatar.jpeg"/>
+                                </image>
+                            </ImageView>
+                            <VBox spacing="2">
+                                <Label text="Guest" style="-fx-text-fill: #ffffff; -fx-font-weight: bold;"/>
+                                <Label text=" @username" style="-fx-text-fill: #71767b; -fx-font-size: 12px;"/>
+                            </VBox>
+                        </HBox>
+                    </graphic>
+                </Button>
+
+            </VBox>
+        </VBox>
+    </left>
+
+    <center>
+        <StackPane fx:id="center"/>
+    </center>
+
+    <right>
+        <VBox styleClass="widget-column" spacing="15" alignment="TOP_CENTER"
+              prefWidth="400" minWidth="400" maxWidth="400">
+            <padding><Insets top="20" right="12" bottom="20" left="12"/></padding>
+            <TextField promptText="🔍 Search" styleClass="search-field"/>
+        </VBox>
+    </right>
+
+</BorderPane>

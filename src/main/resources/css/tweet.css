@@ -1,0 +1,46 @@
+.tweet-item {
+    -fx-background-color: -color-bg;
+    -fx-border-color: -color-border;
+    -fx-border-width: 0 0 1 0;
+    -fx-padding: 18;
+    -fx-max-width: Infinity;
+}
+
+.tweet-item:hover {
+    -fx-background-color: transparent;
+}
+
+.tweet-name {
+    -fx-text-fill: -color-text;
+    -fx-font-size: 19px;
+    -fx-font-weight: bold;
+}
+
+.tweet-username {
+    -fx-text-fill: -color-secondary;
+    -fx-font-size: 16px;
+}
+
+.tweet-content {
+    -fx-text-fill: -color-text;
+    -fx-font-size: 18px;
+}
+
+.tweet-actions {
+    -fx-alignment: center-left;
+    -fx-padding: 8 0 0 0;
+}
+
+.tweet-action-btn {
+    -fx-background-color: transparent;
+    -fx-text-fill: -color-secondary;
+    -fx-font-size: 15px;
+    -fx-cursor: hand;
+    -fx-background-radius: 20;
+    -fx-padding: 5 10;
+}
+
+.tweet-action-btn:hover {
+    -fx-background-color: rgba(29,155,240,0.15);
+    -fx-text-fill: -color-accent;
+}

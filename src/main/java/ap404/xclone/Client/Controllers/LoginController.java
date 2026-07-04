@@ -17,6 +17,7 @@ public class LoginController
     @FXML private TextField usernameField;
     @FXML private PasswordField passwordField;
     @FXML private Label errorLabel;
+    @FXML private Button loginbtn;
 
     @FXML
     private void handleLogin()
@@ -58,7 +59,8 @@ public class LoginController
         usernameField.getScene().setRoot(root);
     }
 
-    private void navigateToMain() {
-
+    private void navigateToMain() throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/main.fxml"));
+        loginbtn.getScene().setRoot(root);
     }
 }
