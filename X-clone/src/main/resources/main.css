@@ -230,3 +230,8 @@
     -fx-fill-width: true;
     -fx-focus-color: #000000
 }
+
+.scroll-pane {
+    -fx-background: #000000;
+    -fx-background-color: #000000;
+}
