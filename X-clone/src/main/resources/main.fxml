@@ -10,7 +10,7 @@
 <BorderPane xmlns="http://javafx.com/javafx/18"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="ap404.xclone.Client.Controllers.MainController"
-            stylesheets="@main.css">
+            stylesheets="@css/main.css,@css/theme.css">
     <left>
         <VBox styleClass="nav-column" prefWidth="300" minWidth="300" maxWidth="300"
               VBox.vgrow="ALWAYS">

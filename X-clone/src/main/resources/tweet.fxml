@@ -17,7 +17,7 @@
       maxWidth="-Infinity"
       maxHeight="-Infinity"
       styleClass="tweet-item"
-      stylesheets="tweet.css">
+      stylesheets="@css/tweet.css,@css/theme.css">
 
     <ImageView fitWidth="60" fitHeight="60" preserveRatio="true">
         <clip>

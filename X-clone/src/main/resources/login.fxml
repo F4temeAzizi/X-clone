@@ -7,7 +7,7 @@
 <HBox xmlns="http://javafx.com/javafx/18"
       xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="ap404.xclone.Client.Controllers.LoginController"
-      stylesheets="@login.css"
+      stylesheets="@css/login.css"
       alignment="CENTER"
       spacing="400"
       prefWidth="800" prefHeight="600">
