@@ -1,0 +1,27 @@
+.tweet-item {
+    -fx-background-color: #000000;
+    -fx-border-color: #2f3336;
+    -fx-border-width: 0 0 1 0;
+    -fx-padding: 18;
+    -fx-max-width: Infinity;
+}
+
+.tweet-item:hover {
+    -fx-background-color: transparent;
+}
+
+.tweet-name {
+    -fx-text-fill: white;
+    -fx-font-size: 19px;
+    -fx-font-weight: bold;
+}
+
+.tweet-username {
+    -fx-text-fill: #71767b;
+    -fx-font-size: 16px;
+}
+
+.tweet-content {
+    -fx-text-fill: white;
+    -fx-font-size: 18px;
+}

@@ -41,8 +41,7 @@ public class LoginController
     private void navigateToMain() {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/main.fxml"));
-            Stage stage = (Stage) loginButton.getScene().getWindow();
-            stage.getScene().setRoot(root);
+            loginButton.getScene().setRoot(root);
         } catch (IOException e) {
             e.printStackTrace();
         }
