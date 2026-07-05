@@ -1,6 +1,8 @@
 package ap404.xclone.Shared.Models;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
     private int id;
     private String username;
     private String displayName;
@@ -11,7 +13,7 @@ public class User {
     private String bannerImageUrl;
     private boolean isPrivate;
 
-    public User(int id, String username, String displayName, String email,
+    public User (int id, String username, String displayName, String email,
                 String passwordHash, String bio, String profileImageUrl,
                 String bannerImageUrl, boolean isPrivate) {
         this.id = id;
