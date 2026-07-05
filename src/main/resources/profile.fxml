@@ -21,7 +21,7 @@
 
     <HBox alignment="CENTER_LEFT" spacing="15" styleClass="profile-header">
 
-        <StackPane translateY="-80">
+        <StackPane translateY="-80" styleClass="avatar-container">
 
             <ImageView fitWidth="130" fitHeight="130" preserveRatio="true">
 

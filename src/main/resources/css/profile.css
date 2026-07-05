@@ -107,3 +107,10 @@
     -fx-pref-height: 260;
     -fx-min-height: 260;
 }
+
+.avatar-container{
+    -fx-background-color: -color-bg;
+    -fx-background-radius: 1000;
+    -fx-padding: 4;
+    -fx-alignment: center;
+}
