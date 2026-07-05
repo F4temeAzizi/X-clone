@@ -45,9 +45,9 @@
 
     <VBox spacing="4" styleClass="profile-info">
 
-        <Label text="Guest" styleClass="profile-name"/>
-        <Label text="  @username" styleClass="profile-username"/>
-        <Label text="This is my first X Clone profile." wrapText="true" styleClass="profile-bio"/>
+        <Label fx:id="nameLbl" text="Guest" styleClass="profile-name"/>
+        <Label fx:id="usernameLbl" text="  @username" styleClass="profile-username"/>
+        <Label fx:id="bioLbl" text="" wrapText="true" styleClass="profile-bio"/>
 
         <HBox spacing="20">
             <Label text="Joined July 2025" styleClass="profile-meta"/>
