@@ -1,0 +1,19 @@
+CREATE TABLE tweets (
+
+    id SERIAL PRIMARY KEY,
+
+    user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+
+
+    content TEXT NOT NULL,
+
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    is_retweet BOOLEAN DEFAULT FALSE,
+
+    retweet_of_id INTEGER REFERENCES tweets(id) ON DELETE CASCADE,
+
+
+    reply_to_id INTEGER REFERENCES tweets(id) ON DELETE CASCADE
+
+);
