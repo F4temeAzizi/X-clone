@@ -14,4 +14,6 @@ public class MainController
         Navigation.setCenter(center);
         Navigation.loadHome();
     }
+
+    @FXML public void goToProfile () { Navigation.loadProfile(); }
 }
