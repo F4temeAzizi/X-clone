@@ -1,5 +1,7 @@
 package ap404.xclone.Server.Database;
 
+import ap404.xclone.Shared.Models.User;
+
 import java.sql.*;
 
 public class UserDao {
@@ -50,5 +52,39 @@ public class UserDao {
             System.out.println("Login error: " + e.getMessage());
             return false;
         }
+    }
+
+    public User getUser (String usernameOrEmail) {
+        String sql = """
+            SELECT * FROM users
+            WHERE username = ? OR email = ?
+            """;
+
+        try (
+                Connection connection = DatabaseConnection.getConnection();
+                PreparedStatement statement = connection.prepareStatement(sql);
+        ) {
+            statement.setString(1, usernameOrEmail);
+            statement.setString(2, usernameOrEmail);
+
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                return new User(
+                        resultSet.getInt("id"),
+                        resultSet.getString("username"),
+                        resultSet.getString("display_name"),
+                        resultSet.getString("email"),
+                        resultSet.getString("password_hash"),
+                        resultSet.getString("bio"),
+                        resultSet.getString("profile_image_url"),
+                        resultSet.getString("banner_image_url"),
+                        resultSet.getBoolean("is_private")
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+         return null;
     }
 }
