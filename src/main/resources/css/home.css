@@ -131,3 +131,12 @@
     -fx-pref-width: 0;
     -fx-pref-height: 0;
 }
+
+.option-icon{
+    -fx-icon-size:20;
+    -fx-icon-color:-color-icon;
+}
+
+.option-icon-btn:hover .option-icon{
+    -fx-icon-color:-color-icon-hover;
+}

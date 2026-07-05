@@ -44,3 +44,19 @@
     -fx-background-color: rgba(29,155,240,0.15);
     -fx-text-fill: -color-accent;
 }
+
+.tweet-icon {
+    -fx-icon-size: 18;
+    -fx-icon-color: -color-text;
+    -fx-fill: -color-text; /* مهم برای fallback */
+}
+
+.tweet-action-btn:hover .tweet-icon {
+    -fx-icon-color: -color-accent;
+    -fx-fill: -color-accent;
+}
+
+.tweet-count {
+    -fx-text-fill: -color-text;
+    -fx-font-size: 13px;
+}

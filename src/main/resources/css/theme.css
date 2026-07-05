@@ -8,4 +8,8 @@
 
     -color-accent: #1d9bf0;
     -color-danger: #f91880;
+
+    -color-icon: -color-text;
+    -color-icon-secondary: -color-secondary;
+    -color-icon-hover: -color-accent;
 }

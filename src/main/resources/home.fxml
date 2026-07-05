@@ -6,6 +6,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.Circle?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
 
 <VBox xmlns="http://javafx.com/javafx/18"
       xmlns:fx="http://javafx.com/fxml"
@@ -47,11 +48,35 @@
     <VBox styleClass="option-container">
 
         <HBox styleClass="option-btn" spacing="20" alignment="CENTER_LEFT">
-            <Button text="🖼" styleClass="option-icon-btn"/>
-            <Button text="🎥" styleClass="option-icon-btn"/>
-            <Button text="🎙" styleClass="option-icon-btn"/>
-            <Button text="📊" styleClass="option-icon-btn"/>
-            <Button text="📎" styleClass="option-icon-btn"/>
+            <Button styleClass="option-icon-btn">
+                <graphic>
+                    <FontIcon iconLiteral="fas-image" styleClass="option-icon"/>
+                </graphic>
+            </Button>
+
+            <Button styleClass="option-icon-btn">
+                <graphic>
+                    <FontIcon iconLiteral="fas-video" styleClass="option-icon"/>
+                </graphic>
+            </Button>
+
+            <Button styleClass="option-icon-btn">
+                <graphic>
+                    <FontIcon iconLiteral="fas-microphone" styleClass="option-icon"/>
+                </graphic>
+            </Button>
+
+            <Button styleClass="option-icon-btn">
+                <graphic>
+                    <FontIcon iconLiteral="fas-chart-bar" styleClass="option-icon"/>
+                </graphic>
+            </Button>
+
+            <Button styleClass="option-icon-btn">
+                <graphic>
+                    <FontIcon iconLiteral="fas-paperclip" styleClass="option-icon"/>
+                </graphic>
+            </Button>
             <Pane HBox.hgrow="ALWAYS"/>
             <Button text="Post" styleClass="post-btn"/>
         </HBox>

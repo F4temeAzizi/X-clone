@@ -108,3 +108,12 @@
     -fx-border-color: white;
     -fx-border-radius: 30px;
 }
+
+.nav-icon{
+    -fx-icon-size:22;
+    -fx-icon-color:-color-icon;
+}
+
+.nav-btn:hover .nav-icon{
+    -fx-icon-color:-color-icon-hover;
+}

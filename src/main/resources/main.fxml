@@ -4,7 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.Circle?>
-
+<?import org.kordamp.ikonli.javafx.FontIcon?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
 <BorderPane xmlns="http://javafx.com/javafx/18"
@@ -22,13 +22,47 @@
             </HBox>
 
             <VBox spacing="6" alignment="CENTER_LEFT" VBox.vgrow="ALWAYS">
-                <Button text="🏠  Home" styleClass="nav-btn"/>
-                <Button text="🔍  Explore" styleClass="nav-btn"/>
-                <Button text="🔔  Notifications" styleClass="nav-btn" />
-                <Button text="💬  Chat" styleClass="nav-btn"/>
-                <Button text="🔖  Bookmarks" styleClass="nav-btn"/>
-                <Button text="👤  Profile" styleClass="nav-btn" />
-                <Button text="⚙   Settings" styleClass="nav-btn" />
+                <Button text="Home" graphicTextGap="12" styleClass="nav-btn">
+                    <graphic>
+                        <FontIcon iconLiteral="fas-home" iconSize="22" styleClass="nav-icon"/>
+                    </graphic>
+                </Button>
+
+                <Button text="Explore" graphicTextGap="12" styleClass="nav-btn">
+                    <graphic>
+                        <FontIcon iconLiteral="fas-search" styleClass="nav-icon"/>
+                    </graphic>
+                </Button>
+
+                <Button text="Notifications" graphicTextGap="12" styleClass="nav-btn">
+                    <graphic>
+                        <FontIcon iconLiteral="fas-bell" styleClass="nav-icon"/>
+                    </graphic>
+                </Button>
+
+                <Button text="Chat" graphicTextGap="12" styleClass="nav-btn">
+                    <graphic>
+                        <FontIcon iconLiteral="fas-comment" styleClass="nav-icon"/>
+                    </graphic>
+                </Button>
+
+                <Button text="Bookmarks" graphicTextGap="12" styleClass="nav-btn">
+                    <graphic>
+                        <FontIcon iconLiteral="fas-bookmark" styleClass="nav-icon"/>
+                    </graphic>
+                </Button>
+
+                <Button text="Profile" graphicTextGap="12" styleClass="nav-btn">
+                    <graphic>
+                        <FontIcon iconLiteral="fas-user" styleClass="nav-icon"/>
+                    </graphic>
+                </Button>
+
+                <Button text="Settings" graphicTextGap="12" styleClass="nav-btn">
+                    <graphic>
+                        <FontIcon iconLiteral="fas-cog" styleClass="nav-icon"/>
+                    </graphic>
+                </Button>
 
                 <Region VBox.vgrow="ALWAYS"/>
 
