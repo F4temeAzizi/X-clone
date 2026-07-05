@@ -2,11 +2,13 @@ package ap404.xclone.Server;
 
 import ap404.xclone.Server.Database.UserDao;
 import ap404.xclone.Shared.*;
+import ap404.xclone.Shared.Models.User;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.sql.SQLException;
 
 public class ClientHandler implements Runnable {
 
@@ -35,7 +37,7 @@ public class ClientHandler implements Runnable {
         }
     }
 
-    public void handleRequest(Request request) throws IOException {
+    public void handleRequest(Request request) throws IOException, SQLException {
         switch (request.getType()) {
             case LOGIN: {
 
@@ -49,11 +51,11 @@ public class ClientHandler implements Runnable {
                 );
 
                 if (success) {
-                    outputStream.writeObject(
-                            new Response(ResponseType.LOGIN_SUCCESS));
+                    User user = userDao.getUser(loginRequest.getUsername());
+                    outputStream.writeObject(new Response(ResponseType.LOGIN_SUCCESS, user));
                 } else {
-                    outputStream.writeObject(
-                            new Response(ResponseType.LOGIN_FAILED));
+
+                    outputStream.writeObject(new Response(ResponseType.LOGIN_FAILED));
                 }
 
                 outputStream.flush();
