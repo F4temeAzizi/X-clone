@@ -52,7 +52,7 @@
                     </graphic>
                 </Button>
 
-                <Button text="Profile" graphicTextGap="12" styleClass="nav-btn">
+                <Button text="Profile" graphicTextGap="12" styleClass="nav-btn" onAction="#goToProfile">
                     <graphic>
                         <FontIcon iconLiteral="fas-user" styleClass="nav-icon"/>
                     </graphic>
