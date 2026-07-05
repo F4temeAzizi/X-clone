@@ -12,6 +12,8 @@ public class Navigation
 
     public static void loadHome() { load("home.fxml"); }
 
+    public static void loadProfile() { load("profile.fxml"); }
+
     public static void setCenter(StackPane centerPane)
     {
         center = centerPane;
