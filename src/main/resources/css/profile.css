@@ -1,0 +1,109 @@
+.profile-root{
+    -fx-background-color:-color-bg;
+}
+
+.profile-header{
+    -fx-padding:0 20 10 20;
+}
+
+.profile-info{
+    -fx-padding:-75 20 20 20;
+}
+
+.profile-name{
+    -fx-font-size:28;
+    -fx-font-weight:bold;
+    -fx-text-fill:-color-text;
+}
+
+.profile-username{
+    -fx-font-size:16;
+    -fx-text-fill:-color-secondary;
+}
+
+.profile-bio{
+    -fx-font-size:16;
+    -fx-text-fill:-color-text;
+}
+
+.profile-meta{
+    -fx-text-fill:-color-secondary;
+}
+
+.profile-follow{
+    -fx-font-size:15;
+    -fx-text-fill:-color-text;
+    -fx-font-weight:bold;
+}
+
+.edit-profile-btn{
+    -fx-background-color:transparent;
+    -fx-border-color:-color-border;
+    -fx-font-size: 20px;
+    -fx-border-radius:25;
+    -fx-background-radius:25;
+    -fx-padding:8 20;
+    -fx-text-fill:-color-text;
+    -fx-font-weight:bold;
+}
+
+.edit-profile-btn:hover{
+    -fx-background-color:#1c1c1c;
+}
+
+.profile-tabs{
+    -fx-border-color:-color-border;
+    -fx-border-width:1 0;
+}
+
+.profile-tab,
+.profile-tab-active{
+    -fx-padding:16 35;
+    -fx-font-size:16;
+    -fx-font-weight:bold;
+    -fx-cursor:hand;
+}
+
+.profile-tab{
+    -fx-text-fill:-color-secondary;
+}
+
+.profile-tab:hover{
+    -fx-background-color:#151515;
+}
+
+.profile-tab-active{
+    -fx-text-fill:-color-text;
+    -fx-border-color:-color-accent;
+    -fx-border-width:0 0 3 0;
+}
+.profile-root{
+    -fx-background-color: -color-bg;
+}
+
+.profile-scroll {
+    -fx-background: -color-bg;
+    -fx-background-color: -color-bg;
+    -fx-border-color: transparent;
+}
+
+.profile-scroll > .viewport {
+    -fx-background-color: -color-bg;
+}
+
+.profile-scroll .corner {
+    -fx-background-color: -color-bg;
+}
+
+.profile-scroll .content {
+    -fx-background-color: -color-bg;
+}
+
+.profile-banner {
+    -fx-background-image: url("../images/banner.jpg");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center center;
+
+    -fx-pref-height: 260;
+    -fx-min-height: 260;
+}
