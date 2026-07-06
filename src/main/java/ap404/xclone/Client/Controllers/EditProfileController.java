@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Region;
 import javafx.stage.FileChooser;
@@ -48,6 +49,14 @@ public class EditProfileController
     @FXML
     public void changeProfilePicture()
     {
-    
+        FileChooser fileChooser =  new FileChooser();
+        fileChooser.getExtensionFilters().add(
+                new FileChooser.ExtensionFilter("Images","*.png","*.jpg","*jpeg"));
+
+        File file = fileChooser.showOpenDialog(null);
+
+        if (file == null) return;
+
+        avatarImage.setImage(new Image(file.toURI().toString()));
     }
 }
