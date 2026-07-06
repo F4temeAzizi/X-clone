@@ -63,8 +63,8 @@
 
         <HBox spacing="20">
             <Pane HBox.hgrow="ALWAYS"/>
-            <Button text="Cancel" styleClass="cancel-btn"/>
-            <Button text="Save" styleClass="save-btn"/>
+            <Button text="Cancel" styleClass="cancel-btn" onAction="#cancel"/>
+            <Button text="Save" styleClass="save-btn" onAction="#save"/>
         </HBox>
     </VBox>
 </VBox>

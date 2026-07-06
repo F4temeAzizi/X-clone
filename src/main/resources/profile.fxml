@@ -16,14 +16,14 @@
       VBox.vgrow="ALWAYS">
 
     <StackPane>
-        <Region styleClass="profile-banner"/>
+        <Region fx:id="bannerRegion" styleClass="profile-banner"/>
     </StackPane>
 
     <HBox alignment="CENTER_LEFT" spacing="15" styleClass="profile-header">
 
         <StackPane translateY="-80" styleClass="avatar-container">
 
-            <ImageView fitWidth="160" fitHeight="160" preserveRatio="false">
+            <ImageView fx:id="avatarImage" fitWidth="160" fitHeight="160" preserveRatio="false">
 
                 <clip>
                     <Circle centerX="80" centerY="80" radius="80"/>
