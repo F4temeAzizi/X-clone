@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<VBox xmlns="http://javafx.com/javafx/18"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="ap404.xclone.Client.Controllers.EditProfileController"
+      spacing="0"
+      stylesheets="@css/profile.css, @css/edit_profile.css"
+      styleClass="profile-root">
+
+    <StackPane>
+        <Region styleClass="profile-banner"/>
+    </StackPane>
+
+    <HBox alignment="CENTER_LEFT" spacing="15" styleClass="profile-header">
+
+        <StackPane translateY="-80" styleClass="avatar-container">
+
+            <ImageView fitWidth="130" fitHeight="130" preserveRatio="true">
+
+                <clip>
+                    <Circle centerX="65" centerY="65" radius="65"/>
+                </clip>
+
+                <image>
+                    <Image url="@images/avatar.jpeg"/>
+                </image>
+
+            </ImageView>
+
+        </StackPane>
+
+        <Pane HBox.hgrow="ALWAYS"/>
+
+        <Button text="Change banner" translateY="-35"/>
+        <Button text="Change profile picture" translateY="-35"/>
+
+    </HBox>
+
+    <VBox spacing="15">
+
+        <padding>
+            <Insets top="0" right="30" bottom="30" left="30"/>
+        </padding>
+
+
+        <Label text="Name"/>
+        <TextField fx:id="nameField"/>
+
+        <Label text="Username"/>
+        <TextField fx:id="usernameField"/>
+
+        <Label text="Bio"/>
+        <TextArea fx:id="bioField" prefRowCount="4"/>
+
+        <Region VBox.vgrow="ALWAYS"/>
+
+        <HBox spacing="20">
+            <Pane HBox.hgrow="ALWAYS"/>
+            <Button text="Cancel"/>
+            <Button text="Save" />
+        </HBox>
+    </VBox>
+</VBox>
