@@ -22,4 +22,9 @@ public class ProfileController
             bioLbl.setText(user.getBio());
         }
     }
+
+    @FXML public void goToEditProfile()
+    {
+
+    }
 }

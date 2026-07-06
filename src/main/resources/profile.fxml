@@ -39,7 +39,7 @@
 
         <Pane HBox.hgrow="ALWAYS"/>
 
-        <Button text="Edit profile" styleClass="edit-profile-btn" translateY="-35"/>
+        <Button text="Edit profile" styleClass="edit-profile-btn" translateY="-35" onAction="#goToEditProfile"/>
 
     </HBox>
 
@@ -54,8 +54,8 @@
         </HBox>
 
         <HBox spacing="25">
-            <Label text="120 Following" styleClass="profile-follow"/>
-            <Label text="86 Followers" styleClass="profile-follow"/>
+            <Label text="0 Following" styleClass="profile-follow"/>
+            <Label text="0 Followers" styleClass="profile-follow"/>
         </HBox>
 
     </VBox>

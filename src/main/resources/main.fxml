@@ -22,31 +22,31 @@
             </HBox>
 
             <VBox spacing="6" alignment="CENTER_LEFT" VBox.vgrow="ALWAYS">
-                <Button text="Home" graphicTextGap="12" styleClass="nav-btn">
+                <Button text="Home" graphicTextGap="12" styleClass="nav-btn" onAction="#goToHome">
                     <graphic>
                         <FontIcon iconLiteral="fas-home" iconSize="22" styleClass="nav-icon"/>
                     </graphic>
                 </Button>
 
-                <Button text="Explore" graphicTextGap="12" styleClass="nav-btn">
+                <Button text="Explore" graphicTextGap="12" styleClass="nav-btn" onAction="#goToExplore">
                     <graphic>
                         <FontIcon iconLiteral="fas-search" styleClass="nav-icon"/>
                     </graphic>
                 </Button>
 
-                <Button text="Notifications" graphicTextGap="12" styleClass="nav-btn">
+                <Button text="Notifications" graphicTextGap="12" styleClass="nav-btn" onAction="#goToNotifications">
                     <graphic>
                         <FontIcon iconLiteral="fas-bell" styleClass="nav-icon"/>
                     </graphic>
                 </Button>
 
-                <Button text="Chat" graphicTextGap="12" styleClass="nav-btn">
+                <Button text="Chat" graphicTextGap="12" styleClass="nav-btn" onAction="#goToChat">
                     <graphic>
                         <FontIcon iconLiteral="fas-comment" styleClass="nav-icon"/>
                     </graphic>
                 </Button>
 
-                <Button text="Bookmarks" graphicTextGap="12" styleClass="nav-btn">
+                <Button text="Bookmarks" graphicTextGap="12" styleClass="nav-btn" onAction="#goToBookmarks">
                     <graphic>
                         <FontIcon iconLiteral="fas-bookmark" styleClass="nav-icon"/>
                     </graphic>
@@ -58,7 +58,7 @@
                     </graphic>
                 </Button>
 
-                <Button text="Settings" graphicTextGap="12" styleClass="nav-btn">
+                <Button text="Settings" graphicTextGap="12" styleClass="nav-btn" onAction="#goToSettings">
                     <graphic>
                         <FontIcon iconLiteral="fas-cog" styleClass="nav-icon"/>
                     </graphic>

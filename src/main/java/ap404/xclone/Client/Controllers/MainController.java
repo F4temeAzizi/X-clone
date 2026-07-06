@@ -15,5 +15,17 @@ public class MainController
         Navigation.loadHome();
     }
 
-    @FXML public void goToProfile () { Navigation.loadProfile(); }
+    @FXML public void goToProfile() { Navigation.loadProfile(); }
+
+    @FXML public void goToHome() { Navigation.loadHome(); }
+
+    @FXML public void goToExplore() {}
+
+    @FXML public void goToBookmarks() {}
+
+    @FXML public void goToNotifications() {}
+
+    @FXML public void  goToChat() {}
+
+    @FXML public void goToSettings() {}
 }
