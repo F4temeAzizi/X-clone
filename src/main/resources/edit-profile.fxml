@@ -57,7 +57,7 @@
         <TextField fx:id="usernameField" styleClass="text-field"/>
 
         <Label text="Bio" styleClass="field-title"/>
-        <TextArea fx:id="bioField" prefRowCount="4" styleClass="text-area"/>
+        <TextArea fx:id="bioField" prefRowCount="6" wrapText="true" styleClass="text-area"/>
 
         <Region VBox.vgrow="ALWAYS"/>
 
