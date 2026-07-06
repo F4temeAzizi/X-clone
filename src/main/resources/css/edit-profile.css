@@ -1,6 +1,6 @@
 .change-banner-btn,
 .change-profile-btn,
-.cancel-btn{
+.cancel-btn {
     -fx-background-color: transparent;
     -fx-border-color: -color-border;
     -fx-border-radius: 25;
@@ -13,11 +13,11 @@
 
 .change-banner-btn:hover,
 .change-profile-btn:hover,
-.cancel-btn:hover{
+.cancel-btn:hover {
     -fx-background-color: #1b1b1b;
 }
 
-.save-btn{
+.save-btn {
     -fx-background-color: -color-accent;
     -fx-border-color: -color-accent;
     -fx-border-radius: 25;
@@ -28,7 +28,7 @@
     -fx-cursor: hand;
 }
 
-.save-btn:hover{
+.save-btn:hover {
     -fx-opacity: .9;
 }
 
@@ -37,4 +37,36 @@
     -fx-font-size: 18px;
     -fx-font-weight: bold;
     -fx-padding: 8 0 4 0;
+}
+
+.text-field {
+ -fx-pref-height: 48;
+}
+
+.text-field,
+.text-area {
+    -fx-background-color: #2f3336;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+
+    -fx-border-color: #2f3336;
+    -fx-border-width: 1.5;
+
+    -fx-text-fill: white;
+    -fx-prompt-text-fill: #8b98a5;
+
+    -fx-font-size: 15px;
+
+    -fx-highlight-fill: -color-accent;
+    -fx-highlight-text-fill: white;
+}
+
+.text-area .content{
+    -fx-background-color: #2f3336;
+    -fx-background-radius: 10;
+}
+
+.text-field:focused,
+.text-area:focused{
+    -fx-border-color: -color-accent;
 }

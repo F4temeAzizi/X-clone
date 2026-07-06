@@ -51,13 +51,13 @@
 
 
         <Label text="Name" styleClass="field-title"/>
-        <TextField fx:id="nameField"/>
+        <TextField fx:id="nameField" styleClass="text-field"/>
 
         <Label text="Username" styleClass="field-title"/>
-        <TextField fx:id="usernameField"/>
+        <TextField fx:id="usernameField" styleClass="text-field"/>
 
         <Label text="Bio" styleClass="field-title"/>
-        <TextArea fx:id="bioField" prefRowCount="4"/>
+        <TextArea fx:id="bioField" prefRowCount="4" styleClass="text-area"/>
 
         <Region VBox.vgrow="ALWAYS"/>
 
