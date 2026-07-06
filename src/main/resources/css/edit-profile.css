@@ -45,28 +45,45 @@
 
 .text-field,
 .text-area {
-    -fx-background-color: #2f3336;
-    -fx-background-radius: 10;
-    -fx-border-radius: 10;
-
-    -fx-border-color: #2f3336;
-    -fx-border-width: 1.5;
-
-    -fx-text-fill: white;
+    -fx-background-color: #2f3336 !important;
+    -fx-background-radius: 10 !important;
+    -fx-border-radius: 10 !important;
+    -fx-border-color: #2f3336 !important;
+    -fx-border-width: 1.5 !important;
+    -fx-text-fill: -color-text;
     -fx-prompt-text-fill: #8b98a5;
-
     -fx-font-size: 15px;
-
     -fx-highlight-fill: -color-accent;
-    -fx-highlight-text-fill: white;
+    -fx-highlight-text-fill: -color-text;
 }
 
 .text-area .content{
-    -fx-background-color: #2f3336;
-    -fx-background-radius: 10;
+   -fx-background-color: #2f3336 !important;
+   -fx-background-radius: 10 !important;
+   -fx-border-radius: 10 !important;
+   -fx-border-color: transparent !important;
 }
 
 .text-field:focused,
 .text-area:focused{
     -fx-border-color: -color-accent;
 }
+
+ .text-area .viewport {
+     -fx-background-color: #2f3336 !important;
+     -fx-background-radius: 10 !important;
+ }
+
+ .text-area .scroll-pane {
+     -fx-vbar-policy: never;
+     -fx-hbar-policy: never;
+ }
+
+ .text-area .scroll-bar:vertical {
+     -fx-pref-width: 0;
+     -fx-opacity: 0;
+ }
+
+ .text-area:focused {
+     -fx-border-color: -color-accent;
+ }
