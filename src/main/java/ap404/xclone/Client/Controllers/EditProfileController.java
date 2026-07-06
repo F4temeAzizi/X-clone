@@ -1,9 +1,12 @@
 package ap404.xclone.Client.Controllers;
 
+import ap404.xclone.Client.Client;
+import ap404.xclone.Client.Managers.Navigation;
 import ap404.xclone.Client.Managers.Session;
+import ap404.xclone.Shared.*;
 import ap404.xclone.Shared.Models.User;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -21,6 +24,9 @@ public class EditProfileController
     @FXML private ImageView avatarImage;
     @FXML private Region bannerRegion;
 
+    private String avatarImagePath;
+    private String bannerImagePath;
+
     public  void initialize()
     {
         User user = Session.getCurrentUser();
@@ -29,6 +35,17 @@ public class EditProfileController
         usernameField.setText(user.getUsername());
         if (user.getBio() != null) {
             bioField.setText(user.getBio());
+        }
+
+        avatarImagePath = user.getProfileImageUrl();
+        bannerImagePath = user.getBannerImageUrl();
+
+        if (avatarImagePath != null) {
+            avatarImage.setImage(new Image(avatarImagePath));
+        }
+
+        if (bannerImagePath != null) {
+            bannerRegion.setStyle("-fx-background-image: url('" + bannerImagePath + "');");
         }
     }
 
@@ -43,7 +60,8 @@ public class EditProfileController
 
         if (file == null) return;
 
-        bannerRegion.setStyle("-fx-background-image: url('" + file.toURI().toString() + "');");
+        bannerImagePath = file.toURI().toString();
+        bannerRegion.setStyle("-fx-background-image: url('" + bannerImagePath + "');");
     }
 
     @FXML
@@ -57,6 +75,42 @@ public class EditProfileController
 
         if (file == null) return;
 
-        avatarImage.setImage(new Image(file.toURI().toString()));
+        avatarImagePath = file.toURI().toString();
+        avatarImage.setImage(new Image(avatarImagePath));
     }
+
+    @FXML
+    public void save ()
+    {
+        try {
+            Client client = new Client();
+
+            User user = Session.getCurrentUser();
+
+            UpdateProfileRequest request = new UpdateProfileRequest(
+                    user.getId(),
+                    nameField.getText(),
+                    usernameField.getText(),
+                    bioField.getText(),
+                    bannerImagePath,
+                    avatarImagePath
+            );
+
+            client.sendRequest(new Request(RequestType.UPDATE_PROFILE, request));
+            Response response = client.getResponse();
+
+            if (response.getType().equals(ResponseType.UPDATE_PROFILE_SUCCESS))
+            {
+                Session.setCurrentUser((User) response.getBody());
+                Navigation.loadProfile();
+            }
+            else {
+                System.out.println("Failed");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML public void cancel () { Navigation.loadProfile(); }
 }
