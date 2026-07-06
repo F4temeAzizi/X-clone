@@ -102,8 +102,8 @@
 .profile-banner {
     -fx-background-image: url("../images/banner.jpg");
     -fx-background-repeat: no-repeat;
-    -fx-background-position: center center;
-
+    -fx-background-position: 100% 100%;
+    -fx-background-size: 100% 100%;
     -fx-pref-height: 260;
     -fx-min-height: 260;
 }
