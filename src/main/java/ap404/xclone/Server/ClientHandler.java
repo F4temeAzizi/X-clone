@@ -85,6 +85,32 @@ public class ClientHandler implements Runnable {
                 outputStream.flush();
                 break;
             }
+            case UPDATE_PROFILE: {
+
+                UpdateProfileRequest updateRequest = (UpdateProfileRequest) request.getBody();
+
+                UserDao userDao = new UserDao();
+
+                boolean success = userDao.updateProfile(
+                        updateRequest.getId(),
+                        updateRequest.getName(),
+                        updateRequest.getUsername(),
+                        updateRequest.getBio(),
+                        updateRequest.getBannerImage(),
+                        updateRequest.getAvatarImage()
+                );
+
+                if (success) {
+                    User user = userDao.getUserById(updateRequest.getId());
+                    outputStream.writeObject(new Response(ResponseType.UPDATE_PROFILE_SUCCESS, user));
+
+                } else {
+                    outputStream.writeObject(new Response(ResponseType.UPDATE_PROFILE_FAILED));
+                }
+
+                outputStream.flush();
+                break;
+            }
         }
     }
 }
