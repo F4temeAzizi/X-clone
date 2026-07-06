@@ -1,7 +1,7 @@
 package ap404.xclone.Client.Controllers;
 
 import ap404.xclone.Client.Client;
-import ap404.xclone.Client.MessageUtil;
+import ap404.xclone.Client.Utils.MessageUtil;
 import ap404.xclone.Shared.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
