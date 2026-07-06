@@ -73,7 +73,7 @@
                 <Button  styleClass="profile-btn" VBox.vgrow="ALWAYS">
                     <graphic>
                         <HBox spacing="10" alignment="CENTER_LEFT">
-                            <ImageView fitWidth="36" fitHeight="36" preserveRatio="true">
+                            <ImageView fx:id="sidebarAvatar" fitWidth="36" fitHeight="36" preserveRatio="false">
                                 <clip>
                                     <Circle centerX="18" centerY="18" radius="18"/>
                                 </clip>
@@ -82,8 +82,8 @@
                                 </image>
                             </ImageView>
                             <VBox spacing="2">
-                                <Label text="Guest" style="-fx-text-fill: #ffffff; -fx-font-weight: bold;"/>
-                                <Label text=" @username" style="-fx-text-fill: #71767b; -fx-font-size: 12px;"/>
+                                <Label fx:id="sidebarName" style="-fx-text-fill: #ffffff; -fx-font-weight: bold;"/>
+                                <Label fx:id="sidebarUsername" style="-fx-text-fill: #71767b; -fx-font-size: 12px;"/>
                             </VBox>
                         </HBox>
                     </graphic>

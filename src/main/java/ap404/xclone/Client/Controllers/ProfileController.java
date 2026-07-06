@@ -1,11 +1,9 @@
 package ap404.xclone.Client.Controllers;
 
 import ap404.xclone.Client.Managers.Navigation;
-import ap404.xclone.Client.Managers.Session;
-import ap404.xclone.Shared.Models.User;
+import ap404.xclone.Client.Utils.UserUtil;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Region;
 
@@ -17,25 +15,7 @@ public class ProfileController
     @FXML private ImageView avatarImage;
     @FXML private Region bannerRegion;
 
-    public void initialize ()
-    {
-        User user = Session.getCurrentUser();
-
-        nameLbl.setText(user.getDisplayName());
-        usernameLbl.setText("@" + user.getUsername());
-
-        if (user.getBio() != null) {
-            bioLbl.setText(user.getBio());
-        }
-
-        if (user.getProfileImageUrl() != null) {
-            avatarImage.setImage(new Image(user.getProfileImageUrl()));
-        }
-
-        if (user.getBannerImageUrl() != null) {
-            bannerRegion.setStyle("-fx-background-image: url('" + user.getBannerImageUrl() + "');");
-        }
-    }
+    public void initialize ()  { UserUtil.loadUser(nameLbl, usernameLbl, bioLbl, avatarImage, bannerRegion); }
 
     @FXML public void goToEditProfile() { Navigation.loadEditProfile(); }
 }
