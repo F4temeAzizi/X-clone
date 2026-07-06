@@ -1,4 +1,6 @@
-package ap404.xclone.Shared;
+package ap404.xclone.Shared.DTO.response;
+
+import ap404.xclone.Shared.DTO.enums.ResponseType;
 
 import java.io.Serializable;
 

@@ -1,4 +1,4 @@
-package ap404.xclone.Shared;
+package ap404.xclone.Shared.DTO.enums;
 
 import java.io.Serializable;
 

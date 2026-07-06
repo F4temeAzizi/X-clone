@@ -2,7 +2,11 @@ package ap404.xclone.Client.Controllers;
 
 import ap404.xclone.Client.Client;
 import ap404.xclone.Client.MessageUtil;
-import ap404.xclone.Shared.*;
+import ap404.xclone.Shared.DTO.response.Response;
+import ap404.xclone.Shared.DTO.request.Request;
+import ap404.xclone.Shared.DTO.request.SignupRequest;
+import ap404.xclone.Shared.DTO.enums.RequestType;
+import ap404.xclone.Shared.DTO.enums.ResponseType;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

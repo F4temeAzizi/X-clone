@@ -1,7 +1,11 @@
 package ap404.xclone.Server;
 
 import ap404.xclone.Server.Database.UserDao;
-import ap404.xclone.Shared.*;
+import ap404.xclone.Shared.DTO.response.Response;
+import ap404.xclone.Shared.DTO.request.LoginRequest;
+import ap404.xclone.Shared.DTO.request.Request;
+import ap404.xclone.Shared.DTO.request.SignupRequest;
+import ap404.xclone.Shared.DTO.enums.ResponseType;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
