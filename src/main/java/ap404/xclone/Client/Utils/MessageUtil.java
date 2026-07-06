@@ -1,4 +1,4 @@
-package ap404.xclone.Client;
+package ap404.xclone.Client.Utils;
 import javafx.scene.control.Label;
 
 public class MessageUtil
