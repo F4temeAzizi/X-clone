@@ -14,6 +14,8 @@ public class Navigation
 
     public static void loadProfile() { load("profile.fxml"); }
 
+    public static void loadEditProfile() { load("edit-profile.fxml"); }
+
     public static void setCenter(StackPane centerPane)
     {
         center = centerPane;
