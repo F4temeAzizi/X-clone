@@ -87,4 +87,36 @@ public class UserDao {
         }
          return null;
     }
+
+    public boolean updateProfile (int userId, String name, String username, String bio, String bannerImage, String avatarImage)
+    {
+        String sql = """
+                UPDATE users
+                SET display_name = ?,
+                username = ?,
+                bio = ?,
+                banner_image_url = ?,
+                profile_image_url = ?
+                WHERE id = ?
+                """;
+
+        try (
+                Connection connection = DatabaseConnection.getConnection();
+                PreparedStatement statement = connection.prepareStatement(sql);
+        ) {
+            statement.setString(1, name);
+            statement.setString(2, username);
+            statement.setString(3, bio);
+            statement.setString(4, bannerImage);
+            statement.setString(5, avatarImage);
+            statement.setInt(6, userId);
+
+            statement.executeUpdate();
+            return true;
+
+        } catch (SQLException e) {
+            System.out.println("Update profile error: " + e.getMessage());
+            return false;
+        }
+    }
 }
