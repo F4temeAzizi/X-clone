@@ -1,0 +1,33 @@
+.change-banner-btn,
+.change-profile-btn,
+.cancel-btn{
+    -fx-background-color: transparent;
+    -fx-border-color: -color-border;
+    -fx-border-radius: 25;
+    -fx-background-radius: 25;
+    -fx-padding: 10 20;
+    -fx-text-fill: -color-text;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+
+.change-banner-btn:hover,
+.change-profile-btn:hover,
+.cancel-btn:hover{
+    -fx-background-color: #1b1b1b;
+}
+
+.save-btn{
+    -fx-background-color: -color-accent;
+    -fx-border-color: -color-accent;
+    -fx-border-radius: 25;
+    -fx-background-radius: 25;
+    -fx-padding: 10 24;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+
+.save-btn:hover{
+    -fx-opacity: .9;
+}

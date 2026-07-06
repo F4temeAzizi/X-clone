@@ -11,7 +11,7 @@
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="ap404.xclone.Client.Controllers.EditProfileController"
       spacing="0"
-      stylesheets="@css/profile.css, @css/edit_profile.css"
+      stylesheets="@css/profile.css, @css/edit-profile.css"
       styleClass="profile-root">
 
     <StackPane>
