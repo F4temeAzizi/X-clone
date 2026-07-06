@@ -26,7 +26,7 @@
         </padding>
 
         <HBox spacing="12" alignment="TOP_LEFT">
-            <ImageView fitWidth="60" fitHeight="60" preserveRatio="true">
+            <ImageView fx:id="composeAvatar" fitWidth="60" fitHeight="60" preserveRatio="false">
                 <clip>
                     <Circle centerX="30" centerY="30" radius="30"/>
                 </clip>

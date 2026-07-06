@@ -102,6 +102,10 @@ public class EditProfileController
             if (response.getType().equals(ResponseType.UPDATE_PROFILE_SUCCESS))
             {
                 Session.setCurrentUser((User) response.getBody());
+                Navigation.getMainController().updateUserProfile();
+                if (Navigation.getHomeController() != null) {
+                    Navigation.getHomeController().updateComposeAvatar();
+                }
                 Navigation.loadProfile();
             }
             else {
