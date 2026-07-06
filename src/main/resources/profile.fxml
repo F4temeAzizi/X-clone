@@ -23,10 +23,10 @@
 
         <StackPane translateY="-80" styleClass="avatar-container">
 
-            <ImageView fitWidth="130" fitHeight="130" preserveRatio="true">
+            <ImageView fitWidth="160" fitHeight="160" preserveRatio="false">
 
                 <clip>
-                    <Circle centerX="65" centerY="65" radius="65"/>
+                    <Circle centerX="80" centerY="80" radius="80"/>
                 </clip>
 
                 <image>
