@@ -38,33 +38,33 @@
 
         <Pane HBox.hgrow="ALWAYS"/>
 
-        <Button text="Change banner" translateY="-35"/>
-        <Button text="Change profile picture" translateY="-35"/>
+        <Button text="Change banner" translateY="-35" styleClass="change-banner-btn"/>
+        <Button text="Change profile picture" translateY="-35" styleClass="change-profile-btn"/>
 
     </HBox>
 
-    <VBox spacing="15">
+    <VBox spacing="10">
 
         <padding>
-            <Insets top="0" right="30" bottom="30" left="30"/>
+            <Insets top="-50" right="30" bottom="30" left="30"/>
         </padding>
 
 
-        <Label text="Name"/>
+        <Label text="Name" styleClass="field-title"/>
         <TextField fx:id="nameField"/>
 
-        <Label text="Username"/>
+        <Label text="Username" styleClass="field-title"/>
         <TextField fx:id="usernameField"/>
 
-        <Label text="Bio"/>
+        <Label text="Bio" styleClass="field-title"/>
         <TextArea fx:id="bioField" prefRowCount="4"/>
 
         <Region VBox.vgrow="ALWAYS"/>
 
         <HBox spacing="20">
             <Pane HBox.hgrow="ALWAYS"/>
-            <Button text="Cancel"/>
-            <Button text="Save" />
+            <Button text="Cancel" styleClass="cancel-btn"/>
+            <Button text="Save" styleClass="save-btn"/>
         </HBox>
     </VBox>
 </VBox>
