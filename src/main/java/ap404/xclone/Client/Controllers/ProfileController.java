@@ -1,5 +1,6 @@
 package ap404.xclone.Client.Controllers;
 
+import ap404.xclone.Client.Managers.Navigation;
 import ap404.xclone.Client.Managers.Session;
 import ap404.xclone.Shared.Models.User;
 import javafx.fxml.FXML;
@@ -23,8 +24,5 @@ public class ProfileController
         }
     }
 
-    @FXML public void goToEditProfile()
-    {
-
-    }
+    @FXML public void goToEditProfile() { Navigation.loadEditProfile(); }
 }
