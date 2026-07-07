@@ -46,7 +46,6 @@
                 </graphic>
             </Button>
 
-            <!-- Retweet -->
             <Button fx:id="retweetBtn" styleClass="tweet-action-btn">
                 <graphic>
                     <HBox spacing="6" alignment="CENTER">
@@ -56,7 +55,6 @@
                 </graphic>
             </Button>
 
-            <!-- Like -->
             <Button fx:id="likeBtn" styleClass="tweet-action-btn">
                 <graphic>
                     <HBox spacing="6" alignment="CENTER">
@@ -68,7 +66,6 @@
 
             <Region HBox.hgrow="ALWAYS"/>
 
-            <!-- Bookmark -->
             <Button fx:id="bookmarkBtn" styleClass="tweet-action-btn">
                 <graphic>
                     <FontIcon iconLiteral="fas-bookmark" styleClass="tweet-icon"/>

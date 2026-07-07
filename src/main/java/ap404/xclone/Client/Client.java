@@ -1,7 +1,7 @@
 package ap404.xclone.Client;
 
-import ap404.xclone.Shared.Request;
-import ap404.xclone.Shared.Response;
+import ap404.xclone.Shared.DTO.request.Request;
+import ap404.xclone.Shared.DTO.response.Response;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;

@@ -48,7 +48,7 @@
 .tweet-icon {
     -fx-icon-size: 18;
     -fx-icon-color: -color-text;
-    -fx-fill: -color-text; /* مهم برای fallback */
+    -fx-fill: -color-text;
 }
 
 .tweet-action-btn:hover .tweet-icon {

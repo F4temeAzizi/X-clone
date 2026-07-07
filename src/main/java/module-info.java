@@ -5,4 +5,5 @@ module ap404.xclone {
 
     opens ap404.xclone.Client.Controllers to javafx.fxml;
     exports ap404.xclone.Client;
+    exports ap404.xclone.Client.Utils;
 }

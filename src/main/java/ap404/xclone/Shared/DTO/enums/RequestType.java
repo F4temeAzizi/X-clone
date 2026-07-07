@@ -1,8 +1,9 @@
-package ap404.xclone.Shared;
+package ap404.xclone.Shared.DTO.enums;
 
 import java.io.Serializable;
 
 public enum RequestType implements Serializable {
     LOGIN,
-    SIGNUP
+    SIGNUP,
+    UPDATE_PROFILE
 }

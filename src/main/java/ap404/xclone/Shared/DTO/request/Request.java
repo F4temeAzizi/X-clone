@@ -1,4 +1,6 @@
-package ap404.xclone.Shared;
+package ap404.xclone.Shared.DTO.request;
+
+import ap404.xclone.Shared.DTO.enums.RequestType;
 
 import java.io.Serializable;
 
