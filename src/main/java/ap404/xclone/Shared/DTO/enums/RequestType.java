@@ -4,5 +4,6 @@ import java.io.Serializable;
 
 public enum RequestType implements Serializable {
     LOGIN,
-    SIGNUP
+    SIGNUP,
+    UPDATE_PROFILE
 }

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.Circle?>
+
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+<VBox xmlns="http://javafx.com/javafx/18"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="ap404.xclone.Client.Controllers.ProfileController"
+      spacing="0"
+      stylesheets="@css/profile.css,@css/theme.css"
+      styleClass="profile-root"
+      VBox.vgrow="ALWAYS">
+
+    <StackPane>
+        <Region fx:id="bannerRegion" styleClass="profile-banner"/>
+    </StackPane>
+
+    <HBox alignment="CENTER_LEFT" spacing="15" styleClass="profile-header">
+
+        <StackPane translateY="-80" styleClass="avatar-container">
+
+            <ImageView fx:id="avatarImage" fitWidth="160" fitHeight="160" preserveRatio="false">
+
+                <clip>
+                    <Circle centerX="80" centerY="80" radius="80"/>
+                </clip>
+
+                <image>
+                    <Image url="@images/avatar.jpeg"/>
+                </image>
+
+            </ImageView>
+
+        </StackPane>
+
+        <Pane HBox.hgrow="ALWAYS"/>
+
+        <Button text="Edit profile" styleClass="edit-profile-btn" translateY="-35" onAction="#goToEditProfile"/>
+
+    </HBox>
+
+    <VBox spacing="5" styleClass="profile-info">
+
+        <Label fx:id="nameLbl" text="Guest" styleClass="profile-name"/>
+        <Label fx:id="usernameLbl" text="  @username" styleClass="profile-username"/>
+        <Label fx:id="bioLbl" text="" wrapText="true" styleClass="profile-bio"/>
+
+        <HBox spacing="5">
+            <FontIcon iconLiteral="fas-calendar-alt" styleClass="profile-icon"/>
+            <Label fx:id="createdAtLbl" styleClass="profile-meta"/>
+        </HBox>
+
+        <HBox spacing="25">
+            <Label text="0 Following" styleClass="profile-follow"/>
+            <Label text="0 Followers" styleClass="profile-follow"/>
+        </HBox>
+
+    </VBox>
+
+    <HBox alignment="CENTER" styleClass="profile-tabs">
+        <Label text="Posts" styleClass="profile-tab-active"/>
+        <Label text="Replies" styleClass="profile-tab"/>
+        <Label text="Media" styleClass="profile-tab"/>
+        <Label text="Likes" styleClass="profile-tab"/>
+    </HBox>
+
+    <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS" hbarPolicy="NEVER" styleClass="profile-scroll">
+        <content>
+            <VBox fx:id="tweetContainer" spacing="10"/>
+        </content>
+    </ScrollPane>
+</VBox>

@@ -6,11 +6,14 @@ import ap404.xclone.Shared.DTO.request.LoginRequest;
 import ap404.xclone.Shared.DTO.request.Request;
 import ap404.xclone.Shared.DTO.request.SignupRequest;
 import ap404.xclone.Shared.DTO.enums.ResponseType;
+import ap404.xclone.Shared.*;
+import ap404.xclone.Shared.Models.User;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.sql.SQLException;
 
 public class ClientHandler implements Runnable {
 
@@ -39,7 +42,7 @@ public class ClientHandler implements Runnable {
         }
     }
 
-    public void handleRequest(Request request) throws IOException {
+    public void handleRequest(Request request) throws IOException, SQLException {
         switch (request.getType()) {
             case LOGIN: {
 
@@ -53,11 +56,11 @@ public class ClientHandler implements Runnable {
                 );
 
                 if (success) {
-                    outputStream.writeObject(
-                            new Response(ResponseType.LOGIN_SUCCESS));
+                    User user = userDao.getUser(loginRequest.getUsername());
+                    outputStream.writeObject(new Response(ResponseType.LOGIN_SUCCESS, user));
                 } else {
-                    outputStream.writeObject(
-                            new Response(ResponseType.LOGIN_FAILED));
+
+                    outputStream.writeObject(new Response(ResponseType.LOGIN_FAILED));
                 }
 
                 outputStream.flush();
@@ -82,6 +85,32 @@ public class ClientHandler implements Runnable {
                 } else {
                     outputStream.writeObject(
                             new Response(ResponseType.SIGNUP_FAILED));
+                }
+
+                outputStream.flush();
+                break;
+            }
+            case UPDATE_PROFILE: {
+
+                UpdateProfileRequest updateRequest = (UpdateProfileRequest) request.getBody();
+
+                UserDao userDao = new UserDao();
+
+                boolean success = userDao.updateProfile(
+                        updateRequest.getId(),
+                        updateRequest.getName(),
+                        updateRequest.getUsername(),
+                        updateRequest.getBio(),
+                        updateRequest.getBannerImage(),
+                        updateRequest.getAvatarImage()
+                );
+
+                if (success) {
+                    User user = userDao.getUserById(updateRequest.getId());
+                    outputStream.writeObject(new Response(ResponseType.UPDATE_PROFILE_SUCCESS, user));
+
+                } else {
+                    outputStream.writeObject(new Response(ResponseType.UPDATE_PROFILE_FAILED));
                 }
 
                 outputStream.flush();

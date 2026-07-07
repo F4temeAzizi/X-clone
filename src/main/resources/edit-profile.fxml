@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<VBox xmlns="http://javafx.com/javafx/18"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="ap404.xclone.Client.Controllers.EditProfileController"
+      spacing="0"
+      stylesheets="@css/profile.css, @css/edit-profile.css"
+      styleClass="profile-root">
+
+    <StackPane>
+        <Region fx:id="bannerRegion" styleClass="profile-banner"/>
+    </StackPane>
+
+    <HBox alignment="CENTER_LEFT" spacing="15" styleClass="profile-header">
+
+        <StackPane translateY="-80" styleClass="avatar-container">
+
+            <ImageView fx:id="avatarImage" fitWidth="160" fitHeight="160" preserveRatio="false">
+
+                <clip>
+                    <Circle centerX="80" centerY="80" radius="80"/>
+                </clip>
+
+                <image>
+                    <Image url="@images/avatar.jpeg"/>
+                </image>
+
+            </ImageView>
+
+        </StackPane>
+
+        <Pane HBox.hgrow="ALWAYS"/>
+
+        <Button text="Change banner" translateY="-35" styleClass="change-banner-btn" onAction="#changeBanner"/>
+        <Button text="Change profile picture" translateY="-35" styleClass="change-profile-btn" onAction="#changeProfilePicture"/>
+
+    </HBox>
+
+    <VBox spacing="10">
+
+        <padding>
+            <Insets top="-50" right="30" bottom="30" left="30"/>
+        </padding>
+
+
+        <Label text="Name" styleClass="field-title"/>
+        <TextField fx:id="nameField" styleClass="text-field"/>
+
+        <Label text="Username" styleClass="field-title"/>
+        <TextField fx:id="usernameField" styleClass="text-field"/>
+
+        <Label text="Bio" styleClass="field-title"/>
+        <TextArea fx:id="bioField" prefRowCount="6" wrapText="true" styleClass="text-area"/>
+
+        <Region VBox.vgrow="ALWAYS"/>
+
+        <HBox spacing="20">
+            <Pane HBox.hgrow="ALWAYS"/>
+            <Button text="Cancel" styleClass="cancel-btn" onAction="#cancel"/>
+            <Button text="Save" styleClass="save-btn" onAction="#save"/>
+        </HBox>
+    </VBox>
+</VBox>
