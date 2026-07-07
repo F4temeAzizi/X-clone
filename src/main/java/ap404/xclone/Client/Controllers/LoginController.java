@@ -8,7 +8,6 @@ import ap404.xclone.Shared.DTO.enums.ResponseType;
 import ap404.xclone.Shared.DTO.request.Request;
 import ap404.xclone.Client.Managers.Session;
 import ap404.xclone.Client.Utils.MessageUtil;
-import ap404.xclone.Shared.*;
 import ap404.xclone.Shared.Models.User;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

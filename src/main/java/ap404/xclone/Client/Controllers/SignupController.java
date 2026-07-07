@@ -7,7 +7,6 @@ import ap404.xclone.Shared.DTO.request.SignupRequest;
 import ap404.xclone.Shared.DTO.enums.RequestType;
 import ap404.xclone.Shared.DTO.enums.ResponseType;
 import ap404.xclone.Client.Utils.MessageUtil;
-import ap404.xclone.Shared.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
