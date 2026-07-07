@@ -90,7 +90,11 @@
 .profile-scroll {
     -fx-background: -color-bg;
     -fx-background-color: -color-bg;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
     -fx-border-color: transparent;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
 }
 
 .profile-scroll > .viewport {

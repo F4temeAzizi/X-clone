@@ -26,12 +26,6 @@
     -fx-text-fill: -color-text;
 }
 
-.nav-btn:focused {
-    -fx-background-color: #2A2A2A;
-    -fx-border-color: transparent;
-    -fx-focus-color: transparent;
-    -fx-faint-focus-color: transparent;
-}
 
 .nav-btn:pressed {
     -fx-background-color: #2A2A2A;
