@@ -85,6 +85,12 @@
                                 <Label fx:id="sidebarName" style="-fx-text-fill: #ffffff; -fx-font-weight: bold;"/>
                                 <Label fx:id="sidebarUsername" style="-fx-text-fill: #71767b; -fx-font-size: 12px;"/>
                             </VBox>
+
+                            <Button fx:id="moreOptionsBtn" styleClass="more-options-btn" onAction="#showMoreOptions">
+                                <graphic>
+                                    <FontIcon iconLiteral="fas-ellipsis-h" iconSize="20" styleClass="nav-icon"/>
+                                </graphic>
+                            </Button>
                         </HBox>
                     </graphic>
                 </Button>
