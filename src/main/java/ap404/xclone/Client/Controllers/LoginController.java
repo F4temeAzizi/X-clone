@@ -1,6 +1,7 @@
 package ap404.xclone.Client.Controllers;
 
 import ap404.xclone.Client.Client;
+import ap404.xclone.Client.Managers.Navigation;
 import ap404.xclone.Shared.DTO.response.Response;
 import ap404.xclone.Shared.DTO.request.LoginRequest;
 import ap404.xclone.Shared.DTO.enums.RequestType;
@@ -47,7 +48,7 @@ public class LoginController
             if (response.getType().equals(ResponseType.LOGIN_SUCCESS)) {
                 User user = (User) response.getBody();
                 Session.setCurrentUser(user);
-                navigateToMain();
+                Navigation.navigate("main.fxml");
             }
             else {
                 MessageUtil.setErrorMessage(errorLabel, "invalid username or password");
@@ -63,10 +64,5 @@ public class LoginController
     {
         Parent root = FXMLLoader.load(getClass().getResource("/signup.fxml"));
         usernameField.getScene().setRoot(root);
-    }
-
-    private void navigateToMain() throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/main.fxml"));
-        loginButton.getScene().setRoot(root);
     }
 }
