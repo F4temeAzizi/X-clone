@@ -17,17 +17,7 @@ public class HomeController
     @FXML
     public void initialize()
     {
-        Navigation.setHomeController(this);
-        updateComposeAvatar();
 
-        try
-        {
-            addTweet(new Tweet("Ali", "@ali", "Hello World!"));
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
     }
 
     private void addTweet(Tweet tweet) throws Exception
