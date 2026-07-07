@@ -14,8 +14,10 @@ public class ProfileController
     @FXML private Label bioLbl;
     @FXML private ImageView avatarImage;
     @FXML private Region bannerRegion;
+    @FXML private Label createdAtLbl;
 
-    public void initialize ()  { UserUtil.loadUser(nameLbl, usernameLbl, bioLbl, avatarImage, bannerRegion); }
+
+    public void initialize ()  { UserUtil.loadUser(nameLbl, usernameLbl, bioLbl, avatarImage, bannerRegion, createdAtLbl); }
 
     @FXML public void goToEditProfile() { Navigation.loadEditProfile(); }
 }

@@ -79,7 +79,8 @@ public class UserDao {
                         resultSet.getString("bio"),
                         resultSet.getString("profile_image_url"),
                         resultSet.getString("banner_image_url"),
-                        resultSet.getBoolean("is_private")
+                        resultSet.getBoolean("is_private"),
+                        resultSet.getTimestamp("created_at")
                 );
             }
         } catch (SQLException e) {
@@ -147,7 +148,8 @@ public class UserDao {
                         resultSet.getString("bio"),
                         resultSet.getString("profile_image_url"),
                         resultSet.getString("banner_image_url"),
-                        resultSet.getBoolean("is_private")
+                        resultSet.getBoolean("is_private"),
+                        resultSet.getTimestamp("created_at")
                 );
             }
 

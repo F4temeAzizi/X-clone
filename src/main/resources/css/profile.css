@@ -28,6 +28,12 @@
 
 .profile-meta{
     -fx-text-fill:-color-secondary;
+    -fx-text-size: 16px;
+}
+
+.profile-icon {
+    -fx-icon-color: -color-secondary;
+    -fx-icon-size: 12px;
 }
 
 .profile-follow{

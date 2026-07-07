@@ -7,13 +7,16 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Region;
 
+import java.sql.Timestamp;
+import java.time.format.DateTimeFormatter;
+
 public class UserUtil
 {
-    public static void loadUser (Label name, Label username, Label bio, ImageView avatar, Region banner)
+    public static void loadUser (Label name, Label username, Label bio, ImageView avatar, Region banner, Label createdAt)
     {
         User user = Session.getCurrentUser();
-        if (name != null ) name.setText(user.getDisplayName());
-        if (username != null ) username.setText("@" + user.getUsername());
+        if (name != null) name.setText(user.getDisplayName());
+        if (username != null) username.setText("@" + user.getUsername());
 
         if (user.getBio() != null && bio != null) {
             bio.setText(user.getBio());
@@ -25,6 +28,11 @@ public class UserUtil
 
         if (user.getBannerImageUrl() != null && banner != null) {
             banner.setStyle("-fx-background-image: url('" + user.getBannerImageUrl() + "');");
+        }
+
+        if (createdAt != null) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM yyyy");
+            createdAt.setText("joined " + Session.getCurrentUser().getCreatedAt().toLocalDateTime().format(formatter));
         }
     }
 }

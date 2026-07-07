@@ -44,6 +44,6 @@ public class HomeController
 
     public void updateComposeAvatar ()
     {
-        UserUtil.loadUser(null, null ,null,  composeAvatar, null );
+        UserUtil.loadUser(null, null ,null,  composeAvatar, null, null);
     }
 }

@@ -7,6 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.Circle?>
 
+<?import org.kordamp.ikonli.javafx.FontIcon?>
 <VBox xmlns="http://javafx.com/javafx/18"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="ap404.xclone.Client.Controllers.ProfileController"
@@ -43,14 +44,15 @@
 
     </HBox>
 
-    <VBox spacing="4" styleClass="profile-info">
+    <VBox spacing="5" styleClass="profile-info">
 
         <Label fx:id="nameLbl" text="Guest" styleClass="profile-name"/>
         <Label fx:id="usernameLbl" text="  @username" styleClass="profile-username"/>
         <Label fx:id="bioLbl" text="" wrapText="true" styleClass="profile-bio"/>
 
-        <HBox spacing="20">
-            <Label text="Joined July 2025" styleClass="profile-meta"/>
+        <HBox spacing="5">
+            <FontIcon iconLiteral="fas-calendar-alt" styleClass="profile-icon"/>
+            <Label fx:id="createdAtLbl" styleClass="profile-meta"/>
         </HBox>
 
         <HBox spacing="25">

@@ -38,6 +38,6 @@ public class MainController
 
     public void updateUserProfile ()
     {
-        UserUtil.loadUser(sidebarName, sidebarUsername, null, sidebarAvatar, null);
+        UserUtil.loadUser(sidebarName, sidebarUsername, null, sidebarAvatar, null, null);
     }
 }
