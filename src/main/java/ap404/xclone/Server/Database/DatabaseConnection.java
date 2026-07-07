@@ -1,7 +1,7 @@
 package ap404.xclone.Server.Database;
 
-import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -12,8 +12,16 @@ public class DatabaseConnection {
     private static final Properties properties = new Properties();
 
     static {
-        try {
-            properties.load(new FileInputStream("database.properties"));
+        try (InputStream input = DatabaseConnection.class
+                .getClassLoader()
+                .getResourceAsStream("database.properties")) {
+
+            if (input == null) {
+                System.out.println("database.properties not found!");
+            } else {
+                properties.load(input);
+            }
+
         } catch (IOException e) {
             e.printStackTrace();
         }
