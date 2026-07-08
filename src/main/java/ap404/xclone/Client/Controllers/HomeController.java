@@ -40,7 +40,7 @@ public class HomeController
         }
 
         try {
-            Client client = new Client();
+            Client client = Session.getClient();
 
             CreateTweetRequest createTweetRequest = new CreateTweetRequest(
                     Session.getCurrentUser().getId(),
@@ -66,7 +66,7 @@ public class HomeController
 
     private void loadTweets() {
         try {
-            Client client = new Client();
+            Client client = Session.getClient();
 
             Request request = new Request(RequestType.GET_ALL_TWEETS, null);
 
