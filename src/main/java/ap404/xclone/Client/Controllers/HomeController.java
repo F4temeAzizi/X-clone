@@ -1,6 +1,7 @@
 package ap404.xclone.Client.Controllers;
 
 import ap404.xclone.Client.Managers.Navigation;
+import ap404.xclone.Client.Utils.TweetUtil;
 import ap404.xclone.Client.Utils.UserUtil;
 import ap404.xclone.Shared.Models.Tweet;
 import javafx.fxml.FXML;
@@ -80,25 +81,13 @@ public class HomeController
                 List<Tweet> tweets = (List<Tweet>) response.getBody();
 
                 for (Tweet tweet : tweets) {
-                    addTweet(tweet);
+                    TweetUtil.addTweet(tweetContainer, tweet);
                 }
             }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    private void addTweet(Tweet tweet) throws Exception
-    {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/tweet.fxml"));
-
-        HBox root = loader.load();
-
-        TweetController controller = loader.getController();
-        controller.setTweet(tweet);
-
-        tweetContainer.getChildren().add(root);
     }
 
     public void updateComposeAvatar ()
