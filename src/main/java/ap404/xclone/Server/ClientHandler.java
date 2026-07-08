@@ -1,11 +1,9 @@
 package ap404.xclone.Server;
 
+import ap404.xclone.Server.Database.LikeDao;
 import ap404.xclone.Server.Database.UserDao;
-import ap404.xclone.Shared.DTO.request.UpdateProfileRequest;
+import ap404.xclone.Shared.DTO.request.*;
 import ap404.xclone.Shared.DTO.response.Response;
-import ap404.xclone.Shared.DTO.request.LoginRequest;
-import ap404.xclone.Shared.DTO.request.Request;
-import ap404.xclone.Shared.DTO.request.SignupRequest;
 import ap404.xclone.Shared.DTO.enums.ResponseType;
 import ap404.xclone.Shared.Models.User;
 
@@ -15,7 +13,6 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.sql.SQLException;
 import ap404.xclone.Server.Database.TweetDao;
-import ap404.xclone.Shared.DTO.request.CreateTweetRequest;
 
 public class ClientHandler implements Runnable {
 
@@ -149,6 +146,38 @@ public class ClientHandler implements Runnable {
 
                 outputStream.flush();
                 break;
+            }
+
+            case LIKE: {
+                LikeDao likeDao = new LikeDao();
+                LikeRequest likeRequest = (LikeRequest) request.getBody();
+
+                if (likeDao.likeTweet(likeRequest.getUserId(), likeRequest.getTweetId())) {
+                    outputStream.writeObject(
+                            new Response(ResponseType.LIKE_SUCCESS)
+                    );
+                }
+                else {
+                    outputStream.writeObject(
+                            new Response(ResponseType.LIKE_FAILED)
+                    );
+                }
+            }
+
+            case UNLIKE: {
+                LikeDao likeDao = new LikeDao();
+                LikeRequest likeRequest = (LikeRequest) request.getBody();
+
+                if(likeDao.unlikeTweet(likeRequest.getUserId(), likeRequest.getTweetId())) {
+                    outputStream.writeObject(
+                            new Response(ResponseType.UNLIKE_SUCCESS)
+                    );
+                }
+                else {
+                    outputStream.writeObject(
+                            new Response(ResponseType.UNLIKE_FAILED)
+                    );
+                }
             }
         }
     }
