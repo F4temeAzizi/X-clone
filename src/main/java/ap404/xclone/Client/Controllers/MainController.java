@@ -52,7 +52,7 @@ public class MainController
 
     @FXML public void goToHome() { Navigation.loadHome(); }
 
-    @FXML public void goToExplore() {}
+    @FXML public void goToExplore() { Navigation.loadExplore(); }
 
     @FXML public void goToBookmarks() {}
 

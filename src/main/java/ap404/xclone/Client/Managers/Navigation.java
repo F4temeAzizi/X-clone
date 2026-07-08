@@ -21,6 +21,8 @@ public class Navigation
 
     public static void loadEditProfile() { load("edit-profile.fxml"); }
 
+    public static void loadExplore() { load("explore.fxml"); }
+
     public static void setMainController(MainController controller) { mainController = controller; }
 
     public static MainController getMainController() { return mainController; }
