@@ -1,0 +1,22 @@
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns="http://javafx.com/javafx/18"
+      spacing="15"
+      stylesheets="@css/main.css,@css/theme.css,@css/home.css">
+
+    <ScrollPane fitToWidth="true"
+                fitToHeight="true"
+                hbarPolicy="NEVER"
+                vbarPolicy="AS_NEEDED"
+                VBox.vgrow="ALWAYS"
+                styleClass="tweet-scroll">
+
+        <content>
+            <VBox  spacing="18" VBox.vgrow="ALWAYS" styleClass="tweet-container"/>
+        </content>
+    </ScrollPane>
+
+</VBox>
