@@ -1,0 +1,7 @@
+CREATE TABLE likes (
+    user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    tweet_id INTEGER NOT NULL REFERENCES tweets(id) ON DELETE CASCADE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    PRIMARY KEY (user_id, tweet_id)
+);
