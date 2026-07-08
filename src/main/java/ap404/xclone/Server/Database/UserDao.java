@@ -61,7 +61,6 @@ public class UserDao {
             return false;
         }
     }
-    
     public User getUser (String usernameOrEmail) {
         String sql = """
             SELECT * FROM users
