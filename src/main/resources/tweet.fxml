@@ -33,6 +33,7 @@
         <HBox spacing="8">
             <Label fx:id="nameLabel" style="-fx-font-weight:bold;" text="Name" styleClass="tweet-name"/>
             <Label fx:id="usernameLabel" text=" @username" styleClass="tweet-username"/>
+            <Label fx:id="timeLabel" text="aa" styleClass="tweet-time"/>
         </HBox>
         <Label fx:id="contentLabel" wrapText="true" text="Tweet Content" styleClass="tweet-content"/>
 

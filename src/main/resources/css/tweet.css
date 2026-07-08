@@ -16,7 +16,8 @@
     -fx-font-weight: bold;
 }
 
-.tweet-username {
+.tweet-username,
+.tweet-time {
     -fx-text-fill: -color-secondary;
     -fx-font-size: 16px;
 }
