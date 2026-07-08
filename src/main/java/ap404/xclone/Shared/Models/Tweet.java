@@ -17,9 +17,11 @@ public class Tweet implements Serializable {
     private String name;
     private String username;
 
+    private String avatarImageUrl;
+
     public Tweet(int id, int userId, String content, Timestamp createdAt,
                  boolean isRetweet, Integer retweetOfId, Integer replyToId,
-                 String name, String username) {
+                 String name, String username, String avatarImageUrl) {
         this.id = id;
         this.userId = userId;
         this.content = content;
@@ -29,7 +31,10 @@ public class Tweet implements Serializable {
         this.replyToId = replyToId;
         this.name = name;
         this.username = username;
+        this.avatarImageUrl = avatarImageUrl;
     }
+
+    public String getAvatarImageUrl() { return avatarImageUrl; }
 
     public int getId() {
         return id;

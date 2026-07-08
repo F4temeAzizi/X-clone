@@ -40,7 +40,8 @@ public class TweetDao {
                        tweets.retweet_of_id,
                        tweets.reply_to_id,
                        users.display_name,
-                       users.username
+                       users.username,
+                       users.profile_image_url
                 FROM tweets
                 JOIN users ON tweets.user_id = users.id
                 ORDER BY tweets.created_at DESC
@@ -63,7 +64,8 @@ public class TweetDao {
                         getIntegerOrNull(resultSet, "retweet_of_id"),
                         getIntegerOrNull(resultSet, "reply_to_id"),
                         resultSet.getString("display_name"),
-                        resultSet.getString("username")
+                        resultSet.getString("username"),
+                        resultSet.getString("profile_image_url")
                 );
 
                 tweets.add(tweet);
@@ -112,7 +114,8 @@ public class TweetDao {
                             getIntegerOrNull(resultSet, "retweet_of_id"),
                             getIntegerOrNull(resultSet, "reply_to_id"),
                             resultSet.getString("display_name"),
-                            resultSet.getString("username")
+                            resultSet.getString("username"),
+                            resultSet.getString("profile_image_url")
                     );
 
                     tweets.add(tweet);
