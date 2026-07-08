@@ -4,6 +4,8 @@ import ap404.xclone.Shared.Models.User;
 
 import java.sql.*;
 
+import org.mindrot.jbcrypt.BCrypt;
+
 public class UserDao {
 
     public boolean signup(String name, String username, String email, String password) {
@@ -19,7 +21,8 @@ public class UserDao {
             statement.setString(1, username);
             statement.setString(2, name);
             statement.setString(3, email);
-            statement.setString(4, password);
+            String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
+            statement.setString(4, hashedPassword);
 
             statement.executeUpdate();
             return true;
