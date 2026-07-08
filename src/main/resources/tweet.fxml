@@ -59,7 +59,7 @@
                 <graphic>
                     <HBox spacing="6" alignment="CENTER">
                         <FontIcon iconLiteral="fas-heart" styleClass="tweet-icon"/>
-                        <Label text="0" styleClass="tweet-count"/>
+                        <Label fx:id="likeCountLabel" text="0" styleClass="tweet-count"/>
                     </HBox>
                 </graphic>
             </Button>
