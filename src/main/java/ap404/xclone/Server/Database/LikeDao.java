@@ -2,6 +2,7 @@ package ap404.xclone.Server.Database;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class LikeDao {
@@ -45,6 +46,28 @@ public class LikeDao {
 
         } catch (SQLException e) {
             System.out.println("unlike error: " + e.getMessage());
+            return false;
+        }
+    }
+
+    public boolean isLiked(int userId, int tweetId) {
+        String sql = """
+            SELECT 1 FROM likes
+            WHERE user_id = ? AND tweet_id = ?
+            """;
+
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+
+            statement.setInt(1, userId);
+            statement.setInt(2, tweetId);
+
+            ResultSet resultSet = statement.executeQuery();
+
+            return resultSet.next();
+
+        } catch (SQLException e) {
+            System.out.println("isLiked error: " + e.getMessage());
             return false;
         }
     }
