@@ -60,3 +60,12 @@
     -fx-text-fill: -color-text;
     -fx-font-size: 13px;
 }
+
+.tweet-action-btn.liked .tweet-icon {
+    -fx-icon-color: #f91880;
+    -fx-fill: #f91880;
+}
+
+.tweet-action-btn.liked .tweet-count {
+    -fx-text-fill: #f91880;
+}
