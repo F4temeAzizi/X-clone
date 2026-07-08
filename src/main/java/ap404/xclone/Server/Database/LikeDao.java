@@ -71,4 +71,30 @@ public class LikeDao {
             return false;
         }
     }
+
+    public int getLikeCount(int tweetId) {
+
+        String sql = """
+            SELECT COUNT(*)
+            FROM likes
+            WHERE tweet_id = ?
+            """;
+
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+
+            statement.setInt(1, tweetId);
+
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                return resultSet.getInt(1);
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Get like count error: " + e.getMessage());
+        }
+
+        return 0;
+    }
 }
