@@ -54,7 +54,7 @@ public class MainController
 
     @FXML public void goToExplore() { Navigation.loadExplore(); }
 
-    @FXML public void goToBookmarks() {}
+    @FXML public void goToBookmarks() { Navigation.loadBookmark(); }
 
     @FXML public void goToNotifications() {}
 
