@@ -16,7 +16,6 @@ public class ExploreController
     {
         try
         {
-            TweetUtil.addTweet(tweetContainer, new Tweet("Ali", "@ali", "Welcome to explore"));
         }
         catch (Exception e)
         {
