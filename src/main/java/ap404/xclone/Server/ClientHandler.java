@@ -14,6 +14,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.sql.SQLException;
+import ap404.xclone.Server.Database.TweetDao;
+import ap404.xclone.Shared.DTO.request.CreateTweetRequest;
 
 public class ClientHandler implements Runnable {
 
@@ -112,6 +114,38 @@ public class ClientHandler implements Runnable {
                 } else {
                     outputStream.writeObject(new Response(ResponseType.UPDATE_PROFILE_FAILED));
                 }
+
+                outputStream.flush();
+                break;
+            }
+            case CREATE_TWEET: {
+
+                CreateTweetRequest createTweetRequest = (CreateTweetRequest) request.getBody();
+
+                TweetDao tweetDao = new TweetDao();
+
+                boolean success = tweetDao.createTweet(
+                        createTweetRequest.getUserId(),
+                        createTweetRequest.getContent()
+                );
+
+                if (success) {
+                    outputStream.writeObject(new Response(ResponseType.CREATE_TWEET_SUCCESS));
+                } else {
+                    outputStream.writeObject(new Response(ResponseType.CREATE_TWEET_FAILED));
+                }
+
+                outputStream.flush();
+                break;
+            }
+
+            case GET_ALL_TWEETS: {
+
+                TweetDao tweetDao = new TweetDao();
+
+                outputStream.writeObject(
+                        new Response(ResponseType.GET_TWEETS_SUCCESS, tweetDao.getAllTweets())
+                );
 
                 outputStream.flush();
                 break;
