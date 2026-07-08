@@ -1,3 +1,15 @@
+.root {
+    -fx-background-color: -color-bg;
+}
+
+.border-pane {
+    -fx-background-color: -color-bg;
+}
+
+.stack-pane {
+    -fx-background-color: -color-bg;
+}
+
 .nav-column {
     -fx-background-color: -color-bg;
     -fx-border-color: #4A5056;
@@ -134,7 +146,6 @@
     -fx-text-fill: white;
 }
 
-
 .context-menu {
     -fx-background-color: #16181c;
     -fx-background-radius: 16;
@@ -148,9 +159,6 @@
 .menu-item:focused {
     -fx-background-color: #272c30;
 }
-
-
-
 
 .x-menu {
     -fx-background-color: #16181c;
