@@ -48,6 +48,7 @@ public class LoginController
             if (response.getType().equals(ResponseType.LOGIN_SUCCESS)) {
                 User user = (User) response.getBody();
                 Session.setCurrentUser(user);
+                Session.setClient(client);
                 Navigation.navigate("main.fxml");
             }
             else {
