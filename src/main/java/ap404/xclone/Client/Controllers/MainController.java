@@ -1,5 +1,6 @@
 package ap404.xclone.Client.Controllers;
 import ap404.xclone.Client.Managers.Navigation;
+import ap404.xclone.Client.Managers.Session;
 import ap404.xclone.Client.Utils.UserUtil;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -39,6 +40,8 @@ public class MainController
 
         logoutItem.setOnAction(e -> {
             try {
+                Session.setClient(null);
+                Session.setCurrentUser(null);
                 Navigation.navigate("login.fxml");
             } catch (IOException ex) {
                 System.out.println(ex.getMessage());
