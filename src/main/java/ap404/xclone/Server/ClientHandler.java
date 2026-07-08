@@ -162,6 +162,9 @@ public class ClientHandler implements Runnable {
                             new Response(ResponseType.LIKE_FAILED)
                     );
                 }
+
+                outputStream.flush();
+                break;
             }
 
             case UNLIKE: {
@@ -178,6 +181,8 @@ public class ClientHandler implements Runnable {
                             new Response(ResponseType.UNLIKE_FAILED)
                     );
                 }
+                outputStream.flush();
+                break;
             }
         }
     }
