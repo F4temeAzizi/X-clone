@@ -35,10 +35,9 @@ public class UserDao {
 
     public boolean login(String usernameOrEmail, String password) {
         String sql = """
-                SELECT * FROM users
-                WHERE (username = ? OR email = ?)
-                AND password_hash = ?
-                """;
+            SELECT * FROM users
+            WHERE username = ? OR email = ?
+            """;
 
         try (
                 Connection connection = DatabaseConnection.getConnection();
@@ -46,17 +45,23 @@ public class UserDao {
         ) {
             statement.setString(1, usernameOrEmail);
             statement.setString(2, usernameOrEmail);
-            statement.setString(3, password);
 
             ResultSet resultSet = statement.executeQuery();
-            return resultSet.next();
+
+            if (resultSet.next()) {
+                String hashedPassword = resultSet.getString("password_hash");
+
+                return BCrypt.checkpw(password, hashedPassword);
+            }
+
+            return false;
 
         } catch (SQLException e) {
             System.out.println("Login error: " + e.getMessage());
             return false;
         }
     }
-
+    
     public User getUser (String usernameOrEmail) {
         String sql = """
             SELECT * FROM users
