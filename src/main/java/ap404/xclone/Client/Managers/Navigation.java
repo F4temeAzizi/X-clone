@@ -2,6 +2,7 @@ package ap404.xclone.Client.Managers;
 
 import ap404.xclone.Client.Controllers.HomeController;
 import ap404.xclone.Client.Controllers.MainController;
+import ap404.xclone.Client.XApplication;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.layout.StackPane;
@@ -45,4 +46,10 @@ public class Navigation
             e.printStackTrace();
         }
     }
+
+    public static void navigate(String fxml) throws IOException{
+        Parent root = FXMLLoader.load(Navigation.class.getResource("/" + fxml));
+        XApplication.getPrimaryStage().getScene().setRoot(root);
+    }
+
 }

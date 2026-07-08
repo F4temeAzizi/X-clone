@@ -111,3 +111,68 @@
 .nav-btn:hover .nav-icon{
     -fx-icon-color:-color-icon-hover;
 }
+
+.more-options-btn {
+    -fx-background-color: transparent;
+    -fx-cursor: hand;
+    -fx-padding: 10 10 10 60;
+}
+
+.more-options-btn:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.1);
+    -fx-background-radius: 20;
+}
+
+.context-menu {
+    -fx-background-color: #16181c;
+    -fx-border-color: #2f3336;
+    -fx-border-width: 1;
+    -fx-background-radius: 8;
+}
+
+.context-menu .label {
+    -fx-text-fill: white;
+}
+
+
+.context-menu {
+    -fx-background-color: #16181c;
+    -fx-background-radius: 16;
+    -fx-border-radius: 16;
+}
+
+.menu-item .label {
+    -fx-text-fill: white;
+}
+
+.menu-item:focused {
+    -fx-background-color: #272c30;
+}
+
+
+
+
+.x-menu {
+    -fx-background-color: #16181c;
+    -fx-background-radius: 16;
+    -fx-border-radius: 16;
+    -fx-border-color: #2f3336;
+    -fx-border-width: 1;
+    -fx-padding: 6;
+}
+
+.x-menu .menu-item {
+    -fx-padding: 10 18 10 18;
+    -fx-background-color: transparent;
+}
+
+.x-menu .menu-item:focused {
+    -fx-background-color: #272c30;
+    -fx-background-radius: 10;
+}
+
+.x-menu .label {
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
