@@ -38,7 +38,7 @@
             </ImageView>
 
             <VBox spacing="8" HBox.hgrow="ALWAYS">
-                <TextArea promptText="What's happening?" styleClass="tweet-text-area"/>
+                <TextArea fx:id="tweetTextArea" promptText="What's happening?" styleClass="tweet-text-area"/>
             </VBox>
 
         </HBox>
@@ -78,7 +78,7 @@
                 </graphic>
             </Button>
             <Pane HBox.hgrow="ALWAYS"/>
-            <Button text="Post" styleClass="post-btn"/>
+            <Button text="Post" styleClass="post-btn" onAction="#postTweet"/>
         </HBox>
 
     </VBox>
