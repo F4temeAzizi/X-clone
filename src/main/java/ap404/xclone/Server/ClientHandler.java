@@ -139,9 +139,10 @@ public class ClientHandler implements Runnable {
             case GET_ALL_TWEETS: {
 
                 TweetDao tweetDao = new TweetDao();
+                int currentUserId = (Integer) request.getBody();
 
                 outputStream.writeObject(
-                        new Response(ResponseType.GET_TWEETS_SUCCESS, tweetDao.getAllTweets())
+                        new Response(ResponseType.GET_TWEETS_SUCCESS, tweetDao.getAllTweets(currentUserId))
                 );
 
                 outputStream.flush();
