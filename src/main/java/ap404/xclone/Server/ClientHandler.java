@@ -245,6 +245,28 @@ public class ClientHandler implements Runnable {
                 outputStream.flush();
                 break;
             }
+
+            case EDIT_TWEET: {
+
+                EditTweetRequest editTweetRequest = (EditTweetRequest) request.getBody();
+
+                TweetDao tweetDao = new TweetDao();
+
+                boolean success = tweetDao.editTweet(editTweetRequest.getTweetId(),
+                        editTweetRequest.getUserId(), editTweetRequest.getContent());
+
+                if (success)
+                {
+                    outputStream.writeObject(new Response(ResponseType.EDIT_TWEET_SUCCESS));
+                }
+                else
+                {
+                    outputStream.writeObject(new Response(ResponseType.EDIT_TWEET_FAILED));
+                }
+
+                outputStream.flush();
+                break;
+            }
         }
     }
 }

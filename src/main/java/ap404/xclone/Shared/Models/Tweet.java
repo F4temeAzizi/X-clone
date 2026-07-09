@@ -51,6 +51,10 @@ public class Tweet implements Serializable {
     public String getContent() {
         return content;
     }
+    public void setContent(String content) {
+        this.content = content;
+    }
+
 
     public Timestamp getCreatedAt() {
         return createdAt;

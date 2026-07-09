@@ -159,6 +159,28 @@ public class TweetDao {
         }
     }
 
+    public boolean editTweet(int tweetId, int userId, String content) {
+        String sql = """
+                UPDATE tweets
+                SET content = ?
+                WHERE id = ? AND user_id = ?
+                """;
+
+        try (
+                Connection connection = DatabaseConnection.getConnection();
+                PreparedStatement statement = connection.prepareStatement(sql)
+        ) {
+            statement.setString(1, content);
+            statement.setInt(2, tweetId);
+            statement.setInt(3, userId);
+
+            return statement.executeUpdate() > 0;
+        } catch (SQLException e) {
+            System.out.println("Edit tweet error: " + e.getMessage());
+            return false;
+        }
+    }
+
     private Integer getIntegerOrNull(ResultSet resultSet, String columnName) throws SQLException {
         int value = resultSet.getInt(columnName);
 

@@ -4,11 +4,8 @@ import ap404.xclone.Client.Client;
 import ap404.xclone.Client.Managers.Session;
 import ap404.xclone.Shared.DTO.enums.RequestType;
 import ap404.xclone.Shared.DTO.enums.ResponseType;
-import ap404.xclone.Shared.DTO.request.DeleteTweetRequest;
-import ap404.xclone.Shared.DTO.request.LikeRequest;
-import ap404.xclone.Shared.DTO.request.Request;
+import ap404.xclone.Shared.DTO.request.*;
 import ap404.xclone.Client.Managers.Navigation;
-import ap404.xclone.Shared.DTO.request.GetUserByIdRequest;
 import ap404.xclone.Shared.DTO.response.Response;
 import ap404.xclone.Shared.Models.Tweet;
 import ap404.xclone.Shared.Models.User;
@@ -64,9 +61,10 @@ public class TweetController
         contextMenu.getItems().addAll(delete, edit);
 
         contextMenu.getStyleClass().add("x-menu");
-        contextMenu.show(moreBtn, javafx.geometry.Side.BOTTOM, 0, 0);
+        contextMenu.show(moreBtn, javafx.geometry.Side.TOP, 0, 0);
 
         delete.setOnAction(event -> deleteTweet());
+        edit.setOnAction(e -> editTweet());
     }
 
     public void deleteTweet()
@@ -91,6 +89,44 @@ public class TweetController
             if (response.getType() == ResponseType.DELETE_TWEET_SUCCESS)
             {
                 ((VBox) tweetRoot.getParent()).getChildren().remove(tweetRoot);
+            }
+        }
+        catch (IOException | ClassNotFoundException e)
+        {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void editTweet()
+    {
+        TextInputDialog textInputDialog = new TextInputDialog(tweet.getContent());
+
+        textInputDialog.setTitle("Edit Tweet");
+        textInputDialog.setHeaderText(null);
+        textInputDialog.setContentText("Tweet:");
+
+        Optional<String> result =  textInputDialog.showAndWait();
+
+        if (result.isEmpty()) return;
+
+        String newContent = result.get().trim();
+
+        if (newContent.isBlank() || newContent.equals(tweet.getContent())) return;
+
+        try
+        {
+            Client client = new Client();
+
+            EditTweetRequest editTweetRequest = new EditTweetRequest(tweet.getId(), tweet.getUserId(), newContent);
+
+            client.sendRequest(new Request(RequestType.EDIT_TWEET, editTweetRequest));
+
+            Response response = client.getResponse();
+
+            if (response.getType() == ResponseType.EDIT_TWEET_SUCCESS)
+            {
+                tweet.setContent(newContent);
+                contentLabel.setText(newContent);
             }
         }
         catch (IOException | ClassNotFoundException e)
