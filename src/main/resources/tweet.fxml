@@ -20,7 +20,7 @@
       styleClass="tweet-item"
       stylesheets="@css/tweet.css,@css/theme.css">
 
-    <ImageView fitWidth="60" fitHeight="60" preserveRatio="true">
+    <ImageView fx:id="avatarImage" fitWidth="60" fitHeight="60" preserveRatio="false" onMouseClicked="#showProfile">
         <clip>
             <Circle centerX="30" centerY="30" radius="30"/>
         </clip>
@@ -31,8 +31,9 @@
 
     <VBox spacing="8" HBox.hgrow="ALWAYS">
         <HBox spacing="8">
-            <Label fx:id="nameLabel" style="-fx-font-weight:bold;" text="Name" styleClass="tweet-name"/>
+            <Label fx:id="nameLabel" style="-fx-font-weight:bold;" text="Name" styleClass="tweet-name" onMouseClicked="#showProfile"/>
             <Label fx:id="usernameLabel" text=" @username" styleClass="tweet-username"/>
+            <Label fx:id="timeLabel" text="aa" styleClass="tweet-time"/>
         </HBox>
         <Label fx:id="contentLabel" wrapText="true" text="Tweet Content" styleClass="tweet-content"/>
 

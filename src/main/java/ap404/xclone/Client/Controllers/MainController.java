@@ -76,6 +76,9 @@ public class MainController
 
     public void updateUserProfile ()
     {
-        UserUtil.loadUser(sidebarName, sidebarUsername, null, sidebarAvatar, null, null);
+        UserUtil.loadUser(Session.getCurrentUser(),
+                sidebarName, sidebarUsername,
+                null, sidebarAvatar,
+                null, null);
     }
 }

@@ -6,15 +6,16 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.Circle?>
-
 <?import org.kordamp.ikonli.javafx.FontIcon?>
+
 <VBox xmlns="http://javafx.com/javafx/18"
       xmlns:fx="http://javafx.com/fxml"
-      fx:controller="ap404.xclone.Client.Controllers.ProfileController"
+      fx:controller="ap404.xclone.Client.Controllers.OthersProfileController"
       spacing="0"
       stylesheets="@css/profile.css,@css/theme.css"
       styleClass="profile-root"
       VBox.vgrow="ALWAYS">
+
 
     <ScrollPane fx:id="profileScroll"
                 fitToWidth="true"
@@ -24,6 +25,7 @@
 
         <content>
             <VBox spacing="0">
+
                 <StackPane>
                     <Region fx:id="bannerRegion" styleClass="profile-banner"/>
                 </StackPane>
@@ -48,7 +50,12 @@
 
                     <Pane HBox.hgrow="ALWAYS"/>
 
-                    <Button text="Edit profile" styleClass="edit-profile-btn" translateY="-35" onAction="#goToEditProfile"/>
+                    <Button styleClass="edit-profile-btn" translateY="-35">
+                        <graphic>
+                            <FontIcon iconLiteral="fas-comment" styleClass="edit-profile-btn"/>
+                        </graphic>
+                    </Button>
+                    <Button text="Follow" styleClass="edit-profile-btn" translateY="-35" />
 
                 </HBox>
 
@@ -77,7 +84,9 @@
                     <Label fx:id="likesTab" text="Likes" styleClass="profile-tab" onMouseClicked="#showLikes"/>
                 </HBox>
 
+
                 <VBox fx:id="tweetContainer" spacing="10"/>
+
             </VBox>
         </content>
     </ScrollPane>

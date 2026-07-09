@@ -90,7 +90,8 @@
     -fx-background-radius:30;
 }
 
-.option-icon-btn:hover {
+.option-icon-btn:hover,
+.post-btn:hover {
     -fx-background-color: #333333;
 }
 

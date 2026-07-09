@@ -13,15 +13,13 @@ import ap404.xclone.Shared.DTO.response.Response;
 import ap404.xclone.Shared.Models.Tweet;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 
-import java.io.IOException;
 import java.util.List;
 
-public class ProfileController
+public class OthersProfileController
 {
     @FXML private Label nameLbl;
     @FXML private Label usernameLbl;
@@ -38,11 +36,10 @@ public class ProfileController
 
     public void initialize ()
     {
-        UserUtil.loadUser(Session.getCurrentUser(), nameLbl, usernameLbl, bioLbl, avatarImage, bannerRegion, createdAtLbl);
+        UserUtil.loadUser(Navigation.getSelectedUser(), nameLbl, usernameLbl, bioLbl, avatarImage, bannerRegion, createdAtLbl);
         showPosts();
     }
 
-    @FXML public void goToEditProfile() { Navigation.loadEditProfile(); }
 
     @FXML public void showPosts ()
     {
@@ -52,7 +49,7 @@ public class ProfileController
         {
             Client client = new Client();
 
-            GetTweetsByUserRequest getTweetsByUserRequest = new GetTweetsByUserRequest(Session.getCurrentUser().getId(), Session.getCurrentUser().getId());
+            GetTweetsByUserRequest getTweetsByUserRequest = new GetTweetsByUserRequest(Navigation.getSelectedUser().getId(), Session.getCurrentUser().getId());
 
             client.sendRequest(new Request(RequestType.GET_TWEETS_BY_USER, getTweetsByUserRequest));
 
@@ -102,4 +99,3 @@ public class ProfileController
         active.getStyleClass().setAll("profile-tab-active");
     }
 }
-

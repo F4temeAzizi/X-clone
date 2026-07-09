@@ -28,6 +28,7 @@ public class HomeController
 
     @FXML
     public void initialize() {
+        Navigation.setHomeController(this);
         updateComposeAvatar();
         loadTweets();
     }
@@ -76,13 +77,9 @@ public class HomeController
             Response response = client.getResponse();
 
             if (response.getType() == ResponseType.GET_TWEETS_SUCCESS) {
-                tweetContainer.getChildren().clear();
 
                 List<Tweet> tweets = (List<Tweet>) response.getBody();
-
-                for (Tweet tweet : tweets) {
-                    TweetUtil.addTweet(tweetContainer, tweet);
-                }
+                TweetUtil.loadTweets(tweetContainer, tweets);
             }
 
         } catch (Exception e) {
@@ -92,6 +89,9 @@ public class HomeController
 
     public void updateComposeAvatar ()
     {
-        UserUtil.loadUser(null, null ,null,  composeAvatar, null, null);
+        UserUtil.loadUser(Session.getCurrentUser(),
+                null, null ,
+                null,  composeAvatar,
+                null, null);
     }
 }

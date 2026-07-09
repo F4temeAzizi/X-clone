@@ -16,5 +16,9 @@ public enum ResponseType implements Serializable {
     LIKE_SUCCESS,
     LIKE_FAILED,
     UNLIKE_SUCCESS,
-    UNLIKE_FAILED
+    UNLIKE_FAILED,
+    GET_USER_BY_ID_SUCCESS,
+    GET_USER_BY_ID_FAILED,
+    GET_TWEETS_BY_USER_SUCCESS,
+    GET_TWEETS_BY_USER_FAILED
 }

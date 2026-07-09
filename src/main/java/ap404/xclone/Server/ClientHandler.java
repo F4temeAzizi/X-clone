@@ -5,6 +5,7 @@ import ap404.xclone.Server.Database.UserDao;
 import ap404.xclone.Shared.DTO.request.*;
 import ap404.xclone.Shared.DTO.response.Response;
 import ap404.xclone.Shared.DTO.enums.ResponseType;
+import ap404.xclone.Shared.Models.Tweet;
 import ap404.xclone.Shared.Models.User;
 
 import java.io.IOException;
@@ -12,6 +13,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.sql.SQLException;
+import java.util.List;
+
 import ap404.xclone.Server.Database.TweetDao;
 
 public class ClientHandler implements Runnable {
@@ -172,18 +175,53 @@ public class ClientHandler implements Runnable {
                 LikeDao likeDao = new LikeDao();
                 LikeRequest likeRequest = (LikeRequest) request.getBody();
 
-                if(likeDao.unlikeTweet(likeRequest.getUserId(), likeRequest.getTweetId())) {
+                if (likeDao.unlikeTweet(likeRequest.getUserId(), likeRequest.getTweetId())) {
                     outputStream.writeObject(
                             new Response(ResponseType.UNLIKE_SUCCESS)
                     );
-                }
-                else {
+                } else {
                     outputStream.writeObject(
                             new Response(ResponseType.UNLIKE_FAILED)
                     );
                 }
                 outputStream.flush();
                 break;
+            }
+
+            case GET_USER_BY_ID: {
+
+                GetUserByIdRequest getUserByIdRequest = (GetUserByIdRequest) request.getBody();
+
+                UserDao userDao = new UserDao();
+
+               User user = userDao.getUserById(getUserByIdRequest.getUserId());
+
+               if (user != null) outputStream.writeObject(new Response(ResponseType.GET_USER_BY_ID_SUCCESS, user));
+               else outputStream.writeObject(new Response(ResponseType.GET_USER_BY_ID_FAILED));
+
+               outputStream.flush();
+               break;
+            }
+
+            case GET_TWEETS_BY_USER: {
+
+                GetTweetsByUserRequest getTweetsByUserRequest = (GetTweetsByUserRequest) request.getBody();
+
+                TweetDao tweetDao = new TweetDao();
+
+
+                List<Tweet> tweets = tweetDao.getTweetsByUserId(getTweetsByUserRequest.getUserId(), getTweetsByUserRequest.getCurrentUserId());
+
+                if (tweets != null)
+                {
+                    outputStream.writeObject(new Response(ResponseType.GET_TWEETS_BY_USER_SUCCESS, tweets));
+                }
+                else
+                {
+                    outputStream.writeObject(new Response(ResponseType.GET_TWEETS_BY_USER_FAILED));
+                }
+
+                outputStream.flush();
             }
         }
     }

@@ -9,5 +9,7 @@ public enum RequestType implements Serializable {
     CREATE_TWEET,
     GET_ALL_TWEETS,
     LIKE,
-    UNLIKE
+    UNLIKE,
+    GET_USER_BY_ID,
+    GET_TWEETS_BY_USER
 }
