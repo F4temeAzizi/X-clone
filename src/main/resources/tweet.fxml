@@ -55,7 +55,7 @@
                 </graphic>
             </Button>
 
-            <Button fx:id="likeBtn" styleClass="tweet-action-btn" onAction="#like">
+            <Button fx:id="likeBtn" styleClass="tweet-action-btn" onAction="#handleLike">
                 <graphic>
                     <HBox spacing="6" alignment="CENTER">
                         <FontIcon iconLiteral="fas-heart" styleClass="tweet-icon"/>
