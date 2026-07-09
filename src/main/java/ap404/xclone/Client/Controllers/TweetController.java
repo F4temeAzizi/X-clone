@@ -4,6 +4,7 @@ import ap404.xclone.Client.Client;
 import ap404.xclone.Client.Managers.Session;
 import ap404.xclone.Shared.DTO.enums.RequestType;
 import ap404.xclone.Shared.DTO.enums.ResponseType;
+import ap404.xclone.Shared.DTO.request.DeleteTweetRequest;
 import ap404.xclone.Shared.DTO.request.LikeRequest;
 import ap404.xclone.Shared.DTO.request.Request;
 import ap404.xclone.Client.Managers.Navigation;
@@ -12,18 +13,18 @@ import ap404.xclone.Shared.DTO.response.Response;
 import ap404.xclone.Shared.Models.Tweet;
 import ap404.xclone.Shared.Models.User;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ContextMenu;
-import javafx.scene.control.Label;
-import javafx.scene.control.MenuItem;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Optional;
 
 
 public class TweetController
@@ -34,10 +35,11 @@ public class TweetController
     @FXML private Label nameLabel;
     @FXML private Label usernameLabel;
     @FXML private Label contentLabel;
-    private Tweet tweet;
-
     @FXML private ImageView avatarImage;
     @FXML private Label timeLabel;
+    @FXML private HBox tweetRoot;
+
+    private Tweet tweet;
 
     public void setTweet(Tweet tweet)
     {
@@ -63,6 +65,38 @@ public class TweetController
 
         contextMenu.getStyleClass().add("x-menu");
         contextMenu.show(moreBtn, javafx.geometry.Side.BOTTOM, 0, 0);
+
+        delete.setOnAction(event -> deleteTweet());
+    }
+
+    public void deleteTweet()
+    {
+        try
+        {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+
+            alert.setTitle("Delete tweet");
+            alert.setHeaderText("Are you sure?");
+            Optional<ButtonType> result = alert.showAndWait();
+
+            if (result.isEmpty() || result.get() != ButtonType.OK) return;
+
+            Client client = new Client();
+
+            DeleteTweetRequest deleteTweetRequest = new DeleteTweetRequest(tweet.getId(), tweet.getUserId());
+
+            client.sendRequest(new Request(RequestType.DELETE_TWEET, deleteTweetRequest));
+            Response response = client.getResponse();
+
+            if (response.getType() == ResponseType.DELETE_TWEET_SUCCESS)
+            {
+                ((VBox) tweetRoot.getParent()).getChildren().remove(tweetRoot);
+            }
+        }
+        catch (IOException | ClassNotFoundException e)
+        {
+            throw new RuntimeException(e);
+        }
     }
 
     public void handleLike() throws IOException, ClassNotFoundException {

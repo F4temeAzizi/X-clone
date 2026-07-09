@@ -210,7 +210,8 @@ public class ClientHandler implements Runnable {
                 TweetDao tweetDao = new TweetDao();
 
 
-                List<Tweet> tweets = tweetDao.getTweetsByUserId(getTweetsByUserRequest.getUserId(), getTweetsByUserRequest.getCurrentUserId());
+                List<Tweet> tweets = tweetDao.getTweetsByUserId(getTweetsByUserRequest.getUserId(),
+                                                                getTweetsByUserRequest.getCurrentUserId());
 
                 if (tweets != null)
                 {
@@ -222,6 +223,27 @@ public class ClientHandler implements Runnable {
                 }
 
                 outputStream.flush();
+            }
+
+            case DELETE_TWEET: {
+
+                DeleteTweetRequest deleteTweetRequest = (DeleteTweetRequest) request.getBody();
+
+                TweetDao tweetDao = new TweetDao();
+
+                boolean success = tweetDao.deleteTweet(deleteTweetRequest.getTweetId(), deleteTweetRequest.getUserId());
+
+                if (success)
+                {
+                    outputStream.writeObject(new Response(ResponseType.DELETE_TWEET_SUCCESS));
+                }
+                else
+                {
+                    outputStream.writeObject(new Response(ResponseType.DELETE_TWEET_FAILED));
+                }
+
+                outputStream.flush();
+                break;
             }
         }
     }
