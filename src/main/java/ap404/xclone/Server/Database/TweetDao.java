@@ -8,6 +8,8 @@ import java.util.List;
 
 public class TweetDao {
 
+    private LikeDao likeDao = new LikeDao();
+
     public boolean createTweet(int userId, String content) {
         String sql = """
                 INSERT INTO tweets (user_id, content)
@@ -30,7 +32,7 @@ public class TweetDao {
         }
     }
 
-    public List<Tweet> getAllTweets() {
+    public List<Tweet> getAllTweets(int currentUserId) {
         String sql = """
                 SELECT tweets.id,
                        tweets.user_id,
@@ -63,7 +65,9 @@ public class TweetDao {
                         getIntegerOrNull(resultSet, "retweet_of_id"),
                         getIntegerOrNull(resultSet, "reply_to_id"),
                         resultSet.getString("display_name"),
-                        resultSet.getString("username")
+                        resultSet.getString("username"),
+                        likeDao.getLikeCount(resultSet.getInt("id")),
+                        likeDao.isLiked(currentUserId, resultSet.getInt("id"))
                 );
 
                 tweets.add(tweet);
@@ -76,7 +80,7 @@ public class TweetDao {
         return tweets;
     }
 
-    public List<Tweet> getTweetsByUserId(int userId) {
+    public List<Tweet> getTweetsByUserId(int userId, int currentUserId) {
         String sql = """
                 SELECT tweets.id,
                        tweets.user_id,
@@ -112,7 +116,9 @@ public class TweetDao {
                             getIntegerOrNull(resultSet, "retweet_of_id"),
                             getIntegerOrNull(resultSet, "reply_to_id"),
                             resultSet.getString("display_name"),
-                            resultSet.getString("username")
+                            resultSet.getString("username"),
+                            likeDao.getLikeCount(resultSet.getInt("id")),
+                            likeDao.isLiked(currentUserId, resultSet.getInt("id"))
                     );
 
                     tweets.add(tweet);
