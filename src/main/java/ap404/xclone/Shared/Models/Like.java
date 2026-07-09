@@ -1,8 +1,9 @@
 package ap404.xclone.Shared.Models;
 
+import java.io.Serializable;
 import java.security.Timestamp;
 
-public class Like {
+public class Like implements Serializable {
 
     private int userId;
     private int tweetId;
