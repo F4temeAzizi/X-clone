@@ -88,7 +88,8 @@ public class TweetDao {
                        tweets.retweet_of_id,
                        tweets.reply_to_id,
                        users.display_name,
-                       users.username
+                       users.username,
+                       users.profile_image_url           
                 FROM tweets
                 JOIN users ON tweets.user_id = users.id
                 WHERE tweets.user_id = ?

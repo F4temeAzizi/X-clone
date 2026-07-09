@@ -77,13 +77,9 @@ public class HomeController
             Response response = client.getResponse();
 
             if (response.getType() == ResponseType.GET_TWEETS_SUCCESS) {
-                tweetContainer.getChildren().clear();
 
                 List<Tweet> tweets = (List<Tweet>) response.getBody();
-
-                for (Tweet tweet : tweets) {
-                    TweetUtil.addTweet(tweetContainer, tweet);
-                }
+                TweetUtil.loadTweets(tweetContainer, tweets);
             }
 
         } catch (Exception e) {

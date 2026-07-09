@@ -16,67 +16,69 @@
       styleClass="profile-root"
       VBox.vgrow="ALWAYS">
 
-    <StackPane>
-        <Region fx:id="bannerRegion" styleClass="profile-banner"/>
-    </StackPane>
+    <ScrollPane fx:id="profileScroll"
+                fitToWidth="true"
+                hbarPolicy="NEVER"
+                vbarPolicy="NEVER"
+                styleClass="profile-scroll">
 
-    <HBox alignment="CENTER_LEFT" spacing="15" styleClass="profile-header">
+        <content>
+            <VBox spacing="0">
+                <StackPane>
+                    <Region fx:id="bannerRegion" styleClass="profile-banner"/>
+                </StackPane>
 
-        <StackPane translateY="-80" styleClass="avatar-container">
+                <HBox alignment="CENTER_LEFT" spacing="15" styleClass="profile-header">
 
-            <ImageView fx:id="avatarImage" fitWidth="160" fitHeight="160" preserveRatio="false">
+                    <StackPane translateY="-80" styleClass="avatar-container">
 
-                <clip>
-                    <Circle centerX="80" centerY="80" radius="80"/>
-                </clip>
+                        <ImageView fx:id="avatarImage" fitWidth="160" fitHeight="160" preserveRatio="false">
 
-                <image>
-                    <Image url="@images/avatar.jpeg"/>
-                </image>
+                            <clip>
+                                <Circle centerX="80" centerY="80" radius="80"/>
+                            </clip>
 
-            </ImageView>
+                            <image>
+                                <Image url="@images/avatar.jpeg"/>
+                            </image>
 
-        </StackPane>
+                        </ImageView>
 
-        <Pane HBox.hgrow="ALWAYS"/>
+                    </StackPane>
 
-        <Button text="Edit profile" styleClass="edit-profile-btn" translateY="-35" onAction="#goToEditProfile"/>
+                    <Pane HBox.hgrow="ALWAYS"/>
 
-    </HBox>
+                    <Button text="Edit profile" styleClass="edit-profile-btn" translateY="-35" onAction="#goToEditProfile"/>
 
-    <VBox spacing="5" styleClass="profile-info">
+                </HBox>
 
-        <Label fx:id="nameLbl" text="Guest" styleClass="profile-name"/>
-        <Label fx:id="usernameLbl" text="  @username" styleClass="profile-username"/>
-        <Label fx:id="bioLbl" text="" wrapText="true" styleClass="profile-bio"/>
+                <VBox spacing="5" styleClass="profile-info">
 
-        <HBox spacing="5">
-            <FontIcon iconLiteral="fas-calendar-alt" styleClass="profile-icon"/>
-            <Label fx:id="createdAtLbl" styleClass="profile-meta"/>
-        </HBox>
+                    <Label fx:id="nameLbl" text="Guest" styleClass="profile-name"/>
+                    <Label fx:id="usernameLbl" text="  @username" styleClass="profile-username"/>
+                    <Label fx:id="bioLbl" text="" wrapText="true" styleClass="profile-bio"/>
 
-        <HBox spacing="25">
-            <Label text="0 Following" styleClass="profile-follow"/>
-            <Label text="0 Followers" styleClass="profile-follow"/>
-        </HBox>
+                    <HBox spacing="5">
+                        <FontIcon iconLiteral="fas-calendar-alt" styleClass="profile-icon"/>
+                        <Label fx:id="createdAtLbl" styleClass="profile-meta"/>
+                    </HBox>
 
-    </VBox>
+                    <HBox spacing="25">
+                        <Label text="0 Following" styleClass="profile-follow"/>
+                        <Label text="0 Followers" styleClass="profile-follow"/>
+                    </HBox>
 
-    <HBox alignment="CENTER" styleClass="profile-tabs">
-        <Label fx:id="postsTab" text="Posts" styleClass="profile-tab-active" onMouseClicked="#showPosts"/>
-        <Label fx:id="repliesTab" text="Replies" styleClass="profile-tab" onMouseClicked="#showReplies"/>
-        <Label fx:id="mediaTab" text="Media" styleClass="profile-tab" onMouseClicked="#showMedia"/>
-        <Label fx:id="likesTab" text="Likes" styleClass="profile-tab" onMouseClicked="#showLikes"/>
-    </HBox>
+                </VBox>
 
-    <StackPane VBox.vgrow="ALWAYS">
-        <ScrollPane fx:id="postsPane" fitToWidth="true" hbarPolicy="NEVER" styleClass="profile-scroll">
-            <content>
+                <HBox alignment="CENTER" styleClass="profile-tabs">
+                    <Label fx:id="postsTab" text="Posts" styleClass="profile-tab-active" onMouseClicked="#showPosts"/>
+                    <Label fx:id="repliesTab" text="Replies" styleClass="profile-tab" onMouseClicked="#showReplies"/>
+                    <Label fx:id="mediaTab" text="Media" styleClass="profile-tab" onMouseClicked="#showMedia"/>
+                    <Label fx:id="likesTab" text="Likes" styleClass="profile-tab" onMouseClicked="#showLikes"/>
+                </HBox>
+
                 <VBox fx:id="tweetContainer" spacing="10"/>
-            </content>
-        </ScrollPane>
-
-        <VBox fx:id="emptyPane" alignment="CENTER" visible="false" managed="false">
-        </VBox>
-    </StackPane>
+            </VBox>
+        </content>
+    </ScrollPane>
 </VBox>

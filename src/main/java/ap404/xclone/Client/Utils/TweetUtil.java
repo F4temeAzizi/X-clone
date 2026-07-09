@@ -6,6 +6,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
+import java.util.List;
+
 public class TweetUtil
 {
     public static void addTweet (VBox container, Tweet tweet) throws Exception
@@ -18,5 +20,14 @@ public class TweetUtil
         controller.setTweet(tweet);
 
         container.getChildren().add(root);
+    }
+
+    public static void loadTweets (VBox container, List<Tweet> tweets) throws Exception
+    {
+        container.getChildren().clear();
+        for (Tweet tweet: tweets)
+        {
+            addTweet(container, tweet);
+        }
     }
 }

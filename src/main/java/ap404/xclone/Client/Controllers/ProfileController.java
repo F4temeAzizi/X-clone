@@ -1,14 +1,25 @@
 package ap404.xclone.Client.Controllers;
 
+import ap404.xclone.Client.Client;
 import ap404.xclone.Client.Managers.Navigation;
 import ap404.xclone.Client.Managers.Session;
+import ap404.xclone.Client.Utils.TweetUtil;
 import ap404.xclone.Client.Utils.UserUtil;
+import ap404.xclone.Shared.DTO.enums.RequestType;
+import ap404.xclone.Shared.DTO.enums.ResponseType;
+import ap404.xclone.Shared.DTO.request.GetTweetsByUserRequest;
+import ap404.xclone.Shared.DTO.request.Request;
+import ap404.xclone.Shared.DTO.response.Response;
+import ap404.xclone.Shared.Models.Tweet;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+
+import java.io.IOException;
+import java.util.List;
 
 public class ProfileController
 {
@@ -22,13 +33,13 @@ public class ProfileController
     @FXML private Label repliesTab;
     @FXML private Label mediaTab;
     @FXML private Label likesTab;
-    @FXML private ScrollPane postsPane;
-    @FXML private VBox emptyPane;
+    @FXML private VBox tweetContainer;
 
 
     public void initialize ()
     {
         UserUtil.loadUser(Session.getCurrentUser(), nameLbl, usernameLbl, bioLbl, avatarImage, bannerRegion, createdAtLbl);
+        showPosts();
     }
 
     @FXML public void goToEditProfile() { Navigation.loadEditProfile(); }
@@ -37,45 +48,48 @@ public class ProfileController
     {
         selectTab(postsTab);
 
-        postsPane.setVisible(true);
-        postsPane.setManaged(true);
+        try
+        {
+            Client client = new Client();
 
-        emptyPane.setVisible(false);
-        emptyPane.setManaged(false);
+            GetTweetsByUserRequest getTweetsByUserRequest = new GetTweetsByUserRequest(Session.getCurrentUser().getId());
+
+            client.sendRequest(new Request(RequestType.GET_TWEETS_BY_USER, getTweetsByUserRequest));
+
+            Response response = client.getResponse();
+
+            if (response.getType() == ResponseType.GET_TWEETS_BY_USER_SUCCESS)
+            {
+                List<Tweet> tweets = (List<Tweet>) response.getBody();
+                TweetUtil.loadTweets(tweetContainer, tweets);
+            }
+        }
+        catch (Exception e)
+        {
+            throw new RuntimeException(e);
+        }
+
     }
 
     @FXML public void showReplies ()
     {
-
         selectTab(repliesTab);
-
-        postsPane.setVisible(false);
-        postsPane.setManaged(false);
-
-        emptyPane.setVisible(true);
-        emptyPane.setManaged(true);
+        tweetContainer.getChildren().clear();
+        tweetContainer.getChildren().add(new Label("No replies yet"));
     }
 
     @FXML public void showMedia ()
     {
         selectTab(mediaTab);
-
-        postsPane.setVisible(false);
-        postsPane.setManaged(false);
-
-        emptyPane.setVisible(true);
-        emptyPane.setManaged(true);
+        tweetContainer.getChildren().clear();
+        tweetContainer.getChildren().add(new Label("No media yet"));
     }
 
     @FXML public void showLikes ()
     {
         selectTab(likesTab);
-
-        postsPane.setVisible(false);
-        postsPane.setManaged(false);
-
-        emptyPane.setVisible(true);
-        emptyPane.setManaged(true);
+        tweetContainer.getChildren().clear();
+        tweetContainer.getChildren().add(new Label("No likes yet"));
     }
 
     private void selectTab(Label active)

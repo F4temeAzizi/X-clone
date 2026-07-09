@@ -4,6 +4,7 @@ import ap404.xclone.Server.Database.UserDao;
 import ap404.xclone.Shared.DTO.request.*;
 import ap404.xclone.Shared.DTO.response.Response;
 import ap404.xclone.Shared.DTO.enums.ResponseType;
+import ap404.xclone.Shared.Models.Tweet;
 import ap404.xclone.Shared.Models.User;
 
 import java.io.IOException;
@@ -11,6 +12,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.sql.SQLException;
+import java.util.List;
+
 import ap404.xclone.Server.Database.TweetDao;
 
 public class ClientHandler implements Runnable {
@@ -160,6 +163,26 @@ public class ClientHandler implements Runnable {
 
                outputStream.flush();
                break;
+            }
+
+            case GET_TWEETS_BY_USER: {
+
+                GetTweetsByUserRequest getTweetsByUserRequest = (GetTweetsByUserRequest) request.getBody();
+
+                TweetDao tweetDao = new TweetDao();
+
+                List<Tweet> tweets = tweetDao.getTweetsByUserId(getTweetsByUserRequest.getUserId());
+
+                if (tweets != null)
+                {
+                    outputStream.writeObject(new Response(ResponseType.GET_TWEETS_BY_USER_SUCCESS, tweets));
+                }
+                else
+                {
+                    outputStream.writeObject(new Response(ResponseType.GET_TWEETS_BY_USER_FAILED));
+                }
+
+                outputStream.flush();
             }
         }
     }
