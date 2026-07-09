@@ -63,15 +63,20 @@
     </VBox>
 
     <HBox alignment="CENTER" styleClass="profile-tabs">
-        <Label text="Posts" styleClass="profile-tab-active"/>
-        <Label text="Replies" styleClass="profile-tab"/>
-        <Label text="Media" styleClass="profile-tab"/>
-        <Label text="Likes" styleClass="profile-tab"/>
+        <Label fx:id="postsTab" text="Posts" styleClass="profile-tab-active" onMouseClicked="#showPosts"/>
+        <Label fx:id="repliesTab" text="Replies" styleClass="profile-tab" onMouseClicked="#showReplies"/>
+        <Label fx:id="mediaTab" text="Media" styleClass="profile-tab" onMouseClicked="#showMedia"/>
+        <Label fx:id="likesTab" text="Likes" styleClass="profile-tab" onMouseClicked="#showLikes"/>
     </HBox>
 
-    <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS" hbarPolicy="NEVER" styleClass="profile-scroll">
-        <content>
-            <VBox fx:id="tweetContainer" spacing="10"/>
-        </content>
-    </ScrollPane>
+    <StackPane VBox.vgrow="ALWAYS">
+        <ScrollPane fx:id="postsPane" fitToWidth="true" hbarPolicy="NEVER" styleClass="profile-scroll">
+            <content>
+                <VBox fx:id="tweetContainer" spacing="10"/>
+            </content>
+        </ScrollPane>
+
+        <VBox fx:id="emptyPane" alignment="CENTER" visible="false" managed="false">
+        </VBox>
+    </StackPane>
 </VBox>
