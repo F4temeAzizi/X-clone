@@ -2,7 +2,6 @@ package ap404.xclone.Client.Controllers;
 
 import ap404.xclone.Client.Client;
 import ap404.xclone.Client.Managers.Session;
-import ap404.xclone.Server.Database.LikeDao;
 import ap404.xclone.Shared.DTO.enums.RequestType;
 import ap404.xclone.Shared.DTO.enums.ResponseType;
 import ap404.xclone.Shared.DTO.request.LikeRequest;
@@ -21,31 +20,28 @@ public class TweetController
     @FXML private Label nameLabel;
     @FXML private Label usernameLabel;
     @FXML private Label contentLabel;
-    private int tweetId;
-    private LikeDao likeDao = new LikeDao();
+    private Tweet tweet;
 
 
     public void setTweet(Tweet tweet)
     {
-        tweetId = tweet.getId();
+        this.tweet = tweet;
         nameLabel.setText(tweet.getName());
         usernameLabel.setText(tweet.getUsername());
         contentLabel.setText(tweet.getContent());
 
-        if (likeDao.isLiked(Session.getCurrentUser().getId(), tweetId)) {
-            likeBtn.getStyleClass().add("liked");
-        }
+        updateLikeUI();
     }
 
-    public void like() throws IOException, ClassNotFoundException {
+    public void handleLike() throws IOException, ClassNotFoundException {
 
-        boolean liked = likeBtn.getStyleClass().contains("liked");
+        boolean liked = tweet.isLikedByUser();
         Client client = Session.getClient();
 
         if(liked) {
             Request request = new Request(
                     RequestType.UNLIKE,
-                    new LikeRequest(Session.getCurrentUser().getId(), tweetId)
+                    new LikeRequest(Session.getCurrentUser().getId(), tweet.getId())
             );
 
             client.sendRequest(request);
@@ -53,21 +49,38 @@ public class TweetController
             ResponseType responseType = client.getResponse().getType();
 
             if(responseType == ResponseType.UNLIKE_SUCCESS) {
-                likeBtn.getStyleClass().remove("liked");
+                tweet.setLikeCount(tweet.getLikeCount() - 1);
+                tweet.setLikedByUser(false);
+                updateLikeUI();
             }
         }
         else {
             Request request = new Request(
                     RequestType.LIKE,
-                    new LikeRequest(Session.getCurrentUser().getId(), tweetId)
+                    new LikeRequest(Session.getCurrentUser().getId(), tweet.getId())
             );
 
             client.sendRequest(request);
 
             ResponseType responseType = client.getResponse().getType();
 
-            if(responseType == ResponseType.LIKE_SUCCESS)
+            if(responseType == ResponseType.LIKE_SUCCESS) {
+                tweet.setLikeCount(tweet.getLikeCount() + 1);
+                tweet.setLikedByUser(true);
+                updateLikeUI();
+            }
+        }
+    }
+
+    private void updateLikeUI() {
+        likeCountLabel.setText(String.valueOf(tweet.getLikeCount()));
+
+        if (tweet.isLikedByUser()) {
+            if (!likeBtn.getStyleClass().contains("liked")) {
                 likeBtn.getStyleClass().add("liked");
+            }
+        } else {
+            likeBtn.getStyleClass().remove("liked");
         }
     }
 }
