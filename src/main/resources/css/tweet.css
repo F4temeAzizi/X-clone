@@ -39,6 +39,7 @@
     -fx-cursor: hand;
     -fx-background-radius: 20;
     -fx-padding: 5 10;
+    -fx-icon-color: -color-text;
 }
 
 .tweet-action-btn:hover {

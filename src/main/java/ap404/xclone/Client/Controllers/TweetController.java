@@ -13,7 +13,9 @@ import ap404.xclone.Shared.Models.Tweet;
 import ap404.xclone.Shared.Models.User;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -28,6 +30,7 @@ public class TweetController
 {
     @FXML private Label likeCountLabel;
     @FXML private Button likeBtn;
+    @FXML private Button moreBtn;
     @FXML private Label nameLabel;
     @FXML private Label usernameLabel;
     @FXML private Label contentLabel;
@@ -43,7 +46,23 @@ public class TweetController
         usernameLabel.setText(tweet.getUsername());
         contentLabel.setText(tweet.getContent());
 
+        boolean isCurrentUser = (Session.getCurrentUser().getId() == tweet.getUserId());
+        moreBtn.setVisible(isCurrentUser);
+        moreBtn.setManaged(isCurrentUser);
+
         updateLikeUI();
+    }
+
+    @FXML
+    public void showTweetMenu()
+    {
+        ContextMenu contextMenu = new ContextMenu();
+        MenuItem delete = new MenuItem("Delete");
+        MenuItem edit = new MenuItem("Edit");
+        contextMenu.getItems().addAll(delete, edit);
+
+        contextMenu.getStyleClass().add("x-menu");
+        contextMenu.show(moreBtn, javafx.geometry.Side.BOTTOM, 0, 0);
     }
 
     public void handleLike() throws IOException, ClassNotFoundException {

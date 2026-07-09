@@ -30,11 +30,18 @@
     </ImageView>
 
     <VBox spacing="8" HBox.hgrow="ALWAYS">
-        <HBox spacing="8">
+        <HBox spacing="8" HBox.hgrow="ALWAYS">
             <Label fx:id="nameLabel" style="-fx-font-weight:bold;" text="Name" styleClass="tweet-name" onMouseClicked="#showProfile"/>
             <Label fx:id="usernameLabel" text=" @username" styleClass="tweet-username"/>
-            <Label fx:id="timeLabel" text="aa" styleClass="tweet-time"/>
+            <Label fx:id="timeLabel" styleClass="tweet-time"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Button fx:id="moreBtn" styleClass="tweet-action-btn" onAction="#showTweetMenu">
+                <graphic>
+                    <FontIcon iconLiteral="fas-ellipsis-v" styleClass="tweet-icon"/>
+                </graphic>
+            </Button>
         </HBox>
+
         <Label fx:id="contentLabel" wrapText="true" text="Tweet Content" styleClass="tweet-content"/>
 
         <HBox spacing="35" alignment="CENTER_LEFT" styleClass="tweet-actions">
