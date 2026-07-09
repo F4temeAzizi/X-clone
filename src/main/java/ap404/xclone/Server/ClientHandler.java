@@ -1,11 +1,8 @@
 package ap404.xclone.Server;
 
 import ap404.xclone.Server.Database.UserDao;
-import ap404.xclone.Shared.DTO.request.UpdateProfileRequest;
+import ap404.xclone.Shared.DTO.request.*;
 import ap404.xclone.Shared.DTO.response.Response;
-import ap404.xclone.Shared.DTO.request.LoginRequest;
-import ap404.xclone.Shared.DTO.request.Request;
-import ap404.xclone.Shared.DTO.request.SignupRequest;
 import ap404.xclone.Shared.DTO.enums.ResponseType;
 import ap404.xclone.Shared.Models.User;
 
@@ -15,7 +12,6 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.sql.SQLException;
 import ap404.xclone.Server.Database.TweetDao;
-import ap404.xclone.Shared.DTO.request.CreateTweetRequest;
 
 public class ClientHandler implements Runnable {
 
@@ -149,6 +145,21 @@ public class ClientHandler implements Runnable {
 
                 outputStream.flush();
                 break;
+            }
+
+            case GET_USER_BY_ID: {
+
+                GetUserByIdRequest getUserByIdRequest = (GetUserByIdRequest) request.getBody();
+
+                UserDao userDao = new UserDao();
+
+               User user = userDao.getUserById(getUserByIdRequest.getUserId());
+
+               if (user != null) outputStream.writeObject(new Response(ResponseType.GET_USER_BY_ID_SUCCESS, user));
+               else outputStream.writeObject(new Response(ResponseType.GET_USER_BY_ID_FAILED));
+
+               outputStream.flush();
+               break;
             }
         }
     }

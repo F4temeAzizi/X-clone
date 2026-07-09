@@ -12,9 +12,8 @@ import java.time.format.DateTimeFormatter;
 
 public class UserUtil
 {
-    public static void loadUser (Label name, Label username, Label bio, ImageView avatar, Region banner, Label createdAt)
+    public static void loadUser (User user, Label name, Label username, Label bio, ImageView avatar, Region banner, Label createdAt)
     {
-        User user = Session.getCurrentUser();
         if (name != null) name.setText(user.getDisplayName());
         if (username != null) username.setText("@" + user.getUsername());
 

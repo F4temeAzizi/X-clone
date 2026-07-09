@@ -12,5 +12,7 @@ public enum ResponseType implements Serializable {
     CREATE_TWEET_SUCCESS,
     CREATE_TWEET_FAILED,
     GET_TWEETS_SUCCESS,
-    GET_TWEETS_FAILED
+    GET_TWEETS_FAILED,
+    GET_USER_BY_ID_SUCCESS,
+    GET_USER_BY_ID_FAILED
 }

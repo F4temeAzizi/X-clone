@@ -1,6 +1,7 @@
 package ap404.xclone.Client.Controllers;
 
 import ap404.xclone.Client.Managers.Navigation;
+import ap404.xclone.Client.Managers.Session;
 import ap404.xclone.Client.Utils.UserUtil;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -17,7 +18,10 @@ public class ProfileController
     @FXML private Label createdAtLbl;
 
 
-    public void initialize ()  { UserUtil.loadUser(nameLbl, usernameLbl, bioLbl, avatarImage, bannerRegion, createdAtLbl); }
+    public void initialize ()
+    {
+        UserUtil.loadUser(Session.getCurrentUser(), nameLbl, usernameLbl, bioLbl, avatarImage, bannerRegion, createdAtLbl);
+    }
 
     @FXML public void goToEditProfile() { Navigation.loadEditProfile(); }
 }

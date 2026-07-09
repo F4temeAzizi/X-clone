@@ -28,6 +28,7 @@ public class HomeController
 
     @FXML
     public void initialize() {
+        Navigation.setHomeController(this);
         updateComposeAvatar();
         loadTweets();
     }
@@ -92,6 +93,9 @@ public class HomeController
 
     public void updateComposeAvatar ()
     {
-        UserUtil.loadUser(null, null ,null,  composeAvatar, null, null);
+        UserUtil.loadUser(Session.getCurrentUser(),
+                null, null ,
+                null,  composeAvatar,
+                null, null);
     }
 }
