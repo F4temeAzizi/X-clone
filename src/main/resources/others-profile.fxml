@@ -6,8 +6,8 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.Circle?>
-
 <?import org.kordamp.ikonli.javafx.FontIcon?>
+
 <VBox xmlns="http://javafx.com/javafx/18"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="ap404.xclone.Client.Controllers.OthersProfileController"
@@ -40,6 +40,11 @@
 
         <Pane HBox.hgrow="ALWAYS"/>
 
+        <Button styleClass="edit-profile-btn" translateY="-35">
+            <graphic>
+                <FontIcon iconLiteral="fas-comment" styleClass="edit-profile-btn"/>
+            </graphic>
+        </Button>
         <Button text="Follow" styleClass="edit-profile-btn" translateY="-35" />
 
     </HBox>
