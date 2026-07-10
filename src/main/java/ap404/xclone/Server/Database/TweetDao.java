@@ -181,6 +181,63 @@ public class TweetDao {
         }
     }
 
+    public List<Tweet> getLikedTweets(int userId, int currentUserId) {
+
+        String sql = """
+                SELECT tweets.id,
+                       tweets.user_id,
+                       tweets.content,
+                       tweets.created_at,
+                       tweets.is_retweet,
+                       tweets.retweet_of_id,
+                       tweets.reply_to_id,
+                       users.display_name,
+                       users.username,
+                       users.profile_image_url
+                FROM tweets
+                JOIN users ON tweets.user_id = users.id
+                JOIN likes ON tweets.id = likes.tweet_id
+                WHERE likes.user_id = ?
+                ORDER BY likes.created_at DESC;
+                """;
+
+        List<Tweet> tweets = new ArrayList<>();
+
+        try(
+                Connection connection = DatabaseConnection.getConnection();
+                PreparedStatement statement = connection.prepareStatement(sql)
+        ) {
+            statement.setInt(1, userId);
+
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    Tweet tweet = new Tweet(
+                            resultSet.getInt("id"),
+                            resultSet.getInt("user_id"),
+                            resultSet.getString("content"),
+                            resultSet.getTimestamp("created_at"),
+                            resultSet.getBoolean("is_retweet"),
+                            getIntegerOrNull(resultSet, "retweet_of_id"),
+                            getIntegerOrNull(resultSet, "reply_to_id"),
+                            resultSet.getString("display_name"),
+                            resultSet.getString("username"),
+                            likeDao.getLikeCount(resultSet.getInt("id")),
+                            likeDao.isLiked(currentUserId, resultSet.getInt("id")),
+                            resultSet.getString("profile_image_url")
+                    );
+
+                    tweets.add(tweet);
+                }
+
+                return tweets;
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Get liked tweets error: " + e.getMessage());
+            return null;
+        }
+    }
+
     private Integer getIntegerOrNull(ResultSet resultSet, String columnName) throws SQLException {
         int value = resultSet.getInt(columnName);
 
