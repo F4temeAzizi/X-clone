@@ -7,14 +7,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Side;
 import javafx.scene.Parent;
-import javafx.scene.control.Button;
-import javafx.scene.control.ContextMenu;
-import javafx.scene.control.Label;
-import javafx.scene.control.MenuItem;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 
 import java.io.IOException;
+import java.util.Optional;
 
 public class MainController
 {
@@ -39,6 +37,21 @@ public class MainController
         MenuItem logoutItem = new MenuItem("Log Out");
 
         logoutItem.setOnAction(e -> {
+
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+
+            alert.setTitle("Log Out");
+            alert.setHeaderText("Are you sure you want to log out?");
+
+            DialogPane dialogPane = alert.getDialogPane();
+            dialogPane.getStylesheets().add(getClass().getResource("/css/theme.css").toExternalForm());
+            dialogPane.getStylesheets().add(getClass().getResource("/css/alert.css").toExternalForm());
+            dialogPane.getStyleClass().add("alert");
+
+            Optional<ButtonType> result = alert.showAndWait();
+
+            if (result.isEmpty() || result.get() != ButtonType.OK) return;
+
             try {
                 Session.setClient(null);
                 Session.setCurrentUser(null);
