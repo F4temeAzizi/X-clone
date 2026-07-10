@@ -17,6 +17,7 @@ import ap404.xclone.Shared.DTO.request.CreateTweetRequest;
 import ap404.xclone.Shared.DTO.request.Request;
 import ap404.xclone.Shared.DTO.response.Response;
 import javafx.scene.control.TextArea;
+import javafx.scene.text.Text;
 
 import java.util.List;
 
@@ -28,6 +29,24 @@ public class HomeController
 
     @FXML
     public void initialize() {
+
+        tweetTextArea.setPrefHeight(60);
+        tweetTextArea.textProperty().addListener((obs, o, n) -> {
+
+            Text text = new Text(n);
+            text.setFont(tweetTextArea.getFont());
+
+            text.setWrappingWidth(tweetTextArea.getWidth() - 25);
+
+            double h = text.getLayoutBounds().getHeight();
+
+            tweetTextArea.setPrefHeight(Math.max(60, h + 30));
+        });
+
+        tweetTextArea.widthProperty().addListener((obs, o, n) -> {
+            tweetTextArea.setText(tweetTextArea.getText());
+        });
+
         Navigation.setHomeController(this);
         updateComposeAvatar();
         loadTweets();
