@@ -66,7 +66,7 @@ public class HomeController
 
     }
 
-    private void loadTweets() {
+    public void loadTweets() {
         try {
             Client client = Session.getClient();
 
