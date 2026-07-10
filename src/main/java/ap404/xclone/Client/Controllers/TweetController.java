@@ -10,11 +10,16 @@ import ap404.xclone.Shared.DTO.response.Response;
 import ap404.xclone.Shared.Models.Tweet;
 import ap404.xclone.Shared.Models.User;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.Timestamp;
@@ -97,20 +102,28 @@ public class TweetController
         }
     }
 
-    public void editTweet()
-    {
-        TextInputDialog textInputDialog = new TextInputDialog(tweet.getContent());
+    public void editTweet() {
 
-        textInputDialog.setTitle("Edit Tweet");
-        textInputDialog.setHeaderText(null);
-        textInputDialog.setContentText("Tweet:");
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/edit-tweet.fxml"));
+        Parent root = null;
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
-        Optional<String> result =  textInputDialog.showAndWait();
+        EditTweetController controller = loader.getController();
+        controller.setTweet(tweet);
 
-        if (result.isEmpty()) return;
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setResizable(false);
+        stage.showAndWait();
 
-        String newContent = result.get().trim();
+        String newContent = controller.getEditedText();
 
+        if (newContent == null) return;
         if (newContent.isBlank() || newContent.equals(tweet.getContent())) return;
 
         try
