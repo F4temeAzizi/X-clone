@@ -108,6 +108,7 @@ public class MainController
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.setTitle("Post");
+            stage.setResizable(false);
             stage.showAndWait();
         }
         catch (IOException e)
