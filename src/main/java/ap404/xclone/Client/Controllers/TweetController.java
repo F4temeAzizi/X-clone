@@ -79,7 +79,13 @@ public class TweetController
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
 
             alert.setTitle("Delete tweet");
-            alert.setHeaderText("Are you sure?");
+            alert.setHeaderText("Are you sure you want to delete this tweet?");
+
+            DialogPane dialogPane = alert.getDialogPane();
+            dialogPane.getStylesheets().add(getClass().getResource("/css/theme.css").toExternalForm());
+            dialogPane.getStylesheets().add(getClass().getResource("/css/alert.css").toExternalForm());
+            dialogPane.getStyleClass().add("alert");
+
             Optional<ButtonType> result = alert.showAndWait();
 
             if (result.isEmpty() || result.get() != ButtonType.OK) return;
