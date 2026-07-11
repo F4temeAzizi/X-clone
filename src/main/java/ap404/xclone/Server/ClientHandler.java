@@ -282,7 +282,6 @@ public class ClientHandler implements Runnable {
                     outputStream.writeObject(new Response(ResponseType.GET_LIKED_TWEETS_FAILED));
                 }
 
-
                 outputStream.flush();
                 break;
             }
@@ -319,6 +318,27 @@ public class ClientHandler implements Runnable {
                 else
                 {
                     outputStream.writeObject(new Response(ResponseType.UNBOOKMARK_FAILED));
+                }
+
+                outputStream.flush();
+                break;
+            }
+
+            case GET_BOOKMARKED_TWEETS: {
+
+                try
+                {
+                    TweetDao tweetDao = new TweetDao();
+                    GetBookmarkedTweetsRequest getBookmarkedTweetsRequest = (GetBookmarkedTweetsRequest) request.getBody();
+
+                    List<Tweet> tweets = tweetDao.getBookmarkedTweets(getBookmarkedTweetsRequest.getUserId(),
+                            getBookmarkedTweetsRequest.getCurrentUserId());
+
+                    outputStream.writeObject(new Response(ResponseType.GET_BOOKMARKED_TWEETS_SUCCESS, tweets));
+                }
+                catch (RuntimeException e)
+                {
+                    outputStream.writeObject(new Response(ResponseType.GET_BOOKMARKED_TWEETS_FAILED));
                 }
 
                 outputStream.flush();
