@@ -12,7 +12,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.sql.SQLException;
 import java.util.List;
 
 import ap404.xclone.Server.Database.TweetDao;
@@ -44,7 +43,7 @@ public class ClientHandler implements Runnable {
         }
     }
 
-    public void handleRequest(Request request) throws IOException, SQLException {
+    public void handleRequest(Request request) throws IOException{
         switch (request.getType()) {
             case LOGIN: {
 
@@ -223,6 +222,7 @@ public class ClientHandler implements Runnable {
                 }
 
                 outputStream.flush();
+                break;
             }
 
             case DELETE_TWEET: {
@@ -263,6 +263,24 @@ public class ClientHandler implements Runnable {
                 {
                     outputStream.writeObject(new Response(ResponseType.EDIT_TWEET_FAILED));
                 }
+
+                outputStream.flush();
+                break;
+            }
+
+            case GET_LIKED_TWEETS: {
+
+                try {
+                    TweetDao tweetDao = new TweetDao();
+                    GetLikedTweetsRequest getLikedTweetsRequest = (GetLikedTweetsRequest) request.getBody();
+
+                    List<Tweet> tweets = tweetDao.getLikedTweets(getLikedTweetsRequest.getUserId(), getLikedTweetsRequest.getCurrentUserId());
+                    outputStream.writeObject(new Response(ResponseType.GET_LIKED_TWEETS_SUCCESS, tweets));
+
+                } catch (RuntimeException e) {
+                    outputStream.writeObject(new Response(ResponseType.GET_LIKED_TWEETS_FAILED));
+                }
+
 
                 outputStream.flush();
                 break;
