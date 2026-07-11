@@ -7,6 +7,7 @@ import ap404.xclone.Client.Utils.TweetUtil;
 import ap404.xclone.Client.Utils.UserUtil;
 import ap404.xclone.Shared.DTO.enums.RequestType;
 import ap404.xclone.Shared.DTO.enums.ResponseType;
+import ap404.xclone.Shared.DTO.request.GetLikedTweetsRequest;
 import ap404.xclone.Shared.DTO.request.GetTweetsByUserRequest;
 import ap404.xclone.Shared.DTO.request.Request;
 import ap404.xclone.Shared.DTO.response.Response;
@@ -47,7 +48,7 @@ public class OthersProfileController
 
         try
         {
-            Client client = new Client();
+            Client client = Session.getClient();
 
             GetTweetsByUserRequest getTweetsByUserRequest = new GetTweetsByUserRequest(Navigation.getSelectedUser().getId(), Session.getCurrentUser().getId());
 
@@ -85,8 +86,29 @@ public class OthersProfileController
     @FXML public void showLikes ()
     {
         selectTab(likesTab);
-        tweetContainer.getChildren().clear();
-        tweetContainer.getChildren().add(new Label("No likes yet"));
+
+        try
+        {
+            Client client = Session.getClient();
+
+            GetLikedTweetsRequest getLikedTweetsRequest = new GetLikedTweetsRequest(
+                    Navigation.getSelectedUser().getId(),
+                    Session.getCurrentUser().getId()
+            );
+
+            client.sendRequest(new Request(RequestType.GET_LIKED_TWEETS, getLikedTweetsRequest));
+
+            Response response = client.getResponse();
+
+            if (response.getType() == ResponseType.GET_LIKED_TWEETS_SUCCESS) {
+                List<Tweet> tweets = (List<Tweet>) response.getBody();
+                TweetUtil.loadTweets(tweetContainer, tweets);
+            }
+        }
+        catch (Exception e)
+        {
+            System.err.println("Failed to load liked tweets: " + e.getMessage());
+        }
     }
 
     private void selectTab(Label active)
