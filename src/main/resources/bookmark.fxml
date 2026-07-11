@@ -4,6 +4,8 @@
 <?import javafx.scene.layout.VBox?>
 
 <VBox xmlns="http://javafx.com/javafx/18"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="ap404.xclone.Client.Controllers.BookmarkController"
       spacing="15"
       stylesheets="@css/main.css,@css/theme.css,@css/home.css">
 
@@ -15,7 +17,7 @@
                 styleClass="tweet-scroll">
 
         <content>
-            <VBox  spacing="18" VBox.vgrow="ALWAYS" styleClass="tweet-container"/>
+            <VBox fx:id="tweetContainer" spacing="18" VBox.vgrow="ALWAYS" styleClass="tweet-container"/>
         </content>
     </ScrollPane>
 
