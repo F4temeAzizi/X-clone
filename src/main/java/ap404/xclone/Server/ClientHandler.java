@@ -1,5 +1,6 @@
 package ap404.xclone.Server;
 
+import ap404.xclone.Server.Database.BookmarkDao;
 import ap404.xclone.Server.Database.LikeDao;
 import ap404.xclone.Server.Database.UserDao;
 import ap404.xclone.Shared.DTO.request.*;
@@ -285,6 +286,45 @@ public class ClientHandler implements Runnable {
                 outputStream.flush();
                 break;
             }
+
+            case BOOKMARK: {
+
+                BookmarkDao bookmarkDao = new BookmarkDao();
+                BookmarkRequest bookmarkRequest = (BookmarkRequest) request.getBody();
+
+                if (bookmarkDao.bookmarkTweet(bookmarkRequest.getUserId(), bookmarkRequest.getTweetId()))
+                {
+                    outputStream.writeObject(new Response(ResponseType.BOOKMARK_SUCCESS));
+                }
+                else
+                {
+                    outputStream.writeObject(new Response(ResponseType.BOOKMARK_FAILED));
+                }
+
+                outputStream.flush();
+                break;
+            }
+
+            case UNBOOKMARK: {
+
+                BookmarkDao bookmarkDao = new BookmarkDao();
+                BookmarkRequest bookmarkRequest = (BookmarkRequest) request.getBody();
+
+                boolean success = bookmarkDao.unBookmarkTweet(bookmarkRequest.getUserId(), bookmarkRequest.getTweetId());
+
+                if (success)
+                {
+                    outputStream.writeObject(new Response(ResponseType.UNBOOKMARK_SUCCESS));
+                }
+                else
+                {
+                    outputStream.writeObject(new Response(ResponseType.UNBOOKMARK_FAILED));
+                }
+
+                outputStream.flush();
+                break;
+            }
+
         }
     }
 }
