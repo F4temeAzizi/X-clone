@@ -14,5 +14,7 @@ public enum RequestType implements Serializable {
     GET_TWEETS_BY_USER,
     DELETE_TWEET,
     EDIT_TWEET,
-    GET_LIKED_TWEETS
+    GET_LIKED_TWEETS,
+    BOOKMARK,
+    UNBOOKMARK
 }
