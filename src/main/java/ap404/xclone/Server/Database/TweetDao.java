@@ -9,6 +9,7 @@ import java.util.List;
 public class TweetDao {
 
     private LikeDao likeDao = new LikeDao();
+    private BookmarkDao bookmarkDao = new BookmarkDao();
 
     public boolean createTweet(int userId, String content) {
         String sql = """
@@ -69,7 +70,8 @@ public class TweetDao {
                         resultSet.getString("username"),
                         likeDao.getLikeCount(resultSet.getInt("id")),
                         likeDao.isLiked(currentUserId, resultSet.getInt("id")),
-                        resultSet.getString("profile_image_url")
+                        resultSet.getString("profile_image_url"),
+                        bookmarkDao.isBookmarked(currentUserId, resultSet.getInt("id"))
                 );
 
                 tweets.add(tweet);
@@ -122,7 +124,8 @@ public class TweetDao {
                             resultSet.getString("username"),
                             likeDao.getLikeCount(resultSet.getInt("id")),
                             likeDao.isLiked(currentUserId, resultSet.getInt("id")),
-                            resultSet.getString("profile_image_url")
+                            resultSet.getString("profile_image_url"),
+                            bookmarkDao.isBookmarked(currentUserId, resultSet.getInt("id"))
                     );
 
                     tweets.add(tweet);
@@ -223,7 +226,8 @@ public class TweetDao {
                             resultSet.getString("username"),
                             likeDao.getLikeCount(resultSet.getInt("id")),
                             likeDao.isLiked(currentUserId, resultSet.getInt("id")),
-                            resultSet.getString("profile_image_url")
+                            resultSet.getString("profile_image_url"),
+                            bookmarkDao.isBookmarked(currentUserId, resultSet.getInt("id"))
                     );
 
                     tweets.add(tweet);
