@@ -130,7 +130,7 @@ public class TweetDao {
             }
 
         } catch (SQLException e) {
-            System.out.println("Get user tweets error: " + e.getMessage());
+            throw new RuntimeException();
         }
 
         return tweets;
@@ -233,8 +233,8 @@ public class TweetDao {
             }
 
         } catch (SQLException e) {
-            System.out.println("Get liked tweets error: " + e.getMessage());
-            return null;
+            e.printStackTrace();
+            throw new RuntimeException();
         }
     }
 
