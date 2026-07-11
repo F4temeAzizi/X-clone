@@ -7,18 +7,16 @@ import ap404.xclone.Client.Utils.TweetUtil;
 import ap404.xclone.Client.Utils.UserUtil;
 import ap404.xclone.Shared.DTO.enums.RequestType;
 import ap404.xclone.Shared.DTO.enums.ResponseType;
+import ap404.xclone.Shared.DTO.request.GetLikedTweetsRequest;
 import ap404.xclone.Shared.DTO.request.GetTweetsByUserRequest;
 import ap404.xclone.Shared.DTO.request.Request;
 import ap404.xclone.Shared.DTO.response.Response;
 import ap404.xclone.Shared.Models.Tweet;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
-
-import java.io.IOException;
 import java.util.List;
 
 public class ProfileController
@@ -50,7 +48,7 @@ public class ProfileController
 
         try
         {
-            Client client = new Client();
+            Client client = Session.getClient();
 
             GetTweetsByUserRequest getTweetsByUserRequest = new GetTweetsByUserRequest(Session.getCurrentUser().getId(), Session.getCurrentUser().getId());
 
@@ -66,7 +64,7 @@ public class ProfileController
         }
         catch (Exception e)
         {
-            throw new RuntimeException(e);
+            System.err.println("Failed to load tweets: " + e.getMessage());
         }
 
     }
@@ -88,8 +86,29 @@ public class ProfileController
     @FXML public void showLikes ()
     {
         selectTab(likesTab);
-        tweetContainer.getChildren().clear();
-        tweetContainer.getChildren().add(new Label("No likes yet"));
+
+        try
+        {
+            Client client = Session.getClient();
+
+           GetLikedTweetsRequest getLikedTweetsRequest = new GetLikedTweetsRequest(
+                   Session.getCurrentUser().getId(),
+                   Session.getCurrentUser().getId()
+           );
+
+            client.sendRequest(new Request(RequestType.GET_LIKED_TWEETS, getLikedTweetsRequest));
+
+            Response response = client.getResponse();
+
+            if (response.getType() == ResponseType.GET_LIKED_TWEETS_SUCCESS) {
+                List<Tweet> tweets = (List<Tweet>) response.getBody();
+                TweetUtil.loadTweets(tweetContainer, tweets);
+            }
+        }
+        catch (Exception e)
+        {
+            System.err.println("Failed to load liked tweets: " + e.getMessage());
+        }
     }
 
     private void selectTab(Label active)
