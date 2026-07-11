@@ -33,6 +33,7 @@ public class TweetController
 {
     @FXML private Label likeCountLabel;
     @FXML private Button likeBtn;
+    @FXML private Button bookmarkBtn;
     @FXML private Button moreBtn;
     @FXML private Label nameLabel;
     @FXML private Label usernameLabel;
@@ -55,6 +56,7 @@ public class TweetController
         moreBtn.setManaged(isCurrentUser);
 
         updateLikeUI();
+        updateBookmarkUI();
     }
 
     @FXML
@@ -108,10 +110,11 @@ public class TweetController
         }
     }
 
-    public void editTweet() {
-
+    public void editTweet()
+    {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/edit-tweet.fxml"));
         Parent root = null;
+
         try {
             root = loader.load();
         } catch (IOException e) {
@@ -208,6 +211,52 @@ public class TweetController
         timeLabel.setText(formatTime(tweet.getCreatedAt()));
     }
 
+    public void handleBookmark() throws IOException, ClassNotFoundException
+    {
+        boolean bookmarked = tweet.isBookmarkedByUser();
+        Client client = Session.getClient();
+
+        if (bookmarked)
+        {
+            Request request = new Request(RequestType.UNBOOKMARK,
+                    new BookmarkRequest(Session.getCurrentUser().getId(), tweet.getId()));
+
+            client.sendRequest(request);
+            ResponseType responseType = client.getResponse().getType();
+
+            if (responseType == ResponseType.UNBOOKMARK_SUCCESS)
+            {
+                tweet.setBookmarkedByUser(false);
+                updateBookmarkUI();
+            }
+        }
+        else
+        {
+            Request request = new Request(RequestType.BOOKMARK,
+                    new BookmarkRequest(Session.getCurrentUser().getId(), tweet.getId()));
+
+            client.sendRequest(request);
+            ResponseType responseType = client.getResponse().getType();
+
+            if (responseType == ResponseType.BOOKMARK_SUCCESS)
+            {
+                tweet.setBookmarkedByUser(true);
+                updateBookmarkUI();
+            }
+        }
+    }
+
+    private void updateBookmarkUI()
+    {
+      if (tweet.isBookmarkedByUser())
+      {
+          if (!bookmarkBtn.getStyleClass().contains("bookmarked"))
+          {
+              bookmarkBtn.getStyleClass().add("bookmarked");
+          }
+      }
+      else bookmarkBtn.getStyleClass().remove("bookmarked");
+    }
 
     private String formatTime(Timestamp timestamp)
     {

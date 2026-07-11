@@ -71,3 +71,9 @@
 .tweet-action-btn.liked .tweet-count {
     -fx-text-fill: #f91880;
 }
+
+
+.tweet-action-btn.bookmarked .tweet-icon {
+    -fx-icon-color: #1d9bf0;
+    -fx-fill: #1d9bf0;
+}

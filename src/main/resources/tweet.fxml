@@ -76,7 +76,7 @@
 
             <Region HBox.hgrow="ALWAYS"/>
 
-            <Button fx:id="bookmarkBtn" styleClass="tweet-action-btn">
+            <Button fx:id="bookmarkBtn" styleClass="tweet-action-btn" onAction="#handleBookmark">
                 <graphic>
                     <FontIcon iconLiteral="fas-bookmark" styleClass="tweet-icon"/>
                 </graphic>
