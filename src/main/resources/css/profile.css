@@ -55,7 +55,7 @@
 }
 
 .edit-profile-btn:hover{
-    -fx-background-color:#1c1c1c;
+    -fx-background-color:-color-surface;
 }
 
 .profile-tabs{
@@ -76,7 +76,7 @@
 }
 
 .profile-tab:hover{
-    -fx-background-color:#151515;
+    -fx-background-color: -color-surface;
 }
 
 .profile-tab-active{

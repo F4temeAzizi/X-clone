@@ -1,6 +1,7 @@
 package ap404.xclone.Client.Controllers;
 import ap404.xclone.Client.Managers.Navigation;
 import ap404.xclone.Client.Managers.Session;
+import ap404.xclone.Client.Managers.ThemeManager;
 import ap404.xclone.Client.Utils.UserUtil;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -46,7 +47,7 @@ public class MainController
             alert.setHeaderText("Are you sure you want to log out?");
 
             DialogPane dialogPane = alert.getDialogPane();
-            dialogPane.getStylesheets().add(getClass().getResource("/css/theme.css").toExternalForm());
+            dialogPane.getStylesheets().add(ThemeManager.getThemeCss());
             dialogPane.getStylesheets().add(getClass().getResource("/css/alert.css").toExternalForm());
             dialogPane.getStyleClass().add("alert");
 
@@ -106,7 +107,9 @@ public class MainController
             Parent root = fxmlLoader.load();
 
             Stage stage = new Stage();
-            stage.setScene(new Scene(root));
+            Scene scene = new Scene(root);
+            ThemeManager.applyTheme(scene);
+            stage.setScene(scene);
             stage.setTitle("Post");
             stage.setResizable(false);
             stage.showAndWait();

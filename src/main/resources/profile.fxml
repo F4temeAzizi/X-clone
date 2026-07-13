@@ -12,7 +12,7 @@
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="ap404.xclone.Client.Controllers.ProfileController"
       spacing="0"
-      stylesheets="@css/profile.css,@css/theme.css"
+      stylesheets="@css/profile.css"
       styleClass="profile-root"
       VBox.vgrow="ALWAYS">
 

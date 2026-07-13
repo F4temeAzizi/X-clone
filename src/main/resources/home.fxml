@@ -11,7 +11,7 @@
 <VBox xmlns="http://javafx.com/javafx/18"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="ap404.xclone.Client.Controllers.HomeController"
-      stylesheets="@css/home.css,@css/theme.css"
+      stylesheets="@css/home.css"
       styleClass="main-center-container"
       spacing="0">
 

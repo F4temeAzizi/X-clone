@@ -24,6 +24,7 @@ public class Navigation
     public static void loadBookmark() { load("bookmark.fxml"); }
     public static void loadOthersProfile() { load("others-profile.fxml"); }
     public static void loadSettings() { load("settings.fxml"); }
+    public static void loadTheme() { load("theme.fxml"); }
 
     public static User getSelectedUser() { return selectedUser; }
 
