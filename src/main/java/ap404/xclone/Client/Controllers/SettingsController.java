@@ -1,0 +1,13 @@
+package ap404.xclone.Client.Controllers;
+
+import ap404.xclone.Client.Managers.Navigation;
+import javafx.fxml.FXML;
+
+public class SettingsController
+{
+    @FXML
+    public void openTheme()
+    {
+        Navigation.loadTheme();
+    }
+}
