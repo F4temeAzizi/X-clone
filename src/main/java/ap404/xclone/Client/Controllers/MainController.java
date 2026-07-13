@@ -78,7 +78,7 @@ public class MainController
 
     @FXML public void  goToChat() {}
 
-    @FXML public void goToSettings() {}
+    @FXML public void goToSettings() { Navigation.loadSettings(); }
 
     @FXML public void showMoreOptions(ActionEvent e) {
 

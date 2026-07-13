@@ -23,7 +23,7 @@ public class Navigation
     public static void loadExplore() { load("explore.fxml"); }
     public static void loadBookmark() { load("bookmark.fxml"); }
     public static void loadOthersProfile() { load("others-profile.fxml"); }
-
+    public static void loadSettings() { load("settings.fxml"); }
 
     public static User getSelectedUser() { return selectedUser; }
 
