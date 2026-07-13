@@ -26,6 +26,7 @@ public class Navigation
     public static void loadSettings() { load("settings.fxml"); }
     public static void loadTheme() { load("theme.fxml"); }
     public static void loadChangePassword() { load("change-password.fxml"); }
+    public static void loadPrivacy() { load("privacy.fxml"); }
 
     public static User getSelectedUser() { return selectedUser; }
     public static void setSelectedUser(User selectedUser) { Navigation.selectedUser = selectedUser;}

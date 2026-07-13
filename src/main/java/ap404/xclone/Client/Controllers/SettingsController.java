@@ -13,4 +13,7 @@ public class SettingsController
 
    @FXML
     public void openChangePassword() { Navigation.loadChangePassword(); }
+
+    @FXML
+    public void openPrivacy() { Navigation.loadPrivacy(); }
 }
