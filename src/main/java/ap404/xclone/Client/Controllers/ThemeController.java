@@ -1,5 +1,6 @@
 package ap404.xclone.Client.Controllers;
 
+import ap404.xclone.Client.Managers.Navigation;
 import ap404.xclone.Client.Managers.ThemeManager;
 import javafx.fxml.FXML;
 import javafx.scene.control.RadioButton;
@@ -27,4 +28,7 @@ public class ThemeController
             ThemeManager.applyTheme(lightRadio.getScene());
         });
     }
+
+    @FXML
+    public void handleBack() { Navigation.loadSettings(); }
 }
