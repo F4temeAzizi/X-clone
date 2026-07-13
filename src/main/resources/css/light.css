@@ -1,0 +1,16 @@
+.root {
+    -color-bg: #ffffff;
+    -color-surface: #f7f9f9;
+    -color-border: #d7dbdc;
+
+    -color-text: #0f1419;
+    -color-secondary: #536471;
+    -color-input:#ffffff;
+
+    -color-accent: #1d9bf0;
+    -color-danger: #f91880;
+
+    -color-icon: -color-text;
+    -color-icon-secondary: -color-secondary;
+    -color-icon-hover: -color-accent;
+}
