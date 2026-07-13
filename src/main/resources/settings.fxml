@@ -27,9 +27,9 @@
     </HBox>
 
     <HBox styleClass="settings-item">
-        <Label text="Change Password" styleClass="settings-label"/>
-        <Region HBox.hgrow="ALWAYS"/>
-        <FontIcon iconLiteral="fas-chevron-right" styleClass="settings-arrow"/>
+        <Label text="Change Password" styleClass="settings-label"  onMouseClicked="#openChangePassword"/>
+        <Region HBox.hgrow="ALWAYS" onMouseClicked="#openChangePassword"/>
+        <FontIcon iconLiteral="fas-chevron-right" styleClass="settings-arrow" onMouseClicked="#openChangePassword"/>
     </HBox>
 
     <HBox styleClass="settings-item">
