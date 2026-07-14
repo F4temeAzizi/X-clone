@@ -31,6 +31,12 @@
     </ImageView>
 
     <VBox spacing="8" HBox.hgrow="ALWAYS">
+
+        <HBox fx:id="retweetHeader" spacing="6" alignment="CENTER_LEFT" visible="false" managed="false">
+            <FontIcon iconLiteral="fas-retweet" styleClass="retweet-icon" fill="#657786"/>
+            <Label fx:id="retweetedByLabel" text="Retweeted" styleClass="retweet-text"/>
+        </HBox>
+
         <HBox spacing="8" HBox.hgrow="ALWAYS">
             <Label fx:id="nameLabel" style="-fx-font-weight:bold;" text="Name" styleClass="tweet-name" onMouseClicked="#showProfile"/>
             <Label fx:id="usernameLabel" text=" @username" styleClass="tweet-username"/>
