@@ -15,9 +15,9 @@
 
     <TextField promptText="🔍 Search" styleClass="search-field" maxWidth="Infinity"/>
 
-
     <ScrollPane fitToWidth="true"
                 fitToHeight="true"
+                fx:id="scrollPane"
                 hbarPolicy="NEVER"
                 vbarPolicy="AS_NEEDED"
                 VBox.vgrow="ALWAYS"
@@ -27,5 +27,4 @@
             <VBox  fx:id="tweetContainer" spacing="18" VBox.vgrow="ALWAYS" styleClass="tweet-container"/>
         </content>
     </ScrollPane>
-
 </VBox>
