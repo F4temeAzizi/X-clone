@@ -45,8 +45,8 @@
     </HBox>
 
     <HBox styleClass="settings-item">
-        <Label text="Delete Account" styleClass="settings-label"/>
-        <Region HBox.hgrow="ALWAYS"/>
+        <Label text="Delete Account" styleClass="settings-label" onMouseClicked="#openDeleteAccount"/>
+        <Region HBox.hgrow="ALWAYS" onMouseClicked="#openDeleteAccount"/>
         <FontIcon iconLiteral="fas-chevron-right" styleClass="settings-arrow"/>
     </HBox>
 </VBox>

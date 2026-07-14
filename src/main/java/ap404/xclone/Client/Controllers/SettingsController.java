@@ -16,4 +16,7 @@ public class SettingsController
 
     @FXML
     public void openPrivacy() { Navigation.loadPrivacy(); }
+
+    @FXML
+    public void openDeleteAccount() { Navigation.loadDeleteAccount();}
 }
