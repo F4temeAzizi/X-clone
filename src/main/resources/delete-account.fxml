@@ -13,6 +13,7 @@
 <?import javafx.scene.layout.Pane?>
 <VBox xmlns="http://javafx.com/javafx/18"
       xmlns:fx="http://javafx.com/fxml"
+      fx:controller="ap404.xclone.Client.Controllers.DeleteAccountController"
       spacing="0"
       stylesheets="@css/settings.css, @css/edit-profile.css"
       styleClass="settings-root">
@@ -22,7 +23,7 @@
     </padding>
 
     <HBox spacing="15" alignment="CENTER_LEFT" styleClass="settings-item">
-        <FontIcon iconLiteral="fas-arrow-left" styleClass="settings-arrow"/>
+        <FontIcon iconLiteral="fas-arrow-left" styleClass="settings-arrow" onMouseClicked="#handleBack"/>
         <Label text="Delete Account" styleClass="settings-title"/>
     </HBox>
 
@@ -49,7 +50,7 @@
 
     <HBox spacing="20">
         <Pane HBox.hgrow="ALWAYS"/>
-        <Button text="Cancel" styleClass="cancel-btn"/>
+        <Button text="Cancel" styleClass="cancel-btn" onAction="#cancel"/>
         <Button text="Delete" styleClass="save-btn" />
     </HBox>
 </VBox>

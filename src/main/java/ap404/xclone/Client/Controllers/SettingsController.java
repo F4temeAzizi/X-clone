@@ -11,7 +11,7 @@ public class SettingsController
         Navigation.loadTheme();
     }
 
-   @FXML
+    @FXML
     public void openChangePassword() { Navigation.loadChangePassword(); }
 
     @FXML
