@@ -14,6 +14,7 @@ import ap404.xclone.Shared.DTO.response.Response;
 import ap404.xclone.Shared.Models.Tweet;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
@@ -32,18 +33,41 @@ public class ProfileController
     @FXML private Label mediaTab;
     @FXML private Label likesTab;
     @FXML private VBox tweetContainer;
+    @FXML private ScrollPane profileScroll;
 
 
     public void initialize ()
     {
         UserUtil.loadUser(Session.getCurrentUser(), nameLbl, usernameLbl, bioLbl, avatarImage, bannerRegion, createdAtLbl);
-        showPosts();
+        switch (Navigation.getProfileTab())
+        {
+            case "replies":
+                showReplies();
+                break;
+
+            case "media":
+                showMedia();
+                break;
+
+            case "likes":
+                showLikes();
+                break;
+
+            default:
+                showPosts();
+                break;
+        }
+        profileScroll.layout();
+        profileScroll.setVvalue(Navigation.getProfileScroll());
+        profileScroll.vvalueProperty().addListener((obs, o, n) ->
+                Navigation.setProfileScroll(n.doubleValue()));
     }
 
     @FXML public void goToEditProfile() { Navigation.loadEditProfile(); }
 
     @FXML public void showPosts ()
     {
+        Navigation.setProfileTab("posts");
         selectTab(postsTab);
 
         try
@@ -71,6 +95,7 @@ public class ProfileController
 
     @FXML public void showReplies ()
     {
+        Navigation.setProfileTab("replies");
         selectTab(repliesTab);
         tweetContainer.getChildren().clear();
         tweetContainer.getChildren().add(new Label("No replies yet"));
@@ -78,6 +103,7 @@ public class ProfileController
 
     @FXML public void showMedia ()
     {
+        Navigation.setProfileTab("media");
         selectTab(mediaTab);
         tweetContainer.getChildren().clear();
         tweetContainer.getChildren().add(new Label("No media yet"));
@@ -85,6 +111,7 @@ public class ProfileController
 
     @FXML public void showLikes ()
     {
+        Navigation.setProfileTab("likes");
         selectTab(likesTab);
 
         try

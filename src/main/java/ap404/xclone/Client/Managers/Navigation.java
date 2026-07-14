@@ -22,6 +22,8 @@ public class Navigation
     private static double homeScroll = 0;
     private static double exploreScroll = 0;
     private static double bookmarkScroll = 0;
+    private static double profileScroll = 0;
+    private static String profileTab = "posts";
 
     private static String composeText = "";
 
@@ -57,6 +59,12 @@ public class Navigation
 
     public static double getBookmarkScroll() { return bookmarkScroll; }
     public static void setBookmarkScroll(double value) { bookmarkScroll = value; }
+
+    public static double getProfileScroll() { return profileScroll; }
+    public static void setProfileScroll(double value) { profileScroll = value; }
+
+    public static String getProfileTab() { return profileTab; }
+    public static void setProfileTab(String tab) { profileTab = tab; }
 
     public static String getComposeText() { return composeText; }
     public static void setComposeText(String text) { composeText = text; }
