@@ -301,6 +301,25 @@ public class TweetDao {
             throw new RuntimeException();
         }
     }
+    
+    public boolean tweetExists(int tweetId) {
+        String sql = """
+                SELECT id FROM tweets WHERE id = ?
+                """;
+        try (
+                Connection connection = DatabaseConnection.getConnection();
+                PreparedStatement statement = connection.prepareStatement(sql)
+        ) {
+            statement.setInt(1, tweetId);
+
+            ResultSet resultSet = statement.executeQuery();
+            return resultSet.next();
+
+        } catch (SQLException e) {
+            System.out.println("Retweet error: " + e.getMessage());
+            return false;
+        }
+    }
 
     private Integer getIntegerOrNull(ResultSet resultSet, String columnName) throws SQLException {
         int value = resultSet.getInt(columnName);
