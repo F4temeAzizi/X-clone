@@ -4,4 +4,4 @@ CREATE TABLE Bookmarks (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 
     PRIMARY KEY (user_id, tweet_id)
-)
+);
