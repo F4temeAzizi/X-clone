@@ -17,5 +17,6 @@ public enum RequestType implements Serializable {
     GET_LIKED_TWEETS,
     BOOKMARK,
     UNBOOKMARK,
-    GET_BOOKMARKED_TWEETS
+    GET_BOOKMARKED_TWEETS,
+    RETWEET
 }
