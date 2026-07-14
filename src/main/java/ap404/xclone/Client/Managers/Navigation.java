@@ -1,5 +1,6 @@
 package ap404.xclone.Client.Managers;
 
+import ap404.xclone.Client.Controllers.ExploreController;
 import ap404.xclone.Client.Controllers.HomeController;
 import ap404.xclone.Client.Controllers.MainController;
 import ap404.xclone.Client.XApplication;
@@ -15,7 +16,13 @@ public class Navigation
     private static StackPane center;
     private static MainController mainController;
     private static HomeController homeController;
+    private static ExploreController exploreController;
     private static User selectedUser;
+
+    private static double homeScroll = 0;
+    private static double exploreScroll = 0;
+
+    private static String composeText = "";
 
     public static void loadHome() { load("home.fxml"); }
     public static void loadProfile() { load("profile.fxml"); }
@@ -35,8 +42,20 @@ public class Navigation
     public static void setMainController(MainController controller) { mainController = controller; }
     public static MainController getMainController() { return mainController; }
 
-    public static void setHomeController (HomeController controller) { homeController = controller;}
+    public static void setHomeController(HomeController controller) { homeController = controller;}
     public static HomeController getHomeController() { return homeController; }
+
+    public static void setExploreController(ExploreController controller) { exploreController = controller; }
+    public static ExploreController getExploreController() { return exploreController; }
+
+    public static double getHomeScroll() { return homeScroll; }
+    public static void setHomeScroll(double value) { homeScroll = value; }
+
+    public static double getExploreScroll() { return exploreScroll; }
+    public static void setExploreScroll(double value) { exploreScroll = value; }
+
+    public static String getComposeText() { return composeText; }
+    public static void setComposeText(String text) { composeText = text; }
 
     public static void setCenter(StackPane centerPane)
     {
@@ -56,7 +75,7 @@ public class Navigation
         }
     }
 
-    public static void navigate(String fxml) throws IOException{
+    public static void navigate(String fxml) throws IOException {
         Parent root = FXMLLoader.load(Navigation.class.getResource("/" + fxml));
         XApplication.getPrimaryStage().getScene().setRoot(root);
     }

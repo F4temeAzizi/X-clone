@@ -16,11 +16,10 @@
       spacing="0">
 
     <HBox styleClass="tab-container" spacing="25" alignment="TOP_CENTER">
-        <Label text="Live feeds" styleClass="tab-label-active"/>
-        <Label text="Following" styleClass="tab-label"/>
+        <Label text="  For you  " styleClass="tab-label-active"/>
     </HBox>
 
-    <ScrollPane
+    <ScrollPane fx:id="scrollPane"
             fitToWidth="true"
             hbarPolicy="NEVER"
             vbarPolicy="NEVER"
