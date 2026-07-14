@@ -301,7 +301,31 @@ public class TweetDao {
             throw new RuntimeException();
         }
     }
-    
+    public boolean retweet(int userId, int tweetId) {
+
+        if(!tweetExists(tweetId)) return false;
+
+        String sql = """
+                INSERT INTO tweets (user_id, content, retweet_of_id)
+                VALUES (?, NULL, ?)               
+                """;
+
+        try (
+                Connection connection = DatabaseConnection.getConnection();
+                PreparedStatement statement = connection.prepareStatement(sql)
+        ) {
+            statement.setInt(1, userId);
+            statement.setInt(2, tweetId);
+
+            statement.executeUpdate();
+            return true;
+
+        } catch (SQLException e) {
+            System.out.println("Retweet error: " + e.getMessage());
+            return false;
+        }
+    }
+
     public boolean tweetExists(int tweetId) {
         String sql = """
                 SELECT id FROM tweets WHERE id = ?
@@ -316,7 +340,7 @@ public class TweetDao {
             return resultSet.next();
 
         } catch (SQLException e) {
-            System.out.println("Retweet error: " + e.getMessage());
+            System.out.println("error finding tweet: " + e.getMessage());
             return false;
         }
     }
