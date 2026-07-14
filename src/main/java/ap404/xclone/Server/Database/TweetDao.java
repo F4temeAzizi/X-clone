@@ -345,6 +345,60 @@ public class TweetDao {
         }
     }
 
+    public boolean isRetweetedByUser(int userId , int tweetId) {
+        String sql = """
+                SELECT EXISTS (
+                SELECT 1
+                FROM tweets
+                WHERE retweet_of_id = ?
+                AND user_id = ?
+                ) AS is_retweeted
+                """;
+
+        try (
+                Connection connection = DatabaseConnection.getConnection();
+                PreparedStatement statement = connection.prepareStatement(sql)
+        ) {
+            statement.setInt(1, tweetId);
+            statement.setInt(2, userId);
+
+            ResultSet resultSet = statement.executeQuery();
+            if(resultSet.next()) {
+                return resultSet.getBoolean("is_retweeted");
+            }
+        } catch (SQLException e) {
+            System.out.println("error finding retweet: " + e.getMessage());
+        }
+        return false;
+    }
+
+    public int retweetCount(int tweetId) {
+        String sql = """
+            SELECT COUNT(*)
+            FROM tweets
+            WHERE retweet_of_id = ?
+            """;
+
+        try (
+                Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)
+        ) {
+
+            statement.setInt(1, tweetId);
+
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                return resultSet.getInt(1);
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Get retweet count error: " + e.getMessage());
+        }
+
+        return 0;
+    }
+
     private Integer getIntegerOrNull(ResultSet resultSet, String columnName) throws SQLException {
         int value = resultSet.getInt(columnName);
 
