@@ -9,8 +9,6 @@ CREATE TABLE tweets (
 
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 
-    is_retweet BOOLEAN DEFAULT FALSE,
-
     retweet_of_id INTEGER REFERENCES tweets(id) ON DELETE CASCADE,
 
 
