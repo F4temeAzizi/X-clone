@@ -22,11 +22,14 @@ public class ClientHandler implements Runnable {
     private Socket socket;
     private final ObjectOutputStream outputStream;
     private final ObjectInputStream inputStream;
+    private TweetDao tweetDao;
 
     public ClientHandler(Socket socket) throws IOException {
         this.socket = socket;
         outputStream = new ObjectOutputStream(socket.getOutputStream());
         inputStream = new ObjectInputStream(socket.getInputStream());
+
+        tweetDao = new TweetDao();
     }
 
 
@@ -122,8 +125,6 @@ public class ClientHandler implements Runnable {
 
                 CreateTweetRequest createTweetRequest = (CreateTweetRequest) request.getBody();
 
-                TweetDao tweetDao = new TweetDao();
-
                 boolean success = tweetDao.createTweet(
                         createTweetRequest.getUserId(),
                         createTweetRequest.getContent()
@@ -141,7 +142,6 @@ public class ClientHandler implements Runnable {
 
             case GET_ALL_TWEETS: {
 
-                TweetDao tweetDao = new TweetDao();
                 int currentUserId = (Integer) request.getBody();
 
                 outputStream.writeObject(
@@ -207,9 +207,6 @@ public class ClientHandler implements Runnable {
 
                 GetTweetsByUserRequest getTweetsByUserRequest = (GetTweetsByUserRequest) request.getBody();
 
-                TweetDao tweetDao = new TweetDao();
-
-
                 List<Tweet> tweets = tweetDao.getTweetsByUserId(getTweetsByUserRequest.getUserId(),
                                                                 getTweetsByUserRequest.getCurrentUserId());
 
@@ -230,8 +227,6 @@ public class ClientHandler implements Runnable {
 
                 DeleteTweetRequest deleteTweetRequest = (DeleteTweetRequest) request.getBody();
 
-                TweetDao tweetDao = new TweetDao();
-
                 boolean success = tweetDao.deleteTweet(deleteTweetRequest.getTweetId(), deleteTweetRequest.getUserId());
 
                 if (success)
@@ -250,8 +245,6 @@ public class ClientHandler implements Runnable {
             case EDIT_TWEET: {
 
                 EditTweetRequest editTweetRequest = (EditTweetRequest) request.getBody();
-
-                TweetDao tweetDao = new TweetDao();
 
                 boolean success = tweetDao.editTweet(editTweetRequest.getTweetId(),
                         editTweetRequest.getUserId(), editTweetRequest.getContent());
@@ -272,7 +265,6 @@ public class ClientHandler implements Runnable {
             case GET_LIKED_TWEETS: {
 
                 try {
-                    TweetDao tweetDao = new TweetDao();
                     GetLikedTweetsRequest getLikedTweetsRequest = (GetLikedTweetsRequest) request.getBody();
 
                     List<Tweet> tweets = tweetDao.getLikedTweets(getLikedTweetsRequest.getUserId(), getLikedTweetsRequest.getCurrentUserId());
@@ -328,7 +320,6 @@ public class ClientHandler implements Runnable {
 
                 try
                 {
-                    TweetDao tweetDao = new TweetDao();
                     GetBookmarkedTweetsRequest getBookmarkedTweetsRequest = (GetBookmarkedTweetsRequest) request.getBody();
 
                     List<Tweet> tweets = tweetDao.getBookmarkedTweets(getBookmarkedTweetsRequest.getUserId(),
@@ -345,6 +336,20 @@ public class ClientHandler implements Runnable {
                 break;
             }
 
+            case RETWEET: {
+
+                RetweetRequest retweetRequest = (RetweetRequest) request.getBody();
+
+                boolean retweeted = tweetDao.retweet(retweetRequest.getUserId(), retweetRequest.getTweetId());
+
+                if(retweeted)
+                    outputStream.writeObject(new Response(ResponseType.RETWEET_SUCCESS));
+                else
+                    outputStream.writeObject(new Response(ResponseType.RETWEET_FAILED));
+
+                outputStream.flush();
+                break;
+            }
         }
     }
 }
