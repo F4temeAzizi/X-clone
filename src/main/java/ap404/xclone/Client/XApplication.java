@@ -1,5 +1,6 @@
 package ap404.xclone.Client;
 
+import ap404.xclone.Client.Managers.ThemeManager;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -16,7 +17,9 @@ public class XApplication extends Application
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/login.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
+        ThemeManager.applyTheme(scene);
 
+        stage.setScene(scene);
         stage.setTitle("𝕏");
         stage.setScene(scene);
 

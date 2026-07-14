@@ -11,8 +11,9 @@
 
     <ScrollPane fitToWidth="true"
                 fitToHeight="true"
+                fx:id="scrollPane"
                 hbarPolicy="NEVER"
-                vbarPolicy="AS_NEEDED"
+                vbarPolicy="NEVER"
                 VBox.vgrow="ALWAYS"
                 styleClass="tweet-scroll">
 

@@ -1,11 +1,11 @@
 .root {
-    -color-bg: #000000;
-    -color-surface: #16181c;
-    -color-border: #2f3336;
+    -color-bg: #ffffff;
+    -color-surface: #f7f9f9;
+    -color-border: #d7dbdc;
 
-    -color-text: #ffffff;
-    -color-secondary: #71767b;
-    -color-input:#2f3336;
+    -color-text: #0f1419;
+    -color-secondary: #536471;
+    -color-input:#ffffff;
 
     -color-accent: #1d9bf0;
     -color-danger: #f91880;

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+
+<VBox xmlns="http://javafx.com/javafx/18"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="ap404.xclone.Client.Controllers.PrivacyController"
+      spacing="0"
+      stylesheets="@css/settings.css"
+      styleClass="settings-root">
+
+    <fx:define>
+        <ToggleGroup fx:id="themeGroup"/>
+    </fx:define>
+
+    <padding>
+        <Insets top="20" right="0" bottom="20" left="0"/>
+    </padding>
+
+    <HBox spacing="15" alignment="CENTER_LEFT" styleClass="settings-item">
+        <FontIcon iconLiteral="fas-arrow-left" styleClass="settings-arrow" onMouseClicked="#handleBack"/>
+        <Label text="Page privacy" styleClass="settings-title"/>
+    </HBox>
+
+    <HBox styleClass="settings-item">
+        <VBox spacing="4">
+            <Label text="Public" styleClass="settings-label"/>
+        </VBox>
+
+        <Region HBox.hgrow="ALWAYS"/>
+        <RadioButton fx:id="publicRadio" toggleGroup="$themeGroup"/>
+    </HBox>
+
+    <HBox styleClass="settings-item">
+        <VBox spacing="4">
+            <Label text="Private" styleClass="settings-label"/>
+        </VBox>
+
+        <Region HBox.hgrow="ALWAYS"/>
+        <RadioButton fx:id="privateRadio" toggleGroup="$themeGroup"/>
+    </HBox>
+</VBox>

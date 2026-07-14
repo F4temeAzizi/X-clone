@@ -2,6 +2,7 @@ package ap404.xclone.Client.Controllers;
 
 import ap404.xclone.Client.Client;
 import ap404.xclone.Client.Managers.Session;
+import ap404.xclone.Client.Managers.ThemeManager;
 import ap404.xclone.Shared.DTO.enums.RequestType;
 import ap404.xclone.Shared.DTO.enums.ResponseType;
 import ap404.xclone.Shared.DTO.request.*;
@@ -84,7 +85,7 @@ public class TweetController
             alert.setHeaderText("Are you sure you want to delete this tweet?");
 
             DialogPane dialogPane = alert.getDialogPane();
-            dialogPane.getStylesheets().add(getClass().getResource("/css/theme.css").toExternalForm());
+            dialogPane.getStylesheets().add(ThemeManager.getThemeCss());
             dialogPane.getStylesheets().add(getClass().getResource("/css/alert.css").toExternalForm());
             dialogPane.getStyleClass().add("alert");
 
@@ -125,7 +126,9 @@ public class TweetController
         controller.setTweet(tweet);
 
         Stage stage = new Stage();
-        stage.setScene(new Scene(root));
+        Scene scene = new Scene(root);
+        ThemeManager.applyTheme(scene);
+        stage.setScene(scene);
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setResizable(false);
         stage.showAndWait();

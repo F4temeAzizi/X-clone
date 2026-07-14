@@ -7,7 +7,7 @@
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="ap404.xclone.Client.Controllers.ExploreController"
       spacing="15"
-      stylesheets="@css/main.css,@css/theme.css,@css/home.css">
+      stylesheets="@css/main.css,@css/home.css">
 
     <padding>
         <Insets top="20" right="20" bottom="20" left="20"/>
@@ -15,11 +15,11 @@
 
     <TextField promptText="🔍 Search" styleClass="search-field" maxWidth="Infinity"/>
 
-
     <ScrollPane fitToWidth="true"
                 fitToHeight="true"
+                fx:id="scrollPane"
                 hbarPolicy="NEVER"
-                vbarPolicy="AS_NEEDED"
+                vbarPolicy="NEVER"
                 VBox.vgrow="ALWAYS"
                 styleClass="tweet-scroll">
 
@@ -27,5 +27,4 @@
             <VBox  fx:id="tweetContainer" spacing="18" VBox.vgrow="ALWAYS" styleClass="tweet-container"/>
         </content>
     </ScrollPane>
-
 </VBox>

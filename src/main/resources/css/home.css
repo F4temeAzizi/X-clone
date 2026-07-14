@@ -29,7 +29,7 @@
 }
 
 .tab-label:hover {
-    -fx-background-color: #181818;
+    -fx-background-color: -color-surface;
 }
 
 .compose-section {
@@ -90,7 +90,7 @@
 
 .option-icon-btn:hover,
 .post-btn:hover {
-    -fx-background-color: #333333;
+    -fx-background-color: -color-surface;
 }
 
 .post-btn {

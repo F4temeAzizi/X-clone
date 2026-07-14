@@ -6,6 +6,7 @@ import ap404.xclone.Client.Utils.UserUtil;
 import ap404.xclone.Shared.Models.Tweet;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -26,6 +27,7 @@ public class HomeController
     @FXML private VBox tweetContainer;
     @FXML private ImageView composeAvatar;
     @FXML private TextArea tweetTextArea;
+    @FXML private ScrollPane scrollPane;
 
     @FXML
     public void initialize() {
@@ -48,8 +50,17 @@ public class HomeController
         });
 
         Navigation.setHomeController(this);
+        tweetTextArea.setText(Navigation.getComposeText());
+        tweetTextArea.textProperty().addListener((obs, o, n) ->
+                Navigation.setComposeText(n));
+
         updateComposeAvatar();
         loadTweets();
+
+        scrollPane.layout();
+        scrollPane.setVvalue(Navigation.getHomeScroll());
+        scrollPane.vvalueProperty().addListener((obs, o, n) ->
+                Navigation.setHomeScroll(n.doubleValue()));
     }
 
     @FXML
@@ -76,6 +87,7 @@ public class HomeController
 
             if (response.getType() == ResponseType.CREATE_TWEET_SUCCESS) {
                 tweetTextArea.clear();
+                Navigation.setComposeText("");
                 loadTweets();
             }
 

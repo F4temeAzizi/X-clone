@@ -14,7 +14,7 @@
 .change-banner-btn:hover,
 .change-profile-btn:hover,
 .cancel-btn:hover {
-    -fx-background-color: #1b1b1b;
+    -fx-background-color: -color-surface;
 }
 
 .save-btn {
@@ -45,7 +45,7 @@
 
 .text-field,
 .text-area {
-    -fx-background-color: #2f3336 !important;
+    -fx-background-color: -color-input !important;
     -fx-background-radius: 10 !important;
     -fx-border-radius: 10 !important;
     -fx-border-color: #2f3336 !important;
@@ -58,7 +58,7 @@
 }
 
 .text-area .content{
-   -fx-background-color: #2f3336 !important;
+   -fx-background-color: -color-input !important;
    -fx-background-radius: 10 !important;
    -fx-border-radius: 10 !important;
    -fx-border-color: transparent !important;

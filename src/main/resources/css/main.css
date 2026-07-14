@@ -34,13 +34,12 @@
 }
 
 .nav-btn:hover {
-    -fx-background-color: #1A1A1A;
+    -fx-background-color: -color-surface;
     -fx-text-fill: -color-text;
 }
 
-
 .nav-btn:pressed {
-    -fx-background-color: #2A2A2A;
+    -fx-background-color: -color-input;
 }
 
 .logo-small {
@@ -62,7 +61,7 @@
 }
 
 .tweet-nav-btn:hover {
-    -fx-background-color: #e0e0e0;
+    -fx-background-color: -color-surface;
 }
 
 .tweet-nav-btn:pressed {
@@ -82,7 +81,7 @@
 }
 
 .profile-btn:hover {
-    -fx-background-color: #1A1A1A;
+    -fx-background-color: -color-surface;
     -fx-text-fill: #ffffff;
 }
 
