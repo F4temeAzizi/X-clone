@@ -77,3 +77,26 @@
     -fx-icon-color: #1d9bf0;
     -fx-fill: #1d9bf0;
 }
+
+.retweeted-tweet {
+    -fx-background-color: #f5f8fa;
+    -fx-border-color: #aab8c2;
+    -fx-border-width: 0 0 0 2;
+    -fx-border-radius: 0 4 4 0;
+}
+
+.retweet-header {
+    -fx-padding: 0 0 5 0;
+    -fx-alignment: center-left;
+}
+
+.retweet-icon {
+    -fx-icon-size: 14px;
+    -fx-fill: #657786;
+}
+
+.retweeted-by {
+    -fx-text-fill: #657786;
+    -fx-font-size: 12px;
+    -fx-font-weight: normal;
+}
