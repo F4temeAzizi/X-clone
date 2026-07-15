@@ -10,7 +10,6 @@ public class TweetDao {
 
     private LikeDao likeDao = new LikeDao();
     private BookmarkDao bookmarkDao = new BookmarkDao();
-    private TweetDao tweetDao = new TweetDao();
 
     public boolean createTweet(int userId, String content) {
         String sql = """
@@ -73,8 +72,8 @@ public class TweetDao {
                         likeDao.isLiked(currentUserId, resultSet.getInt("id")),
                         resultSet.getString("profile_image_url"),
                         bookmarkDao.isBookmarked(currentUserId, resultSet.getInt("id")),
-                        tweetDao.getRetweetCount(resultSet.getInt("id")),
-                        tweetDao.isRetweetedByUser(currentUserId, resultSet.getInt("id"))
+                        getRetweetCount(resultSet.getInt("id")),
+                        isRetweetedByUser(currentUserId, resultSet.getInt("id"))
                 );
 
                 tweets.add(tweet);
@@ -129,8 +128,8 @@ public class TweetDao {
                             likeDao.isLiked(currentUserId, resultSet.getInt("id")),
                             resultSet.getString("profile_image_url"),
                             bookmarkDao.isBookmarked(currentUserId, resultSet.getInt("id")),
-                            tweetDao.getRetweetCount(resultSet.getInt("id")),
-                            tweetDao.isRetweetedByUser(currentUserId, resultSet.getInt("id"))
+                            getRetweetCount(resultSet.getInt("id")),
+                            isRetweetedByUser(currentUserId, resultSet.getInt("id"))
                     );
 
                     tweets.add(tweet);
@@ -233,8 +232,8 @@ public class TweetDao {
                             likeDao.isLiked(currentUserId, resultSet.getInt("id")),
                             resultSet.getString("profile_image_url"),
                             bookmarkDao.isBookmarked(currentUserId, resultSet.getInt("id")),
-                            tweetDao.getRetweetCount(resultSet.getInt("id")),
-                            tweetDao.isRetweetedByUser(currentUserId, resultSet.getInt("id"))
+                            getRetweetCount(resultSet.getInt("id")),
+                            isRetweetedByUser(currentUserId, resultSet.getInt("id"))
                     );
 
                     tweets.add(tweet);
@@ -295,8 +294,8 @@ public class TweetDao {
                             likeDao.isLiked(currentUserId, resultSet.getInt("id")),
                             resultSet.getString("profile_image_url"),
                             bookmarkDao.isBookmarked(currentUserId, resultSet.getInt("id")),
-                            tweetDao.getRetweetCount(resultSet.getInt("id")),
-                            tweetDao.isRetweetedByUser(currentUserId, resultSet.getInt("id"))
+                            getRetweetCount(resultSet.getInt("id")),
+                            isRetweetedByUser(currentUserId, resultSet.getInt("id"))
                     );
 
                     tweets.add(tweet);
