@@ -1,11 +1,10 @@
 package ap404.xclone.Server;
 
-import ap404.xclone.Server.Database.BookmarkDao;
-import ap404.xclone.Server.Database.LikeDao;
-import ap404.xclone.Server.Database.UserDao;
+import ap404.xclone.Server.Database.*;
 import ap404.xclone.Shared.DTO.request.*;
 import ap404.xclone.Shared.DTO.response.Response;
 import ap404.xclone.Shared.DTO.enums.ResponseType;
+import ap404.xclone.Shared.Models.Media;
 import ap404.xclone.Shared.Models.Tweet;
 import ap404.xclone.Shared.Models.User;
 
@@ -14,8 +13,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.List;
-
-import ap404.xclone.Server.Database.TweetDao;
 
 public class ClientHandler implements Runnable {
 
@@ -123,13 +120,17 @@ public class ClientHandler implements Runnable {
                 CreateTweetRequest createTweetRequest = (CreateTweetRequest) request.getBody();
 
                 TweetDao tweetDao = new TweetDao();
+                MediaDao mediaDao = new MediaDao();
 
-                boolean success = tweetDao.createTweet(
+                int id = tweetDao.createTweet(
                         createTweetRequest.getUserId(),
                         createTweetRequest.getContent()
                 );
 
-                if (success) {
+                if (id != -1) {
+                    for (Media media : createTweetRequest.getMedia()) {
+                        mediaDao.addMedia(id, media.getMediaUrl(), media.getMediaType(), media.getMediaOrder());
+                    }
                     outputStream.writeObject(new Response(ResponseType.CREATE_TWEET_SUCCESS));
                 } else {
                     outputStream.writeObject(new Response(ResponseType.CREATE_TWEET_FAILED));
