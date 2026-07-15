@@ -8,6 +8,7 @@ import ap404.xclone.Shared.DTO.enums.ResponseType;
 import ap404.xclone.Shared.DTO.request.*;
 import ap404.xclone.Client.Managers.Navigation;
 import ap404.xclone.Shared.DTO.response.Response;
+import ap404.xclone.Shared.Models.Media;
 import ap404.xclone.Shared.Models.Tweet;
 import ap404.xclone.Shared.Models.User;
 import javafx.fxml.FXML;
@@ -42,6 +43,7 @@ public class TweetController
     @FXML private ImageView avatarImage;
     @FXML private Label timeLabel;
     @FXML private HBox tweetRoot;
+    @FXML private HBox mediaContainer;
 
     private Tweet tweet;
 
@@ -51,6 +53,23 @@ public class TweetController
         nameLabel.setText(tweet.getName());
         usernameLabel.setText(tweet.getUsername());
         contentLabel.setText(tweet.getContent());
+
+        mediaContainer.getChildren().clear();
+        if (tweet.getMedia() != null)
+        {
+            for (Media media: tweet.getMedia())
+            {
+                ImageView imageView = new ImageView();
+
+                imageView.setFitHeight(200);
+                imageView.setFitWidth(200);
+
+                imageView.setPreserveRatio(true);
+
+                imageView.setImage(new Image("file:" + media.getMediaUrl()));
+                mediaContainer.getChildren().add(imageView);
+            }
+        }
 
         boolean isCurrentUser = (Session.getCurrentUser().getId() == tweet.getUserId());
         moreBtn.setVisible(isCurrentUser);

@@ -45,6 +45,8 @@
 
         <Label fx:id="contentLabel" wrapText="true" text="Tweet Content" styleClass="tweet-content"/>
 
+        <HBox fx:id="mediaContainer" spacing="8" alignment="CENTER_LEFT"/>
+
         <HBox spacing="35" alignment="CENTER_LEFT" styleClass="tweet-actions">
             <Button fx:id="commentBtn" styleClass="tweet-action-btn">
                 <graphic>
