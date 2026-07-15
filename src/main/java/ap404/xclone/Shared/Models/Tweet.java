@@ -2,6 +2,7 @@ package ap404.xclone.Shared.Models;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.List;
 
 public class Tweet implements Serializable {
 
@@ -22,6 +23,8 @@ public class Tweet implements Serializable {
     private String avatarImageUrl;
 
     private boolean isBookmarkedByUser;
+
+    private List<Media> media;
 
     public Tweet(int id, int userId, String content, Timestamp createdAt,
                  boolean isRetweet, Integer retweetOfId, Integer replyToId,
@@ -44,13 +47,20 @@ public class Tweet implements Serializable {
     }
 
     public String getAvatarImageUrl() { return avatarImageUrl; }
-
     public int getId() {
         return id;
     }
-
     public int getUserId() {
         return userId;
+    }
+    public String getName() {
+        return name;
+    }
+    public String getUsername() {
+        return username;
+    }
+    public Timestamp getCreatedAt() {
+        return createdAt;
     }
 
     public String getContent() {
@@ -60,29 +70,14 @@ public class Tweet implements Serializable {
         this.content = content;
     }
 
-
-    public Timestamp getCreatedAt() {
-        return createdAt;
-    }
-
     public boolean isRetweet() {
         return isRetweet;
     }
-
     public Integer getRetweetOfId() {
         return retweetOfId;
     }
-
     public Integer getReplyToId() {
         return replyToId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getUsername() {
-        return username;
     }
 
     public int getLikeCount() { return likeCount; }
@@ -93,4 +88,7 @@ public class Tweet implements Serializable {
 
     public boolean isBookmarkedByUser() { return isBookmarkedByUser; }
     public void setBookmarkedByUser(boolean isBookmarkedByUser) { this.isBookmarkedByUser = isBookmarkedByUser; }
+
+    public List<Media> getMedia() { return media; }
+    public void setMedia(List<Media> media) { this.media = media; }
 }
