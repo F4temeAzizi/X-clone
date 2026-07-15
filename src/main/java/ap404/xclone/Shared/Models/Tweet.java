@@ -6,36 +6,37 @@ import java.sql.Timestamp;
 public class Tweet implements Serializable {
 
     private int id;
-    private int userId;
     private String content;
     private Timestamp createdAt;
-
-    private boolean isRetweet;
     private Integer retweetOfId;
     private Integer replyToId;
 
+    private int userId;
     private String name;
     private String username;
+
     private int likeCount;
     private boolean isLikedByUser;
 
     private int retweetCount;
+    private boolean isRetweet;
     private boolean isRetweetedByUser;
+    private Tweet originalTweet;
 
     private String avatarImageUrl;
 
     private boolean isBookmarkedByUser;
 
     public Tweet(int id, int userId, String content, Timestamp createdAt,
-                 boolean isRetweet, Integer retweetOfId, Integer replyToId,
+                 Integer retweetOfId, Integer replyToId,
                  String name, String username, int likeCount, boolean isLikedByUser,
-                 String avatarImageUrl, boolean isBookmarkedByUser, int retweetCount, boolean isRetweetedByUser)
-    {
+                 String avatarImageUrl, boolean isBookmarkedByUser, int retweetCount, boolean isRetweet,
+                 boolean isRetweetedByUser
+    ) {
         this.id = id;
         this.userId = userId;
         this.content = content;
         this.createdAt = createdAt;
-        this.isRetweet = isRetweet;
         this.retweetOfId = retweetOfId;
         this.replyToId = replyToId;
         this.name = name;
@@ -45,6 +46,7 @@ public class Tweet implements Serializable {
         this.avatarImageUrl = avatarImageUrl;
         this.isBookmarkedByUser = isBookmarkedByUser;
         this.retweetCount = retweetCount;
+        this.isRetweet = isRetweet;
         this.isRetweetedByUser = isRetweetedByUser;
     }
 
@@ -68,10 +70,6 @@ public class Tweet implements Serializable {
 
     public Timestamp getCreatedAt() {
         return createdAt;
-    }
-
-    public boolean isRetweet() {
-        return isRetweet;
     }
 
     public Integer getRetweetOfId() {
@@ -102,6 +100,11 @@ public class Tweet implements Serializable {
     public int getRetweetCount() { return retweetCount; }
     public void setRetweetCount(int retweetCount) { this.retweetCount = retweetCount; }
 
-    public boolean isRetweetedByUser() { return isRetweetedByUser; }
-    public void setRetweetedByUser(boolean isRetweetedByUser) { this.isRetweetedByUser = isRetweetedByUser; }
+    public boolean isRetweet() { return isRetweet; }
+    public void setRetweet(boolean isRetweet) { this.isRetweet = isRetweet; }
+
+    public boolean isRetweetedByUser() {return isRetweetedByUser; }
+
+    public Tweet getOriginalTweet() { return originalTweet; }
+    public void setOriginalTweet(Tweet originalTweet) { this.originalTweet = originalTweet; }
 }
