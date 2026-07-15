@@ -78,25 +78,50 @@
     -fx-fill: #1d9bf0;
 }
 
-.retweeted-tweet {
-    -fx-background-color: #f5f8fa;
-    -fx-border-color: #aab8c2;
-    -fx-border-width: 0 0 0 2;
-    -fx-border-radius: 0 4 4 0;
+.retweetBtn {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-background-radius: 20;
+    -fx-padding: 5 10;
+    -fx-cursor: hand;
 }
 
-.retweet-header {
-    -fx-padding: 0 0 5 0;
-    -fx-alignment: center-left;
+.retweetBtn:hover {
+    -fx-background-color: rgba(23, 191, 99, 0.15);
 }
 
-.retweet-icon {
-    -fx-icon-size: 14px;
+.retweetBtn .tweet-icon {
     -fx-fill: #657786;
+    -fx-icon-color: #657786;
 }
 
-.retweeted-by {
+.retweetBtn:hover .tweet-icon {
+    -fx-fill: #17bf63 !important;
+    -fx-icon-color: #17bf63 !important;
+}
+
+.retweetBtn .tweet-count {
     -fx-text-fill: #657786;
-    -fx-font-size: 12px;
-    -fx-font-weight: normal;
+}
+
+.retweetBtn:hover .tweet-count {
+    -fx-text-fill: #17bf63 !important;
+}
+
+.retweetBtn.retweeted-active .tweet-icon {
+    -fx-fill: #17bf63 !important;
+    -fx-icon-color: #17bf63 !important;
+}
+
+.retweetBtn.retweeted-active .tweet-count {
+    -fx-text-fill: #17bf63 !important;
+}
+
+.retweetBtn.retweeted-active:hover {
+    -fx-background-color: rgba(23, 191, 99, 0.25);
+}
+
+.retweetBtn:pressed {
+    -fx-scale-x: 0.95;
+    -fx-scale-y: 0.95;
 }
