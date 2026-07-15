@@ -104,6 +104,7 @@ public class Tweet implements Serializable {
     public void setRetweet(boolean isRetweet) { this.isRetweet = isRetweet; }
 
     public boolean isRetweetedByUser() {return isRetweetedByUser; }
+    public void setRetweetedByUser(boolean isRetweetedByUser) { this.isRetweetedByUser = isRetweetedByUser; }
 
     public Tweet getOriginalTweet() { return originalTweet; }
     public void setOriginalTweet(Tweet originalTweet) { this.originalTweet = originalTweet; }
