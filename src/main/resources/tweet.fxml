@@ -61,7 +61,7 @@
                 </graphic>
             </Button>
 
-            <Button fx:id="retweetBtn" styleClass="tweet-action-btn, retweetBtn" onAction="#repost">
+            <Button fx:id="retweetBtn" styleClass="tweet-action-btn, retweetBtn" onAction="#handleRetweet">
                 <graphic>
                     <HBox spacing="6" alignment="CENTER">
                         <FontIcon iconLiteral="fas-retweet" styleClass="tweet-icon"/>
