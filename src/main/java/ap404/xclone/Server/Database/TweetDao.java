@@ -1,5 +1,6 @@
 package ap404.xclone.Server.Database;
 
+import ap404.xclone.Shared.Models.Media;
 import ap404.xclone.Shared.Models.Tweet;
 
 import java.sql.*;
@@ -10,8 +11,9 @@ public class TweetDao {
 
     private LikeDao likeDao = new LikeDao();
     private BookmarkDao bookmarkDao = new BookmarkDao();
+    private MediaDao mediaDao = new MediaDao();
 
-    public boolean createTweet(int userId, String content) {
+    public int createTweet(int userId, String content) {
         String sql = """
                 INSERT INTO tweets (user_id, content)
                 VALUES (?, ?)
@@ -19,18 +21,21 @@ public class TweetDao {
 
         try (
                 Connection connection = DatabaseConnection.getConnection();
-                PreparedStatement statement = connection.prepareStatement(sql)
+                PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)
         ) {
             statement.setInt(1, userId);
             statement.setString(2, content);
 
             statement.executeUpdate();
-            return true;
+
+            ResultSet resultSet = statement.getGeneratedKeys();
+
+            if (resultSet.next()) return resultSet.getInt(1);
 
         } catch (SQLException e) {
             System.out.println("Create tweet error: " + e.getMessage());
-            return false;
         }
+        return -1;
     }
 
     public List<Tweet> getAllTweets(int currentUserId) {
@@ -73,7 +78,7 @@ public class TweetDao {
                         resultSet.getString("profile_image_url"),
                         bookmarkDao.isBookmarked(currentUserId, resultSet.getInt("id"))
                 );
-
+                tweet.setMedia(mediaDao.getMediaByTweetId(tweet.getId()));
                 tweets.add(tweet);
             }
 
@@ -128,6 +133,7 @@ public class TweetDao {
                             bookmarkDao.isBookmarked(currentUserId, resultSet.getInt("id"))
                     );
 
+                    tweet.setMedia(mediaDao.getMediaByTweetId(tweet.getId()));
                     tweets.add(tweet);
                 }
             }
@@ -229,7 +235,7 @@ public class TweetDao {
                             resultSet.getString("profile_image_url"),
                             bookmarkDao.isBookmarked(currentUserId, resultSet.getInt("id"))
                     );
-
+                    tweet.setMedia(mediaDao.getMediaByTweetId(tweet.getId()));
                     tweets.add(tweet);
                 }
 
@@ -289,7 +295,7 @@ public class TweetDao {
                             resultSet.getString("profile_image_url"),
                             bookmarkDao.isBookmarked(currentUserId, resultSet.getInt("id"))
                     );
-
+                    tweet.setMedia(mediaDao.getMediaByTweetId(tweet.getId()));
                     tweets.add(tweet);
                 }
 
