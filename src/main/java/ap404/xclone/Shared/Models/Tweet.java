@@ -19,6 +19,9 @@ public class Tweet implements Serializable {
     private int likeCount;
     private boolean isLikedByUser;
 
+    private int retweetCount;
+    private boolean isRetweetedByUser;
+
     private String avatarImageUrl;
 
     private boolean isBookmarkedByUser;
@@ -26,7 +29,7 @@ public class Tweet implements Serializable {
     public Tweet(int id, int userId, String content, Timestamp createdAt,
                  boolean isRetweet, Integer retweetOfId, Integer replyToId,
                  String name, String username, int likeCount, boolean isLikedByUser,
-                 String avatarImageUrl, boolean isBookmarkedByUser)
+                 String avatarImageUrl, boolean isBookmarkedByUser, int retweetCount, boolean isRetweetedByUser)
     {
         this.id = id;
         this.userId = userId;
@@ -41,6 +44,8 @@ public class Tweet implements Serializable {
         this.isLikedByUser = isLikedByUser;
         this.avatarImageUrl = avatarImageUrl;
         this.isBookmarkedByUser = isBookmarkedByUser;
+        this.retweetCount = retweetCount;
+        this.isRetweetedByUser = isRetweetedByUser;
     }
 
     public String getAvatarImageUrl() { return avatarImageUrl; }
@@ -93,4 +98,10 @@ public class Tweet implements Serializable {
 
     public boolean isBookmarkedByUser() { return isBookmarkedByUser; }
     public void setBookmarkedByUser(boolean isBookmarkedByUser) { this.isBookmarkedByUser = isBookmarkedByUser; }
+
+    public int getRetweetCount() { return retweetCount; }
+    public void setRetweetCount(int retweetCount) { this.retweetCount = retweetCount; }
+
+    public boolean isRetweetedByUser() { return isRetweetedByUser; }
+    public void setRetweetedByUser(boolean isRetweetedByUser) { this.isRetweetedByUser = isRetweetedByUser; }
 }
