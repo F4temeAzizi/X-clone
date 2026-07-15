@@ -34,7 +34,7 @@
 
         <HBox fx:id="retweetHeader" spacing="6" alignment="CENTER_LEFT" visible="false" managed="false">
             <FontIcon iconLiteral="fas-retweet" styleClass="retweet-icon" fill="#657786"/>
-            <Label fx:id="retweetedByLabel" text="Retweeted" styleClass="retweet-text"/>
+            <Label fx:id="retweetedByLabel" text="Retweeted" styleClass="retweeted-by"/>
         </HBox>
 
         <HBox spacing="8" HBox.hgrow="ALWAYS">
@@ -61,11 +61,11 @@
                 </graphic>
             </Button>
 
-            <Button fx:id="retweetBtn" styleClass="tweet-action-btn" onAction="#repost">
+            <Button fx:id="retweetBtn" styleClass="tweet-action-btn, retweetBtn" onAction="#repost">
                 <graphic>
                     <HBox spacing="6" alignment="CENTER">
                         <FontIcon iconLiteral="fas-retweet" styleClass="tweet-icon"/>
-                        <Label text="0" styleClass="tweet-count"/>
+                        <Label fx:id="retweetCountLabel" text="0" styleClass="tweet-count"/>
                     </HBox>
                 </graphic>
             </Button>
