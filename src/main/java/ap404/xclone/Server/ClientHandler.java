@@ -350,6 +350,21 @@ public class ClientHandler implements Runnable {
                 outputStream.flush();
                 break;
             }
+
+            case UNRETWEET: {
+
+                UnretweetRequest unretweetRequest = (UnretweetRequest) request.getBody();
+
+                boolean unretweet = tweetDao.unretweet(unretweetRequest.getUserId(), unretweetRequest.getRootTweetId());
+
+                if(unretweet)
+                    outputStream.writeObject(new Response(ResponseType.UNRETWEET_SUCCESS));
+                else
+                    outputStream.writeObject(new Response(ResponseType.UNRETWEET_FAILED));
+
+                outputStream.flush();
+                break;
+            }
         }
     }
 }
