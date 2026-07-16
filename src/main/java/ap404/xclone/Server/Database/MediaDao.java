@@ -74,4 +74,25 @@ public class MediaDao
             return false;
         }
     }
+
+    public boolean deleteMediaByTweetId(int tweetId)
+    {
+        String sql = """
+                DELETE FROM media
+                WHERE tweet_id = ?
+                """;
+
+        try (Connection connection = DatabaseConnection.getConnection();
+            PreparedStatement statement = connection.prepareStatement(sql))
+        {
+            statement.setInt(1,tweetId);
+            statement.executeUpdate();
+            return true;
+        }
+        catch (SQLException e)
+        {
+            System.out.println("Delete media error: " + e.getMessage());
+            return false;
+        }
+    }
 }

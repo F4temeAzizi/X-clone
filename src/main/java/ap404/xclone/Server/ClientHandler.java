@@ -253,12 +253,21 @@ public class ClientHandler implements Runnable {
                 EditTweetRequest editTweetRequest = (EditTweetRequest) request.getBody();
 
                 TweetDao tweetDao = new TweetDao();
+                MediaDao mediaDao = new MediaDao();
 
                 boolean success = tweetDao.editTweet(editTweetRequest.getTweetId(),
                         editTweetRequest.getUserId(), editTweetRequest.getContent());
 
                 if (success)
                 {
+                    mediaDao.deleteMediaByTweetId(editTweetRequest.getTweetId());
+
+                    for (int i = 0; i < editTweetRequest.getMedia().size(); i++)
+                    {
+                        Media media = editTweetRequest.getMedia().get(i);
+                        mediaDao.addMedia(editTweetRequest.getTweetId(), media.getMediaUrl(),
+                                media.getMediaType(), i);
+                    }
                     outputStream.writeObject(new Response(ResponseType.EDIT_TWEET_SUCCESS));
                 }
                 else
