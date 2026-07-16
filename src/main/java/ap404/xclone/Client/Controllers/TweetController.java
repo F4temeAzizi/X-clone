@@ -32,6 +32,10 @@ import java.util.Optional;
 
 public class TweetController
 {
+    @FXML private Label retweetCountLabel;
+    @FXML private Button retweetBtn;
+    @FXML private Label retweetedByLabel;
+    @FXML private HBox retweetHeader;
     @FXML private Label likeCountLabel;
     @FXML private Button likeBtn;
     @FXML private Button bookmarkBtn;
@@ -44,20 +48,42 @@ public class TweetController
     @FXML private HBox tweetRoot;
 
     private Tweet tweet;
+    private Tweet target;
 
     public void setTweet(Tweet tweet)
     {
         this.tweet = tweet;
-        nameLabel.setText(tweet.getName());
-        usernameLabel.setText(tweet.getUsername());
-        contentLabel.setText(tweet.getContent());
+
+        target = getRootTweet(tweet);
+
+        nameLabel.setText(target.getName());
+        usernameLabel.setText(target.getUsername());
+        contentLabel.setText(target.getContent());
+
+        if (target.getAvatarImageUrl() != null)
+            avatarImage.setImage(new Image(target.getAvatarImageUrl()));
+
 
         boolean isCurrentUser = (Session.getCurrentUser().getId() == tweet.getUserId());
         moreBtn.setVisible(isCurrentUser);
         moreBtn.setManaged(isCurrentUser);
 
+        if(tweet.isRetweet()){
+            retweetHeader.setVisible(true);
+            retweetHeader.setManaged(true);
+
+            if(isCurrentUser) {
+                retweetedByLabel.setText("You Retweeted");
+            }
+            else {
+                retweetedByLabel.setText(tweet.getUsername() + " Retweeted");
+            }
+        }
+
+        updateRetweetUI();
         updateLikeUI();
         updateBookmarkUI();
+        timeLabel.setText(formatTime(tweet.getCreatedAt()));
     }
 
     @FXML
@@ -114,7 +140,7 @@ public class TweetController
     public void editTweet()
     {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/edit-tweet.fxml"));
-        Parent root = null;
+        Parent root;
 
         try {
             root = loader.load();
@@ -162,13 +188,13 @@ public class TweetController
 
     public void handleLike() throws IOException, ClassNotFoundException {
 
-        boolean liked = tweet.isLikedByUser();
+        boolean liked = target.isLikedByUser();
         Client client = Session.getClient();
 
         if(liked) {
             Request request = new Request(
                     RequestType.UNLIKE,
-                    new LikeRequest(Session.getCurrentUser().getId(), tweet.getId())
+                    new LikeRequest(Session.getCurrentUser().getId(), target.getId())
             );
 
             client.sendRequest(request);
@@ -176,15 +202,15 @@ public class TweetController
             ResponseType responseType = client.getResponse().getType();
 
             if(responseType == ResponseType.UNLIKE_SUCCESS) {
-                tweet.setLikeCount(tweet.getLikeCount() - 1);
-                tweet.setLikedByUser(false);
+                target.setLikeCount(target.getLikeCount() - 1);
+                target.setLikedByUser(false);
                 updateLikeUI();
             }
         }
         else {
             Request request = new Request(
                     RequestType.LIKE,
-                    new LikeRequest(Session.getCurrentUser().getId(), tweet.getId())
+                    new LikeRequest(Session.getCurrentUser().getId(), target.getId())
             );
 
             client.sendRequest(request);
@@ -192,58 +218,56 @@ public class TweetController
             ResponseType responseType = client.getResponse().getType();
 
             if(responseType == ResponseType.LIKE_SUCCESS) {
-                tweet.setLikeCount(tweet.getLikeCount() + 1);
-                tweet.setLikedByUser(true);
+                target.setLikeCount(target.getLikeCount() + 1);
+                target.setLikedByUser(true);
                 updateLikeUI();
             }
         }
     }
 
     private void updateLikeUI() {
-        likeCountLabel.setText(String.valueOf(tweet.getLikeCount()));
 
-        if (tweet.isLikedByUser()) {
+        likeCountLabel.setText(String.valueOf(target.getLikeCount()));
+
+        if (target.isLikedByUser()) {
             if (!likeBtn.getStyleClass().contains("liked")) {
                 likeBtn.getStyleClass().add("liked");
             }
-        } else
+         } else
             likeBtn.getStyleClass().remove("liked");
 
-        if (tweet.getAvatarImageUrl() != null)
-            avatarImage.setImage(new Image(tweet.getAvatarImageUrl()));
-        timeLabel.setText(formatTime(tweet.getCreatedAt()));
     }
 
     public void handleBookmark() throws IOException, ClassNotFoundException
     {
-        boolean bookmarked = tweet.isBookmarkedByUser();
+        boolean bookmarked = target.isBookmarkedByUser();
         Client client = Session.getClient();
 
         if (bookmarked)
         {
             Request request = new Request(RequestType.UNBOOKMARK,
-                    new BookmarkRequest(Session.getCurrentUser().getId(), tweet.getId()));
+                    new BookmarkRequest(Session.getCurrentUser().getId(), target.getId()));
 
             client.sendRequest(request);
             ResponseType responseType = client.getResponse().getType();
 
             if (responseType == ResponseType.UNBOOKMARK_SUCCESS)
             {
-                tweet.setBookmarkedByUser(false);
+                target.setBookmarkedByUser(false);
                 updateBookmarkUI();
             }
         }
         else
         {
             Request request = new Request(RequestType.BOOKMARK,
-                    new BookmarkRequest(Session.getCurrentUser().getId(), tweet.getId()));
+                    new BookmarkRequest(Session.getCurrentUser().getId(), target.getId()));
 
             client.sendRequest(request);
             ResponseType responseType = client.getResponse().getType();
 
             if (responseType == ResponseType.BOOKMARK_SUCCESS)
             {
-                tweet.setBookmarkedByUser(true);
+                target.setBookmarkedByUser(true);
                 updateBookmarkUI();
             }
         }
@@ -251,7 +275,8 @@ public class TweetController
 
     private void updateBookmarkUI()
     {
-      if (tweet.isBookmarkedByUser())
+
+      if (target.isBookmarkedByUser())
       {
           if (!bookmarkBtn.getStyleClass().contains("bookmarked"))
           {
@@ -277,13 +302,14 @@ public class TweetController
 
     @FXML
     private void showProfile() {
-        if (tweet.getUserId() == Session.getCurrentUser().getId()) Navigation.loadProfile();
+
+        if (target.getUserId() == Session.getCurrentUser().getId()) Navigation.loadProfile();
         else
         {
             try
             {
                 Client client = new Client();
-                GetUserByIdRequest getUserByIdRequest = new GetUserByIdRequest(tweet.getUserId());
+                GetUserByIdRequest getUserByIdRequest = new GetUserByIdRequest(target.getUserId());
                 client.sendRequest(new Request(RequestType.GET_USER_BY_ID, getUserByIdRequest));
 
                 Response response = client.getResponse();
@@ -302,5 +328,53 @@ public class TweetController
                 throw new RuntimeException(e);
             }
         }
+    }
+
+    public void handleRetweet() throws IOException, ClassNotFoundException {
+
+        boolean isRetweetedByUser = target.isRetweetedByUser();
+        Client client = Session.getClient();
+
+        if(!isRetweetedByUser) {
+
+            RetweetRequest retweetRequest = new RetweetRequest(
+                    Session.getCurrentUser().getId(),
+                    target.getId()
+            );
+
+            client.sendRequest(new Request(RequestType.RETWEET, retweetRequest));
+
+            Response response = client.getResponse();
+
+            if(response.getType() == ResponseType.RETWEET_SUCCESS) {
+                target.setRetweetCount(target.getRetweetCount()+1);
+                tweet.setOriginalTweet(target);
+                target.setRetweetedByUser(true);
+
+                updateRetweetUI();
+            }
+        }
+    }
+
+    public void updateRetweetUI() {
+
+        retweetCountLabel.setText(String.valueOf(target.getRetweetCount()));
+
+        if(target.isRetweetedByUser()) {
+            if(!retweetBtn.getStyleClass().contains("retweeted-active")){
+                retweetBtn.getStyleClass().add("retweeted-active");
+            }
+        }
+        else
+            retweetBtn.getStyleClass().remove("retweeted-active");
+    }
+
+    public Tweet getRootTweet(Tweet tweet) {
+
+        while (tweet.isRetweet() && tweet.getOriginalTweet() != null) {
+            tweet = tweet.getOriginalTweet();
+        }
+
+        return tweet;
     }
 }
