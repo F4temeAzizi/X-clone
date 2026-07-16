@@ -5,6 +5,9 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.stage.FileChooser;
+import javafx.stage.Window;
+
 import java.io.File;
 import java.util.List;
 
@@ -140,6 +143,25 @@ public class MediaUtil
         imageView.setPreserveRatio(p);
 
         return new StackPane(imageView);
+    }
+
+    public static void addPhotos(FlowPane previewPane, List<Media> mediaList, Window owner)
+    {
+        FileChooser chooser = new FileChooser();
+        chooser.getExtensionFilters().add(
+                new FileChooser.ExtensionFilter("Images", "*.png", "*.jpg", "*.jpeg"));
+
+        List<File> files = chooser.showOpenMultipleDialog(owner);
+
+        if (files == null) return;
+
+        for (File file : files)
+        {
+            if (mediaList.size() == 4) break;
+            mediaList.add(new Media(file.getAbsolutePath(), "image", mediaList.size()));
+            showPreview(previewPane, mediaList);
+        }
+        System.out.println(mediaList.size());
     }
 }
 

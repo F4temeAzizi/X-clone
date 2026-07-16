@@ -86,24 +86,6 @@ public class PostController
     @FXML
     public void addPhoto()
     {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.getExtensionFilters().add(
-                new FileChooser.ExtensionFilter("Images","*.png","*.jpg","*.jpeg"));
-
-        List<File> files = fileChooser.showOpenMultipleDialog(tweetArea.getScene().getWindow());
-
-        if (files == null) return;
-
-        for (File file : files)
-        {
-            if (mediaList.size() == 4) break;
-            mediaList.add(new Media(
-                    file.getAbsolutePath(),
-                    "image",
-                    mediaList.size()
-            ));
-            MediaUtil.showPreview(previewPane, mediaList);
-        }
-        System.out.println(mediaList.size());
+        MediaUtil.addPhotos(previewPane, mediaList, tweetArea.getScene().getWindow());
     }
 }
