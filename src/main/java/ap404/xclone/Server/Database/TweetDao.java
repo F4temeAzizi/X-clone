@@ -235,7 +235,7 @@ public class TweetDao {
                     (SELECT COUNT(*) FROM likes WHERE tweet_id = t.id) AS like_count,
                      EXISTS (SELECT 1 FROM likes WHERE tweet_id = t.id AND user_id = ?) AS is_liked_by_user,
                     (SELECT COUNT(*) FROM tweets r WHERE r.retweet_of_id = t.id) AS retweet_count,
-                    EXISTS (SELECT 1 FROM retweets WHERE tweet_id = t.id AND user_id = ?) AS is_retweeted_by_user
+                    EXISTS (SELECT 1 FROM tweets r WHERE r.retweet_of_id = t.id AND r.user_id = ?) AS is_retweeted_by_user
                 
                 FROM tweets t
                 JOIN users u ON t.user_id = u.id
