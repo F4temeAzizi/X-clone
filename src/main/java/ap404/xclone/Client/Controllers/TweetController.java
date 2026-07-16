@@ -3,6 +3,7 @@ package ap404.xclone.Client.Controllers;
 import ap404.xclone.Client.Client;
 import ap404.xclone.Client.Managers.Session;
 import ap404.xclone.Client.Managers.ThemeManager;
+import ap404.xclone.Client.Utils.MediaUtil;
 import ap404.xclone.Shared.DTO.enums.RequestType;
 import ap404.xclone.Shared.DTO.enums.ResponseType;
 import ap404.xclone.Shared.DTO.request.*;
@@ -18,6 +19,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
@@ -43,7 +45,7 @@ public class TweetController
     @FXML private ImageView avatarImage;
     @FXML private Label timeLabel;
     @FXML private HBox tweetRoot;
-    @FXML private HBox mediaContainer;
+    @FXML private FlowPane mediaContainer;
 
     private Tweet tweet;
 
@@ -54,22 +56,8 @@ public class TweetController
         usernameLabel.setText(tweet.getUsername());
         contentLabel.setText(tweet.getContent());
 
-        mediaContainer.getChildren().clear();
-        if (tweet.getMedia() != null)
-        {
-            for (Media media: tweet.getMedia())
-            {
-                ImageView imageView = new ImageView();
-
-                imageView.setFitHeight(200);
-                imageView.setFitWidth(200);
-
-                imageView.setPreserveRatio(true);
-
-                imageView.setImage(new Image("file:" + media.getMediaUrl()));
-                mediaContainer.getChildren().add(imageView);
-            }
-        }
+        if (tweet.getMedia() != null && !tweet.getMedia().isEmpty()) MediaUtil.showTweet(mediaContainer, tweet.getMedia());
+        else mediaContainer.getChildren().clear();
 
         boolean isCurrentUser = (Session.getCurrentUser().getId() == tweet.getUserId());
         moreBtn.setVisible(isCurrentUser);
