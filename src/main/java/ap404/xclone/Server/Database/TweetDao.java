@@ -510,6 +510,30 @@ public class TweetDao {
         return null;
     }
 
+    public boolean unretweet(int userId, int rootTweetId) {
+
+        String sql = """
+                DELETE FROM tweets
+                WHERE retweet_of_id = ? AND user_id = ?
+                """;
+
+        try (
+                Connection connection = DatabaseConnection.getConnection();
+                PreparedStatement statement = connection.prepareStatement(sql)
+        ) {
+            statement.setInt(1, rootTweetId);
+            statement.setInt(2, userId);
+
+            int rowsDeleted = statement.executeUpdate();
+
+            return rowsDeleted > 0;
+
+        } catch (SQLException e) {
+            System.out.println("unretweet error: " + e.getMessage());
+            return false;
+        }
+    }
+
     private Integer getIntegerOrNull(ResultSet resultSet, String columnName) throws SQLException {
         int value = resultSet.getInt(columnName);
 
