@@ -356,35 +356,21 @@ public class TweetController
 
         if(isRetweetedByUser) {
 
-            if (tweet.isRetweet()){ //if tweet is the retweet we simply delete it
+            UnretweetRequest unretweetRequest = new UnretweetRequest(Session.getCurrentUser().getId(), target.getId());
 
-                DeleteTweetRequest deleteTweetRequest = new DeleteTweetRequest(tweet.getId(), tweet.getUserId());
+            client.sendRequest(new Request(RequestType.UNRETWEET, unretweetRequest));
 
-                client.sendRequest(new Request(RequestType.DELETE_TWEET, deleteTweetRequest));
+            Response response = client.getResponse();
 
-                Response response = client.getResponse();
+            if(response.getType() == ResponseType.UNRETWEET_SUCCESS) {
 
-                if (response.getType() == ResponseType.DELETE_TWEET_SUCCESS) {
+                target.setRetweetCount(target.getRetweetCount() - 1);
+                target.setRetweetedByUser(false);
+
+                updateRetweetUI();
+
+                if (tweet.isRetweet() && tweet.getUserId() == Session.getCurrentUser().getId()) {
                     ((VBox) tweetRoot.getParent()).getChildren().remove(tweetRoot);
-
-                    target.setRetweetCount(target.getRetweetCount() - 1);
-                    target.setRetweetedByUser(false);
-                }
-            }
-            else { // if it's the root tweet, we should send Unretweet request
-
-                UnretweetRequest unretweetRequest = new UnretweetRequest(Session.getCurrentUser().getId(), target.getId());
-
-                client.sendRequest(new Request(RequestType.UNRETWEET, unretweetRequest));
-
-                Response response = client.getResponse();
-
-                if(response.getType() == ResponseType.UNRETWEET_SUCCESS) {
-
-                    target.setRetweetCount(target.getRetweetCount() - 1);
-                    target.setRetweetedByUser(false);
-
-                    updateRetweetUI();
                 }
             }
         }
