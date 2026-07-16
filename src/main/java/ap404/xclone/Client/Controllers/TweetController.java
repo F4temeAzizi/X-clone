@@ -30,6 +30,7 @@ import java.sql.Timestamp;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -141,15 +142,13 @@ public class TweetController
         stage.showAndWait();
 
         String newContent = controller.getEditedText();
-
-        if (newContent == null) return;
-        if (newContent.isBlank() || newContent.equals(tweet.getContent())) return;
+        List<Media> newMedia = controller.getEditedMedia();
 
         try
         {
             Client client = new Client();
 
-            EditTweetRequest editTweetRequest = new EditTweetRequest(tweet.getId(), tweet.getUserId(), newContent);
+            EditTweetRequest editTweetRequest = new EditTweetRequest(tweet.getId(), tweet.getUserId(), newContent, newMedia);
 
             client.sendRequest(new Request(RequestType.EDIT_TWEET, editTweetRequest));
 
@@ -158,6 +157,8 @@ public class TweetController
             if (response.getType() == ResponseType.EDIT_TWEET_SUCCESS)
             {
                 tweet.setContent(newContent);
+                tweet.setMedia(newMedia);
+                MediaUtil.showTweet(mediaContainer, newMedia);
                 contentLabel.setText(newContent);
             }
         }
