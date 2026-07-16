@@ -143,12 +143,14 @@ public class TweetDao {
 
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
+                    Integer retweetOfId = resultSet.getObject("retweet_of_id", Integer.class);
+
                     Tweet tweet = new Tweet(
                             resultSet.getInt("id"),
                             resultSet.getInt("user_id"),
                             resultSet.getString("content"),
                             resultSet.getTimestamp("created_at"),
-                            getIntegerOrNull(resultSet, "retweet_of_id"),
+                            retweetOfId,
                             getIntegerOrNull(resultSet, "reply_to_id"),
                             resultSet.getString("display_name"),
                             resultSet.getString("username"),
@@ -160,6 +162,11 @@ public class TweetDao {
                             isRetweet(resultSet.getInt("id")),
                             resultSet.getBoolean("is_retweeted_by_user")
                     );
+
+                    if (retweetOfId != null) {
+                        Tweet originalTweet = getTweetById(retweetOfId, currentUserId);
+                        tweet.setOriginalTweet(originalTweet);
+                    }
 
                     tweets.add(tweet);
                 }
@@ -257,12 +264,15 @@ public class TweetDao {
 
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
+
+                    Integer retweetOfId = resultSet.getObject("retweet_of_id", Integer.class);
+
                     Tweet tweet = new Tweet(
                             resultSet.getInt("id"),
                             resultSet.getInt("user_id"),
                             resultSet.getString("content"),
                             resultSet.getTimestamp("created_at"),
-                            getIntegerOrNull(resultSet, "retweet_of_id"),
+                            retweetOfId,
                             getIntegerOrNull(resultSet, "reply_to_id"),
                             resultSet.getString("display_name"),
                             resultSet.getString("username"),
@@ -275,6 +285,10 @@ public class TweetDao {
                             resultSet.getBoolean("is_retweeted_by_user")
                     );
 
+                    if (retweetOfId != null) {
+                        Tweet originalTweet = getTweetById(retweetOfId, currentUserId);
+                        tweet.setOriginalTweet(originalTweet);
+                    }
                     tweets.add(tweet);
                 }
 
@@ -329,12 +343,14 @@ public class TweetDao {
             {
                 while (resultSet.next())
                 {
+                    Integer retweetOfId = resultSet.getObject("retweet_of_id", Integer.class);
+
                     Tweet tweet = new Tweet(
                             resultSet.getInt("id"),
                             resultSet.getInt("user_id"),
                             resultSet.getString("content"),
                             resultSet.getTimestamp("created_at"),
-                            getIntegerOrNull(resultSet, "retweet_of_id"),
+                            retweetOfId,
                             getIntegerOrNull(resultSet, "reply_to_id"),
                             resultSet.getString("display_name"),
                             resultSet.getString("username"),
@@ -346,6 +362,11 @@ public class TweetDao {
                             isRetweet(resultSet.getInt("id")),
                             resultSet.getBoolean("is_retweeted_by_user")
                     );
+
+                    if (retweetOfId != null) {
+                        Tweet originalTweet = getTweetById(retweetOfId, currentUserId);
+                        tweet.setOriginalTweet(originalTweet);
+                    }
 
                     tweets.add(tweet);
                 }
