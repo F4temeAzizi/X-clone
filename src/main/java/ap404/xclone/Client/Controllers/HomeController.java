@@ -1,6 +1,7 @@
 package ap404.xclone.Client.Controllers;
 
 import ap404.xclone.Client.Managers.Navigation;
+import ap404.xclone.Client.Utils.MediaUtil;
 import ap404.xclone.Client.Utils.TweetUtil;
 import ap404.xclone.Client.Utils.UserUtil;
 import ap404.xclone.Shared.Models.Media;
@@ -88,7 +89,7 @@ public class HomeController
             CreateTweetRequest createTweetRequest = new CreateTweetRequest(
                     Session.getCurrentUser().getId(),
                     content,
-                    mediaList
+                    new ArrayList<>(mediaList)
             );
 
             Request request = new Request(RequestType.CREATE_TWEET, createTweetRequest);
@@ -99,8 +100,8 @@ public class HomeController
 
             if (response.getType() == ResponseType.CREATE_TWEET_SUCCESS) {
                 tweetTextArea.clear();
-                mediaList.clear();
-                previewPane.getChildren().clear();
+                mediaList = new ArrayList<>();
+                MediaUtil.showPreview(previewPane, mediaList);
                 Navigation.setComposeText("");
                 loadTweets();
             }
@@ -153,30 +154,9 @@ public class HomeController
 
         for (File file: files)
         {
-            Media media = new Media(file.getAbsolutePath(), "image", mediaList.size());
-            mediaList.add(media);
-
-            ImageView imageView = new ImageView(new Image(file.toURI().toString()));
-            imageView.setFitWidth(200);
-            imageView.setFitHeight(200);
-            imageView.setPreserveRatio(true);
-
-            Button remove = new Button("✕");
-
-            remove.setStyle("""
-            -fx-background-color:transparent;
-            -fx-text-fill:white;
-            -fx-background-radius:50;
-            """);
-
-            StackPane stackPane = new StackPane(imageView, remove);
-            StackPane.setAlignment(remove, javafx.geometry.Pos.TOP_RIGHT);
-
-            remove.setOnAction(e -> {
-                mediaList.remove(media);
-                previewPane.getChildren().remove(stackPane);
-            });
-            previewPane.getChildren().add(stackPane);
+            if (mediaList.size() == 4) break;
+            mediaList.add(new Media(file.getAbsolutePath(), "image", mediaList.size()));
+            MediaUtil.showPreview(previewPane, mediaList);
         }
         System.out.println(mediaList.size());
     }
