@@ -16,6 +16,7 @@ import java.net.Socket;
 import java.util.List;
 
 import ap404.xclone.Server.Database.TweetDao;
+import ap404.xclone.Server.Database.FollowDao;
 
 public class ClientHandler implements Runnable {
 
@@ -361,6 +362,77 @@ public class ClientHandler implements Runnable {
                     outputStream.writeObject(new Response(ResponseType.UNRETWEET_SUCCESS));
                 else
                     outputStream.writeObject(new Response(ResponseType.UNRETWEET_FAILED));
+
+                outputStream.flush();
+                break;
+            }
+            case FOLLOW: {
+
+                FollowRequest followRequest = (FollowRequest) request.getBody();
+
+                FollowDao followDao = new FollowDao();
+
+                boolean success = followDao.followUser(
+                        followRequest.getFollowerId(),
+                        followRequest.getFollowingId()
+                );
+
+                if (success) {
+                    outputStream.writeObject(
+                            new Response(ResponseType.FOLLOW_SUCCESS)
+                    );
+                } else {
+                    outputStream.writeObject(
+                            new Response(ResponseType.FOLLOW_FAILED)
+                    );
+                }
+
+                outputStream.flush();
+                break;
+            }
+
+            case UNFOLLOW: {
+
+                FollowRequest followRequest = (FollowRequest) request.getBody();
+
+                FollowDao followDao = new FollowDao();
+
+                boolean success = followDao.unfollowUser(
+                        followRequest.getFollowerId(),
+                        followRequest.getFollowingId()
+                );
+
+                if (success) {
+                    outputStream.writeObject(
+                            new Response(ResponseType.UNFOLLOW_SUCCESS)
+                    );
+                } else {
+                    outputStream.writeObject(
+                            new Response(ResponseType.UNFOLLOW_FAILED)
+                    );
+                }
+
+                outputStream.flush();
+                break;
+            }
+
+            case CHECK_FOLLOW: {
+
+                FollowRequest followRequest = (FollowRequest) request.getBody();
+
+                FollowDao followDao = new FollowDao();
+
+                boolean isFollowing = followDao.isFollowing(
+                        followRequest.getFollowerId(),
+                        followRequest.getFollowingId()
+                );
+
+                outputStream.writeObject(
+                        new Response(
+                                ResponseType.CHECK_FOLLOW_SUCCESS,
+                                isFollowing
+                        )
+                );
 
                 outputStream.flush();
                 break;
