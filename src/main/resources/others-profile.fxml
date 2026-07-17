@@ -55,7 +55,7 @@
                             <FontIcon iconLiteral="fas-comment" styleClass="edit-profile-btn"/>
                         </graphic>
                     </Button>
-                    <Button text="Follow" styleClass="edit-profile-btn" translateY="-35" onAction="#handleFollow"/>
+                    <Button fx:id="followButton" text="Follow" styleClass="edit-profile-btn" translateY="-35" onAction="#handleFollow"/>
 
                 </HBox>
 
