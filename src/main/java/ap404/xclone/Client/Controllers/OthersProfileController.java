@@ -19,6 +19,8 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 
 import java.util.List;
+import ap404.xclone.Shared.DTO.request.FollowRequest;
+import javafx.scene.control.Button;
 
 public class OthersProfileController
 {
@@ -33,11 +35,14 @@ public class OthersProfileController
     @FXML private Label mediaTab;
     @FXML private Label likesTab;
     @FXML private VBox tweetContainer;
+    @FXML private Button followButton;
+    private boolean following;
 
 
     public void initialize ()
     {
         UserUtil.loadUser(Navigation.getSelectedUser(), nameLbl, usernameLbl, bioLbl, avatarImage, bannerRegion, createdAtLbl);
+        checkFollowStatus();
         showPosts();
     }
 
@@ -119,5 +124,105 @@ public class OthersProfileController
         likesTab.getStyleClass().setAll("profile-tab");
 
         active.getStyleClass().setAll("profile-tab-active");
+    }
+
+    private void checkFollowStatus() {
+
+        try {
+            Client client = Session.getClient();
+
+            FollowRequest followRequest = new FollowRequest(
+                    Session.getCurrentUser().getId(),
+                    Navigation.getSelectedUser().getId()
+            );
+
+            client.sendRequest(
+                    new Request(RequestType.CHECK_FOLLOW, followRequest)
+            );
+
+            Response response = client.getResponse();
+
+            if (response.getType() == ResponseType.CHECK_FOLLOW_SUCCESS) {
+
+                following = (Boolean) response.getBody();
+
+                updateFollowButton();
+            }
+
+        } catch (Exception e) {
+            System.out.println(
+                    "Check follow status failed: " + e.getMessage()
+            );
+        }
+    }
+    @FXML
+    public void handleFollow() {
+
+        if (following) {
+            unfollowUser();
+        } else {
+            followUser();
+        }
+    }
+
+    private void followUser() {
+
+        try {
+            Client client = Session.getClient();
+
+            FollowRequest followRequest = new FollowRequest(
+                    Session.getCurrentUser().getId(),
+                    Navigation.getSelectedUser().getId()
+            );
+
+            client.sendRequest(
+                    new Request(RequestType.FOLLOW, followRequest)
+            );
+
+            Response response = client.getResponse();
+
+            if (response.getType() == ResponseType.FOLLOW_SUCCESS) {
+
+                following = true;
+                updateFollowButton();
+            }
+
+        } catch (Exception e) {
+            System.out.println("Follow failed: " + e.getMessage());
+        }
+    }
+    private void unfollowUser() {
+
+        try {
+            Client client = Session.getClient();
+
+            FollowRequest followRequest = new FollowRequest(
+                    Session.getCurrentUser().getId(),
+                    Navigation.getSelectedUser().getId()
+            );
+
+            client.sendRequest(
+                    new Request(RequestType.UNFOLLOW, followRequest)
+            );
+
+            Response response = client.getResponse();
+
+            if (response.getType() == ResponseType.UNFOLLOW_SUCCESS) {
+
+                following = false;
+                updateFollowButton();
+            }
+
+        } catch (Exception e) {
+            System.out.println("Unfollow failed: " + e.getMessage());
+        }
+    }
+    private void updateFollowButton() {
+
+        if (following) {
+            followButton.setText("Following");
+        } else {
+            followButton.setText("Follow");
+        }
     }
 }
