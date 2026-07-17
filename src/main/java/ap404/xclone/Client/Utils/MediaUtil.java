@@ -1,11 +1,13 @@
 package ap404.xclone.Client.Utils;
 
 import ap404.xclone.Shared.Models.Media;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import javafx.stage.Window;
 
 import java.io.File;
@@ -141,6 +143,7 @@ public class MediaUtil
         imageView.setFitWidth(w);
         imageView.setFitHeight(h);
         imageView.setPreserveRatio(p);
+        imageView.setOnMouseClicked(e -> openImage(media));
 
         return new StackPane(imageView);
     }
@@ -162,6 +165,22 @@ public class MediaUtil
             showPreview(previewPane, mediaList);
         }
         System.out.println(mediaList.size());
+    }
+
+    public static void openImage(Media media)
+    {
+        Stage stage = new Stage();
+        ImageView imageView = new ImageView(new Image(new File(media.getMediaUrl()).toURI().toString()));
+
+        imageView.setPreserveRatio(true);
+        imageView.setFitWidth(1000);
+        imageView.setFitHeight(700);
+
+        StackPane root = new StackPane(imageView);
+        Scene scene = new Scene(root);
+
+        stage.setScene(scene);
+        stage.show();
     }
 }
 
