@@ -7,14 +7,9 @@ import ap404.xclone.Client.Utils.UserUtil;
 import ap404.xclone.Shared.Models.Media;
 import ap404.xclone.Shared.Models.Tweet;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import ap404.xclone.Client.Client;
 import ap404.xclone.Client.Managers.Session;
@@ -25,9 +20,6 @@ import ap404.xclone.Shared.DTO.request.Request;
 import ap404.xclone.Shared.DTO.response.Response;
 import javafx.scene.control.TextArea;
 import javafx.scene.text.Text;
-import javafx.stage.FileChooser;
-
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -145,5 +137,11 @@ public class HomeController
     public void addPhoto()
     {
         MediaUtil.addPhotos(previewPane, mediaList, tweetTextArea.getScene().getWindow());
+    }
+
+    @FXML
+    public void addVideo()
+    {
+        MediaUtil.addVideos(previewPane, mediaList, tweetTextArea.getScene().getWindow());
     }
 }

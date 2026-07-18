@@ -50,4 +50,10 @@ public class EditTweetController
     {
         MediaUtil.addPhotos(previewPane, mediaList, tweetArea.getScene().getWindow());
     }
+
+    @FXML
+    private void addVideo()
+    {
+        MediaUtil.addVideos(previewPane, mediaList, tweetArea.getScene().getWindow());
+    }
 }

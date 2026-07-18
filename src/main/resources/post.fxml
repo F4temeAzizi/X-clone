@@ -53,7 +53,7 @@
                 </graphic>
             </Button>
 
-            <Button styleClass="option-icon-btn">
+            <Button styleClass="option-icon-btn" onAction="#addVideo">
                 <graphic>
                     <FontIcon iconLiteral="fas-video" styleClass="option-icon"/>
                 </graphic>
