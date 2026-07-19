@@ -99,7 +99,13 @@ public class TweetDao {
                     Tweet originalTweet = getTweetById(retweetOfId, currentUserId);
                     tweet.setOriginalTweet(originalTweet);
                 }
-                tweet.setMedia(mediaDao.getMediaByTweetId(tweet.getId()));
+
+                if (tweet.isRetweet() && tweet.getOriginalTweet() != null) {
+                    tweet.setMedia(mediaDao.getMediaByTweetId(tweet.getOriginalTweet().getId()));
+                } else {
+                    tweet.setMedia(mediaDao.getMediaByTweetId(tweet.getId()));
+                }
+
                 tweets.add(tweet);
             }
 
@@ -172,7 +178,12 @@ public class TweetDao {
                         tweet.setOriginalTweet(originalTweet);
                     }
 
-                    tweet.setMedia(mediaDao.getMediaByTweetId(tweet.getId()));
+                    if (tweet.isRetweet() && tweet.getOriginalTweet() != null) {
+                        tweet.setMedia(mediaDao.getMediaByTweetId(tweet.getOriginalTweet().getId()));
+                    } else {
+                        tweet.setMedia(mediaDao.getMediaByTweetId(tweet.getId()));
+                    }
+
                     tweets.add(tweet);
                 }
             }
@@ -294,7 +305,13 @@ public class TweetDao {
                         Tweet originalTweet = getTweetById(retweetOfId, currentUserId);
                         tweet.setOriginalTweet(originalTweet);
                     }
-                    tweet.setMedia(mediaDao.getMediaByTweetId(tweet.getId()));
+
+                    if (tweet.isRetweet() && tweet.getOriginalTweet() != null) {
+                        tweet.setMedia(mediaDao.getMediaByTweetId(tweet.getOriginalTweet().getId()));
+                    } else {
+                        tweet.setMedia(mediaDao.getMediaByTweetId(tweet.getId()));
+                    }
+
                     tweets.add(tweet);
                 }
 
@@ -374,7 +391,12 @@ public class TweetDao {
                         tweet.setOriginalTweet(originalTweet);
                     }
 
-                    tweet.setMedia(mediaDao.getMediaByTweetId(tweet.getId()));
+                    if (tweet.isRetweet() && tweet.getOriginalTweet() != null) {
+                        tweet.setMedia(mediaDao.getMediaByTweetId(tweet.getOriginalTweet().getId()));
+                    } else {
+                        tweet.setMedia(mediaDao.getMediaByTweetId(tweet.getId()));
+                    }
+
                     tweets.add(tweet);
                 }
 
@@ -528,7 +550,13 @@ public class TweetDao {
                         Tweet originalTweet = getTweetById(retweetOfId, currentUserId);
                         tweet.setOriginalTweet(originalTweet);
                     }
-                    tweet.setMedia(mediaDao.getMediaByTweetId(tweet.getId()));
+
+                    if (tweet.isRetweet() && tweet.getOriginalTweet() != null) {
+                        tweet.setMedia(mediaDao.getMediaByTweetId(tweet.getOriginalTweet().getId()));
+                    } else {
+                        tweet.setMedia(mediaDao.getMediaByTweetId(tweet.getId()));
+                    }
+
                     return tweet;
                 }
             }
