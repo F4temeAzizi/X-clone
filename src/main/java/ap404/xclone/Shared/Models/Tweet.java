@@ -10,7 +10,6 @@ public class Tweet implements Serializable {
     private String content;
     private Timestamp createdAt;
     private Integer retweetOfId;
-    private Integer replyToId;
 
     private int userId;
     private String name;
@@ -24,6 +23,9 @@ public class Tweet implements Serializable {
     private boolean isRetweetedByUser;
     private Tweet originalTweet;
 
+    private Integer replyToId;
+    private int replyCount;
+
     private String avatarImageUrl;
 
     private boolean isBookmarkedByUser;
@@ -34,7 +36,7 @@ public class Tweet implements Serializable {
                  Integer retweetOfId, Integer replyToId,
                  String name, String username, int likeCount, boolean isLikedByUser,
                  String avatarImageUrl, boolean isBookmarkedByUser, int retweetCount, boolean isRetweet,
-                 boolean isRetweetedByUser
+                 boolean isRetweetedByUser, int replyCount
     ) {
         this.id = id;
         this.userId = userId;
@@ -52,6 +54,7 @@ public class Tweet implements Serializable {
         this.retweetCount = retweetCount;
         this.isRetweet = isRetweet;
         this.isRetweetedByUser = isRetweetedByUser;
+        this.replyCount = replyCount;
     }
 
     public String getAvatarImageUrl() { return avatarImageUrl; }
@@ -115,4 +118,7 @@ public class Tweet implements Serializable {
 
     public Tweet getOriginalTweet() { return originalTweet; }
     public void setOriginalTweet(Tweet originalTweet) { this.originalTweet = originalTweet; }
+
+    public int getReplyCount() { return replyCount; }
+    public void setReplyCount(int count) { this.replyCount = count; }
 }
