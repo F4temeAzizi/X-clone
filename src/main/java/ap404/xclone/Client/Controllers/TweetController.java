@@ -3,11 +3,13 @@ package ap404.xclone.Client.Controllers;
 import ap404.xclone.Client.Client;
 import ap404.xclone.Client.Managers.Session;
 import ap404.xclone.Client.Managers.ThemeManager;
+import ap404.xclone.Client.Utils.MediaUtil;
 import ap404.xclone.Shared.DTO.enums.RequestType;
 import ap404.xclone.Shared.DTO.enums.ResponseType;
 import ap404.xclone.Shared.DTO.request.*;
 import ap404.xclone.Client.Managers.Navigation;
 import ap404.xclone.Shared.DTO.response.Response;
+import ap404.xclone.Shared.Models.Media;
 import ap404.xclone.Shared.Models.Tweet;
 import ap404.xclone.Shared.Models.User;
 import javafx.fxml.FXML;
@@ -17,6 +19,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
@@ -27,6 +30,7 @@ import java.sql.Timestamp;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -46,6 +50,7 @@ public class TweetController
     @FXML private ImageView avatarImage;
     @FXML private Label timeLabel;
     @FXML private HBox tweetRoot;
+    @FXML private FlowPane mediaContainer;
 
     private Tweet tweet;
     private Tweet target;
@@ -63,6 +68,9 @@ public class TweetController
         if (target.getAvatarImageUrl() != null)
             avatarImage.setImage(new Image(target.getAvatarImageUrl()));
 
+
+        if (tweet.getMedia() != null && !tweet.getMedia().isEmpty()) MediaUtil.showTweet(mediaContainer, tweet.getMedia());
+        else mediaContainer.getChildren().clear();
 
         boolean isCurrentUser = (Session.getCurrentUser().getId() == tweet.getUserId());
         moreBtn.setVisible(isCurrentUser);
@@ -160,15 +168,13 @@ public class TweetController
         stage.showAndWait();
 
         String newContent = controller.getEditedText();
-
-        if (newContent == null) return;
-        if (newContent.isBlank() || newContent.equals(tweet.getContent())) return;
+        List<Media> newMedia = controller.getEditedMedia();
 
         try
         {
             Client client = new Client();
 
-            EditTweetRequest editTweetRequest = new EditTweetRequest(tweet.getId(), tweet.getUserId(), newContent);
+            EditTweetRequest editTweetRequest = new EditTweetRequest(tweet.getId(), tweet.getUserId(), newContent, newMedia);
 
             client.sendRequest(new Request(RequestType.EDIT_TWEET, editTweetRequest));
 
@@ -177,6 +183,8 @@ public class TweetController
             if (response.getType() == ResponseType.EDIT_TWEET_SUCCESS)
             {
                 tweet.setContent(newContent);
+                tweet.setMedia(newMedia);
+                MediaUtil.showTweet(mediaContainer, newMedia);
                 contentLabel.setText(newContent);
             }
         }
@@ -376,17 +384,17 @@ public class TweetController
         }
     }
 
-    public void updateRetweetUI() {
+    private void updateRetweetUI() {
 
         retweetCountLabel.setText(String.valueOf(target.getRetweetCount()));
 
-        if(target.isRetweetedByUser()) {
-            if(!retweetBtn.getStyleClass().contains("retweeted-active")){
-                retweetBtn.getStyleClass().add("retweeted-active");
+        if (target.isRetweetedByUser()) {
+            if (!retweetBtn.getStyleClass().contains("retweeted")) {
+                retweetBtn.getStyleClass().add("retweeted");
             }
+        } else {
+            retweetBtn.getStyleClass().remove("retweeted");
         }
-        else
-            retweetBtn.getStyleClass().remove("retweeted-active");
     }
 
     public Tweet getRootTweet(Tweet tweet) {

@@ -2,6 +2,7 @@ package ap404.xclone.Shared.Models;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.List;
 
 public class Tweet implements Serializable {
 
@@ -27,6 +28,8 @@ public class Tweet implements Serializable {
 
     private boolean isBookmarkedByUser;
 
+    private List<Media> media;
+
     public Tweet(int id, int userId, String content, Timestamp createdAt,
                  Integer retweetOfId, Integer replyToId,
                  String name, String username, int likeCount, boolean isLikedByUser,
@@ -37,6 +40,7 @@ public class Tweet implements Serializable {
         this.userId = userId;
         this.content = content;
         this.createdAt = createdAt;
+        this.isRetweet = isRetweet;
         this.retweetOfId = retweetOfId;
         this.replyToId = replyToId;
         this.name = name;
@@ -96,6 +100,9 @@ public class Tweet implements Serializable {
 
     public boolean isBookmarkedByUser() { return isBookmarkedByUser; }
     public void setBookmarkedByUser(boolean isBookmarkedByUser) { this.isBookmarkedByUser = isBookmarkedByUser; }
+
+    public List<Media> getMedia() { return media; }
+    public void setMedia(List<Media> media) { this.media = media; }
 
     public int getRetweetCount() { return retweetCount; }
     public void setRetweetCount(int retweetCount) { this.retweetCount = retweetCount; }

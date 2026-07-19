@@ -10,6 +10,7 @@
 <?import javafx.scene.image.Image?>
 
 
+<?import javafx.scene.layout.FlowPane?>
 <VBox xmlns="http://javafx.com/javafx/18"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="ap404.xclone.Client.Controllers.EditTweetController"
@@ -34,8 +35,9 @@
 
             </ImageView>
 
-            <VBox spacing="8" HBox.hgrow="ALWAYS" >
-                <TextArea fx:id="tweetArea" promptText="What's happening?" styleClass="tweet-text-area"  prefHeight="600" prefWidth="500"/>
+            <VBox spacing="8" HBox.hgrow="ALWAYS" prefHeight="600" prefWidth="700">
+                <TextArea fx:id="tweetArea" promptText="What's happening?" styleClass="tweet-text-area"/>
+                <FlowPane fx:id="previewPane" hgap="10" vgap="10"/>
             </VBox>
 
         </HBox>
@@ -44,39 +46,39 @@
 
     <VBox styleClass="option-container">
 
-    <HBox styleClass="option-btn" spacing="20" alignment="CENTER_LEFT">
-        <Button styleClass="option-icon-btn">
-            <graphic>
-                <FontIcon iconLiteral="fas-image" styleClass="option-icon"/>
-            </graphic>
-        </Button>
+        <HBox styleClass="option-btn" spacing="20" alignment="CENTER_LEFT">
+            <Button styleClass="option-icon-btn" onAction="#addPhoto">
+                <graphic>
+                    <FontIcon iconLiteral="fas-image" styleClass="option-icon"/>
+                </graphic>
+            </Button>
 
-        <Button styleClass="option-icon-btn">
-            <graphic>
-                <FontIcon iconLiteral="fas-video" styleClass="option-icon"/>
-            </graphic>
-        </Button>
+            <Button styleClass="option-icon-btn" onAction="#addVideo">
+                <graphic>
+                    <FontIcon iconLiteral="fas-video" styleClass="option-icon"/>
+                </graphic>
+            </Button>
 
-        <Button styleClass="option-icon-btn">
-            <graphic>
-                <FontIcon iconLiteral="fas-microphone" styleClass="option-icon"/>
-            </graphic>
-        </Button>
+            <Button styleClass="option-icon-btn">
+                <graphic>
+                    <FontIcon iconLiteral="fas-microphone" styleClass="option-icon"/>
+                </graphic>
+            </Button>
 
-        <Button styleClass="option-icon-btn">
-            <graphic>
-                <FontIcon iconLiteral="fas-chart-bar" styleClass="option-icon"/>
-            </graphic>
-        </Button>
+            <Button styleClass="option-icon-btn">
+                <graphic>
+                    <FontIcon iconLiteral="fas-chart-bar" styleClass="option-icon"/>
+                </graphic>
+            </Button>
 
-        <Button styleClass="option-icon-btn">
-            <graphic>
-                <FontIcon iconLiteral="fas-paperclip" styleClass="option-icon"/>
-            </graphic>
-        </Button>
-        <Pane HBox.hgrow="ALWAYS"/>
-        <Button text="Save" styleClass="post-btn" onAction="#save"/>
-    </HBox>
+            <Button styleClass="option-icon-btn">
+                <graphic>
+                    <FontIcon iconLiteral="fas-paperclip" styleClass="option-icon"/>
+                </graphic>
+            </Button>
+            <Pane HBox.hgrow="ALWAYS"/>
+            <Button text="Save" styleClass="post-btn" onAction="#save"/>
+        </HBox>
 
     </VBox>
 </VBox>

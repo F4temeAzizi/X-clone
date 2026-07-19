@@ -1,11 +1,10 @@
 package ap404.xclone.Server;
 
-import ap404.xclone.Server.Database.BookmarkDao;
-import ap404.xclone.Server.Database.LikeDao;
-import ap404.xclone.Server.Database.UserDao;
+import ap404.xclone.Server.Database.*;
 import ap404.xclone.Shared.DTO.request.*;
 import ap404.xclone.Shared.DTO.response.Response;
 import ap404.xclone.Shared.DTO.enums.ResponseType;
+import ap404.xclone.Shared.Models.Media;
 import ap404.xclone.Shared.Models.Tweet;
 import ap404.xclone.Shared.Models.User;
 
@@ -126,12 +125,18 @@ public class ClientHandler implements Runnable {
 
                 CreateTweetRequest createTweetRequest = (CreateTweetRequest) request.getBody();
 
-                boolean success = tweetDao.createTweet(
+                TweetDao tweetDao = new TweetDao();
+                MediaDao mediaDao = new MediaDao();
+
+                int id = tweetDao.createTweet(
                         createTweetRequest.getUserId(),
                         createTweetRequest.getContent()
                 );
 
-                if (success) {
+                if (id != -1) {
+                    for (Media media : createTweetRequest.getMedia()) {
+                        mediaDao.addMedia(id, media.getMediaUrl(), media.getMediaType(), media.getMediaOrder());
+                    }
                     outputStream.writeObject(new Response(ResponseType.CREATE_TWEET_SUCCESS));
                 } else {
                     outputStream.writeObject(new Response(ResponseType.CREATE_TWEET_FAILED));
@@ -143,6 +148,7 @@ public class ClientHandler implements Runnable {
 
             case GET_ALL_TWEETS: {
 
+                TweetDao tweetDao = new TweetDao();
                 int currentUserId = (Integer) request.getBody();
 
                 outputStream.writeObject(
@@ -208,6 +214,9 @@ public class ClientHandler implements Runnable {
 
                 GetTweetsByUserRequest getTweetsByUserRequest = (GetTweetsByUserRequest) request.getBody();
 
+                TweetDao tweetDao = new TweetDao();
+
+
                 List<Tweet> tweets = tweetDao.getTweetsByUserId(getTweetsByUserRequest.getUserId(),
                                                                 getTweetsByUserRequest.getCurrentUserId());
 
@@ -228,6 +237,8 @@ public class ClientHandler implements Runnable {
 
                 DeleteTweetRequest deleteTweetRequest = (DeleteTweetRequest) request.getBody();
 
+                TweetDao tweetDao = new TweetDao();
+
                 boolean success = tweetDao.deleteTweet(deleteTweetRequest.getTweetId(), deleteTweetRequest.getUserId());
 
                 if (success)
@@ -247,11 +258,22 @@ public class ClientHandler implements Runnable {
 
                 EditTweetRequest editTweetRequest = (EditTweetRequest) request.getBody();
 
+                TweetDao tweetDao = new TweetDao();
+                MediaDao mediaDao = new MediaDao();
+
                 boolean success = tweetDao.editTweet(editTweetRequest.getTweetId(),
                         editTweetRequest.getUserId(), editTweetRequest.getContent());
 
                 if (success)
                 {
+                    mediaDao.deleteMediaByTweetId(editTweetRequest.getTweetId());
+
+                    for (int i = 0; i < editTweetRequest.getMedia().size(); i++)
+                    {
+                        Media media = editTweetRequest.getMedia().get(i);
+                        mediaDao.addMedia(editTweetRequest.getTweetId(), media.getMediaUrl(),
+                                media.getMediaType(), i);
+                    }
                     outputStream.writeObject(new Response(ResponseType.EDIT_TWEET_SUCCESS));
                 }
                 else
@@ -266,6 +288,7 @@ public class ClientHandler implements Runnable {
             case GET_LIKED_TWEETS: {
 
                 try {
+                    TweetDao tweetDao = new TweetDao();
                     GetLikedTweetsRequest getLikedTweetsRequest = (GetLikedTweetsRequest) request.getBody();
 
                     List<Tweet> tweets = tweetDao.getLikedTweets(getLikedTweetsRequest.getUserId(), getLikedTweetsRequest.getCurrentUserId());
@@ -321,6 +344,7 @@ public class ClientHandler implements Runnable {
 
                 try
                 {
+                    TweetDao tweetDao = new TweetDao();
                     GetBookmarkedTweetsRequest getBookmarkedTweetsRequest = (GetBookmarkedTweetsRequest) request.getBody();
 
                     List<Tweet> tweets = tweetDao.getBookmarkedTweets(getBookmarkedTweetsRequest.getUserId(),

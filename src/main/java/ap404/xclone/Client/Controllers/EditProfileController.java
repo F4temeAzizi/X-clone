@@ -57,7 +57,7 @@ public class EditProfileController
     {
         FileChooser fileChooser =  new FileChooser();
         fileChooser.getExtensionFilters().add(
-                new FileChooser.ExtensionFilter("Images","*.png","*.jpg","*jpeg"));
+                new FileChooser.ExtensionFilter("Images","*.png","*.jpg","*.jpeg"));
 
         File file = fileChooser.showOpenDialog(null);
 

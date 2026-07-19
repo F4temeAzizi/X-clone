@@ -78,50 +78,11 @@
     -fx-fill: #1d9bf0;
 }
 
-.retweetBtn {
-    -fx-background-color: transparent;
-    -fx-background-insets: 0;
-    -fx-background-radius: 20;
-    -fx-padding: 5 10;
-    -fx-cursor: hand;
+.tweet-action-btn.retweeted .tweet-icon {
+    -fx-icon-color: #17bf63;
+    -fx-fill: #17bf63;
 }
 
-.retweetBtn:hover {
-    -fx-background-color: rgba(23, 191, 99, 0.15);
-}
-
-.retweetBtn .tweet-icon {
-    -fx-fill: #657786;
-    -fx-icon-color: #657786;
-}
-
-.retweetBtn:hover .tweet-icon {
-    -fx-fill: #17bf63 !important;
-    -fx-icon-color: #17bf63 !important;
-}
-
-.retweetBtn .tweet-count {
-    -fx-text-fill: #657786;
-}
-
-.retweetBtn:hover .tweet-count {
-    -fx-text-fill: #17bf63 !important;
-}
-
-.retweetBtn.retweeted-active .tweet-icon {
-    -fx-fill: #17bf63 !important;
-    -fx-icon-color: #17bf63 !important;
-}
-
-.retweetBtn.retweeted-active .tweet-count {
-    -fx-text-fill: #17bf63 !important;
-}
-
-.retweetBtn.retweeted-active:hover {
-    -fx-background-color: rgba(23, 191, 99, 0.25);
-}
-
-.retweetBtn:pressed {
-    -fx-scale-x: 0.95;
-    -fx-scale-y: 0.95;
+.tweet-action-btn.retweeted .tweet-count {
+    -fx-text-fill: #17bf63;
 }

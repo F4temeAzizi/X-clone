@@ -10,6 +10,7 @@
 <?import javafx.scene.image.Image?>
 
 
+<?import javafx.scene.layout.FlowPane?>
 <VBox xmlns="http://javafx.com/javafx/18"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="ap404.xclone.Client.Controllers.PostController"
@@ -35,7 +36,8 @@
             </ImageView>
 
             <VBox spacing="8" HBox.hgrow="ALWAYS" >
-                <TextArea fx:id="tweetArea" promptText="What's happening?" styleClass="tweet-text-area"  prefHeight="600" prefWidth="500"/>
+                <TextArea fx:id="tweetArea" promptText="What's happening?" styleClass="tweet-text-area"  prefHeight="600" prefWidth="700"/>
+                <FlowPane fx:id="previewPane" hgap="10" vgap="10"/>
             </VBox>
 
         </HBox>
@@ -45,13 +47,13 @@
     <VBox styleClass="option-container">
 
         <HBox styleClass="option-btn" spacing="20" alignment="CENTER_LEFT">
-            <Button styleClass="option-icon-btn">
+            <Button styleClass="option-icon-btn" onAction="#addPhoto">
                 <graphic>
                     <FontIcon iconLiteral="fas-image" styleClass="option-icon"/>
                 </graphic>
             </Button>
 
-            <Button styleClass="option-icon-btn">
+            <Button styleClass="option-icon-btn" onAction="#addVideo">
                 <graphic>
                     <FontIcon iconLiteral="fas-video" styleClass="option-icon"/>
                 </graphic>
