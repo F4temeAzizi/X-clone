@@ -42,5 +42,7 @@ public enum ResponseType implements Serializable {
     UNFOLLOW_SUCCESS,
     UNFOLLOW_FAILED,
     CHECK_FOLLOW_SUCCESS,
-    CHECK_FOLLOW_FAILED
+    CHECK_FOLLOW_FAILED,
+    REPLY_SUCCESS,
+    REPLY_FAILED
 }
