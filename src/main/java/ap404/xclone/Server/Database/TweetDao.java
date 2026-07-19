@@ -590,6 +590,33 @@ public class TweetDao {
         }
     }
 
+    public boolean addReply(int userId, int tweetId, String content) {
+
+        if(!tweetExists(tweetId)) return false;
+        if(content == null || content.trim().isEmpty() || content.length() > 280) return false;
+
+        String sql = """
+                INSERT INTO tweets (user_id, content, reply_of_id)
+                VALUES (?, ?, ?)
+                """;
+
+        try (
+                Connection connection = DatabaseConnection.getConnection();
+                PreparedStatement statement = connection.prepareStatement(sql)
+        ) {
+            statement.setInt(1, userId);
+            statement.setString(2, content);
+            statement.setInt(3, tweetId);
+
+            statement.executeUpdate();
+            return true;
+
+        } catch (SQLException e) {
+            System.out.println("Reply error: " + e.getMessage());
+            return false;
+        }
+    }
+
     private Integer getIntegerOrNull(ResultSet resultSet, String columnName) throws SQLException {
         int value = resultSet.getInt(columnName);
 
