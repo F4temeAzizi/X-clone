@@ -15,13 +15,6 @@
     -fx-text-fill: -color-text;
 }
 
-#closeBtn {
-    -fx-background-color: transparent;
-    -fx-background-radius: 30;
-    -fx-cursor: hand;
-    -fx-padding: 8;
-}
-
 #closeBtn:hover {
     -fx-background-color: -color-surface;
 }
@@ -69,7 +62,7 @@
 }
 
 #charCount {
-    -fx-text-fill: color-secondary;
+    -fx-text-fill: -color-secondary;
     -fx-font-size: 13px;
 }
 
