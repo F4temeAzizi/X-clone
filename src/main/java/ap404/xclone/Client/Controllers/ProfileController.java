@@ -30,7 +30,6 @@ public class ProfileController
     @FXML private Label createdAtLbl;
     @FXML private Label postsTab;
     @FXML private Label repliesTab;
-    @FXML private Label mediaTab;
     @FXML private Label likesTab;
     @FXML private VBox tweetContainer;
     @FXML private ScrollPane profileScroll;
@@ -43,10 +42,6 @@ public class ProfileController
         {
             case "replies":
                 showReplies();
-                break;
-
-            case "media":
-                showMedia();
                 break;
 
             case "likes":
@@ -101,14 +96,6 @@ public class ProfileController
         tweetContainer.getChildren().add(new Label("No replies yet"));
     }
 
-    @FXML public void showMedia ()
-    {
-        Navigation.setProfileTab("media");
-        selectTab(mediaTab);
-        tweetContainer.getChildren().clear();
-        tweetContainer.getChildren().add(new Label("No media yet"));
-    }
-
     @FXML public void showLikes ()
     {
         Navigation.setProfileTab("likes");
@@ -142,7 +129,6 @@ public class ProfileController
     {
         postsTab.getStyleClass().setAll("profile-tab");
         repliesTab.getStyleClass().setAll("profile-tab");
-        mediaTab.getStyleClass().setAll("profile-tab");
         likesTab.getStyleClass().setAll("profile-tab");
 
         active.getStyleClass().setAll("profile-tab-active");

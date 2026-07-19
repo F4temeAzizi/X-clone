@@ -80,7 +80,6 @@
                 <HBox alignment="CENTER" styleClass="profile-tabs">
                     <Label fx:id="postsTab" text="Posts" styleClass="profile-tab-active" onMouseClicked="#showPosts"/>
                     <Label fx:id="repliesTab" text="Replies" styleClass="profile-tab" onMouseClicked="#showReplies"/>
-                    <Label fx:id="mediaTab" text="Media" styleClass="profile-tab" onMouseClicked="#showMedia"/>
                     <Label fx:id="likesTab" text="Likes" styleClass="profile-tab" onMouseClicked="#showLikes"/>
                 </HBox>
 

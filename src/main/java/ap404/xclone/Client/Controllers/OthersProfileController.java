@@ -30,7 +30,6 @@ public class OthersProfileController
     @FXML private Label createdAtLbl;
     @FXML private Label postsTab;
     @FXML private Label repliesTab;
-    @FXML private Label mediaTab;
     @FXML private Label likesTab;
     @FXML private VBox tweetContainer;
 
@@ -76,13 +75,6 @@ public class OthersProfileController
         tweetContainer.getChildren().add(new Label("No replies yet"));
     }
 
-    @FXML public void showMedia ()
-    {
-        selectTab(mediaTab);
-        tweetContainer.getChildren().clear();
-        tweetContainer.getChildren().add(new Label("No media yet"));
-    }
-
     @FXML public void showLikes ()
     {
         selectTab(likesTab);
@@ -115,7 +107,6 @@ public class OthersProfileController
     {
         postsTab.getStyleClass().setAll("profile-tab");
         repliesTab.getStyleClass().setAll("profile-tab");
-        mediaTab.getStyleClass().setAll("profile-tab");
         likesTab.getStyleClass().setAll("profile-tab");
 
         active.getStyleClass().setAll("profile-tab-active");
