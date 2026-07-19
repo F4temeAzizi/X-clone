@@ -55,11 +55,11 @@
         <FlowPane fx:id="mediaContainer" hgap="5" vgap="5"/>
 
         <HBox spacing="35" alignment="CENTER_LEFT" styleClass="tweet-actions">
-            <Button fx:id="commentBtn" styleClass="tweet-action-btn">
+            <Button fx:id="commentBtn" styleClass="tweet-action-btn" onAction="#handleReply">
                 <graphic>
                     <HBox spacing="6" alignment="CENTER">
                         <FontIcon iconLiteral="fas-comment" styleClass="tweet-icon"/>
-                        <Label text="0" styleClass="tweet-count"/>
+                        <Label fx:id="commentCountLabel" text="0" styleClass="tweet-count" onMouseClicked="#openComments"/>
                     </HBox>
                 </graphic>
             </Button>
