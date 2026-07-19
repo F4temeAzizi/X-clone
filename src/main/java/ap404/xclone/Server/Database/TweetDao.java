@@ -54,7 +54,8 @@ public class TweetDao {
                     (SELECT COUNT(*) FROM likes l WHERE l.tweet_id = t.id) AS like_count,
                     EXISTS (SELECT 1 FROM likes l WHERE l.tweet_id = t.id AND l.user_id = ?) AS is_liked_by_user,
                     (SELECT COUNT(*) FROM tweets r WHERE r.retweet_of_id = t.id) AS retweet_count,
-                    EXISTS (SELECT 1 FROM tweets r WHERE r.retweet_of_id = t.id AND r.user_id = ?) AS is_retweeted_by_user
+                    EXISTS (SELECT 1 FROM tweets r WHERE r.retweet_of_id = t.id AND r.user_id = ?) AS is_retweeted_by_user,
+                    (SELECT COUNT(*) FROM tweets r WHERE r.reply_to_id = t.id) AS reply_count
                 
                 FROM tweets t
                 JOIN users u ON t.user_id = u.id
@@ -92,7 +93,8 @@ public class TweetDao {
                         bookmarkDao.isBookmarked(currentUserId, resultSet.getInt("id")),
                         resultSet.getInt("retweet_count"),
                         retweetOfId != null,
-                        resultSet.getBoolean("is_retweeted_by_user")
+                        resultSet.getBoolean("is_retweeted_by_user"),
+                        resultSet.getInt("reply_count")
                 );
 
                 if (retweetOfId != null) {
@@ -133,7 +135,8 @@ public class TweetDao {
                     (SELECT COUNT(*) FROM likes l WHERE l.tweet_id = t.id) AS like_count,
                     EXISTS (SELECT 1 FROM likes l WHERE l.tweet_id = t.id AND l.user_id = ?) AS is_liked_by_user,
                     (SELECT COUNT(*) FROM tweets r WHERE r.retweet_of_id = t.id) AS retweet_count,
-                    EXISTS (SELECT 1 FROM tweets r WHERE r.retweet_of_id = t.id AND r.user_id = ?) AS is_retweeted_by_user
+                    EXISTS (SELECT 1 FROM tweets r WHERE r.retweet_of_id = t.id AND r.user_id = ?) AS is_retweeted_by_user,
+                    (SELECT COUNT(*) FROM tweets r WHERE r.reply_to_id = t.id) AS reply_count
                 
                 FROM tweets t
                 JOIN users u ON t.user_id = u.id
@@ -170,7 +173,8 @@ public class TweetDao {
                             bookmarkDao.isBookmarked(currentUserId, resultSet.getInt("id")),
                             resultSet.getInt("retweet_count"),
                             isRetweet(resultSet.getInt("id")),
-                            resultSet.getBoolean("is_retweeted_by_user")
+                            resultSet.getBoolean("is_retweeted_by_user"),
+                            resultSet.getInt("reply_count")
                     );
 
                     if (retweetOfId != null) {
@@ -258,7 +262,8 @@ public class TweetDao {
                     (SELECT COUNT(*) FROM likes WHERE tweet_id = t.id) AS like_count,
                      EXISTS (SELECT 1 FROM likes WHERE tweet_id = t.id AND user_id = ?) AS is_liked_by_user,
                     (SELECT COUNT(*) FROM tweets r WHERE r.retweet_of_id = t.id) AS retweet_count,
-                    EXISTS (SELECT 1 FROM tweets r WHERE r.retweet_of_id = t.id AND r.user_id = ?) AS is_retweeted_by_user
+                    EXISTS (SELECT 1 FROM tweets r WHERE r.retweet_of_id = t.id AND r.user_id = ?) AS is_retweeted_by_user,
+                    (SELECT COUNT(*) FROM tweets r WHERE r.reply_to_id = t.id) AS reply_count
                 
                 FROM tweets t
                 JOIN users u ON t.user_id = u.id
@@ -298,7 +303,8 @@ public class TweetDao {
                             bookmarkDao.isBookmarked(currentUserId, resultSet.getInt("id")),
                             resultSet.getInt("retweet_count"),
                             isRetweet(resultSet.getInt("id")),
-                            resultSet.getBoolean("is_retweeted_by_user")
+                            resultSet.getBoolean("is_retweeted_by_user"),
+                            resultSet.getInt("reply_count")
                     );
 
                     if (retweetOfId != null) {
@@ -343,7 +349,8 @@ public class TweetDao {
                 EXISTS (SELECT 1 FROM likes l WHERE l.tweet_id = t.id AND l.user_id = ?) AS is_liked_by_user,
                 (SELECT COUNT(*) FROM tweets r WHERE r.retweet_of_id = t.id) AS retweet_count,
                 EXISTS (SELECT 1 FROM tweets r WHERE r.retweet_of_id = t.id AND r.user_id = ?) AS is_retweeted_by_user,
-                TRUE AS is_bookmarked_by_user
+                TRUE AS is_bookmarked_by_user,
+                (SELECT COUNT(*) FROM tweets r WHERE r.reply_to_id = t.id) AS reply_count
                 
                 FROM tweets t
                 JOIN users u ON t.user_id = u.id
@@ -383,7 +390,8 @@ public class TweetDao {
                             bookmarkDao.isBookmarked(currentUserId, resultSet.getInt("id")),
                             resultSet.getInt("retweet_count"),
                             isRetweet(resultSet.getInt("id")),
-                            resultSet.getBoolean("is_retweeted_by_user")
+                            resultSet.getBoolean("is_retweeted_by_user"),
+                            resultSet.getInt("reply_count")
                     );
 
                     if (retweetOfId != null) {
@@ -509,7 +517,8 @@ public class TweetDao {
                    (SELECT COUNT(*) FROM likes WHERE tweet_id = t.id) AS like_count,
                    (SELECT COUNT(*) > 0 FROM likes WHERE tweet_id = t.id AND user_id = ?) AS is_liked,
                    EXISTS (SELECT 1 FROM tweets r WHERE r.retweet_of_id = t.id AND r.user_id = ?) AS is_retweeted_by_user,
-                   (SELECT COUNT(*) FROM tweets WHERE retweet_of_id = t.id) AS retweet_count
+                   (SELECT COUNT(*) FROM tweets WHERE retweet_of_id = t.id) AS retweet_count,
+                   (SELECT COUNT(*) FROM tweets r WHERE r.reply_to_id = t.id) AS reply_count
             FROM tweets t 
             JOIN users u ON t.user_id = u.id 
             WHERE t.id = ?
@@ -542,7 +551,8 @@ public class TweetDao {
                             bookmarkDao.isBookmarked(currentUserId, resultSet.getInt("id")),
                             resultSet.getInt("retweet_count"),
                             retweetOfId != null,
-                            resultSet.getBoolean("is_retweeted_by_user")
+                            resultSet.getBoolean("is_retweeted_by_user"),
+                            resultSet.getInt("reply_count")
 
                     );
 
@@ -596,7 +606,7 @@ public class TweetDao {
         if(content == null || content.trim().isEmpty() || content.length() > 280) return false;
 
         String sql = """
-                INSERT INTO tweets (user_id, content, reply_of_id)
+                INSERT INTO tweets (user_id, content, reply_to_id)
                 VALUES (?, ?, ?)
                 """;
 
