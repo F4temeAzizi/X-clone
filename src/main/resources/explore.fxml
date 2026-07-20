@@ -13,7 +13,7 @@
         <Insets top="20" right="20" bottom="20" left="20"/>
     </padding>
 
-    <TextField promptText="🔍 Search" styleClass="search-field" maxWidth="Infinity"/>
+    <TextField fx:id="searchField" promptText="🔍 Search" styleClass="search-field" maxWidth="Infinity"/>
 
     <ScrollPane fitToWidth="true"
                 fitToHeight="true"

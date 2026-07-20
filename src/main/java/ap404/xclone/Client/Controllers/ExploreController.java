@@ -7,23 +7,33 @@ import ap404.xclone.Client.Utils.TweetUtil;
 import ap404.xclone.Shared.DTO.enums.RequestType;
 import ap404.xclone.Shared.DTO.enums.ResponseType;
 import ap404.xclone.Shared.DTO.request.Request;
+import ap404.xclone.Shared.DTO.request.SearchTweetsRequest;
 import ap404.xclone.Shared.DTO.response.Response;
 import ap404.xclone.Shared.Models.Tweet;
 import javafx.fxml.FXML;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 
+import java.lang.reflect.Field;
 import java.util.List;
 
 public class ExploreController
 {
     @FXML private VBox tweetContainer;
     @FXML private ScrollPane scrollPane;
+    @FXML private TextField searchField;
 
     @FXML
     public void initialize()
     {
         loadTweets();
+
+        searchField.textProperty().addListener((obs, o, n) -> {
+            if (n.isBlank()) loadTweets();
+            else searchTweets(n);
+        });
+
         scrollPane.layout();
         scrollPane.setVvalue(Navigation.getExploreScroll());
         scrollPane.vvalueProperty().addListener((obs, o, n) ->
@@ -51,6 +61,32 @@ public class ExploreController
         catch (Exception e)
         {
             e.printStackTrace();
+        }
+    }
+
+    private void searchTweets(String keyword)
+    {
+        try
+        {
+            Client client = Session.getClient();
+
+            SearchTweetsRequest searchTweetsRequest = new SearchTweetsRequest(keyword, Session.getCurrentUser().getId());
+
+            Request request = new Request(RequestType.SEARCH_TWEETS, searchTweetsRequest);
+
+            client.sendRequest(request);
+
+            Response response = client.getResponse();
+
+            if (response.getType() == ResponseType.SEARCH_TWEETS_SUCCESS)
+            {
+                List<Tweet> tweets = (List<Tweet>) response.getBody();
+                TweetUtil.loadTweets(tweetContainer, tweets);
+            }
+        }
+        catch (Exception e)
+        {
+            throw new RuntimeException(e);
         }
     }
 }
