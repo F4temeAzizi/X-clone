@@ -461,6 +461,22 @@ public class ClientHandler implements Runnable {
                 outputStream.flush();
                 break;
             }
+
+            case SEARCH_TWEETS: {
+                try
+                {
+                    SearchTweetsRequest searchTweetsRequest = (SearchTweetsRequest) request.getBody();
+
+                    List<Tweet> tweets = tweetDao.searchTweets
+                            (searchTweetsRequest.getKeyword(), searchTweetsRequest.getUserId());
+
+                    outputStream.writeObject(new Response(ResponseType.SEARCH_TWEETS_SUCCESS, tweets));
+                }
+                catch (RuntimeException e)
+                {
+                    outputStream.writeObject(new Response(ResponseType.SEARCH_TWEETS_FAILED));
+                }
+            }
         }
     }
 }

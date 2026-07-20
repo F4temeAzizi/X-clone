@@ -116,6 +116,87 @@ public class TweetDao {
         return tweets;
     }
 
+    public List<Tweet> searchTweets(String keyword, int currentUserId) {
+        String sql = """
+                SELECT
+                    t.id,
+                    t.user_id,
+                    t.content,
+                    t.created_at,
+                    t.is_retweet,
+                    t.retweet_of_id,
+                    t.reply_to_id,
+                    u.display_name,
+                    u.username,
+                    u.profile_image_url,
+                
+                    (SELECT COUNT(*) FROM likes l WHERE l.tweet_id = t.id) AS like_count,
+                    EXISTS (SELECT 1 FROM likes l WHERE l.tweet_id = t.id AND l.user_id = ?) AS is_liked_by_user,
+                    (SELECT COUNT(*) FROM tweets r WHERE r.retweet_of_id = t.id) AS retweet_count,
+                    EXISTS (SELECT 1 FROM tweets r WHERE r.retweet_of_id = t.id AND r.user_id = ?) AS is_retweeted_by_user
+                
+                FROM tweets t
+                JOIN users u ON t.user_id = u.id
+                WHERE t.content ILIKE ?
+                ORDER BY t.created_at DESC;
+                """;
+
+        List<Tweet> tweets = new ArrayList<>();
+
+        try (
+                Connection connection = DatabaseConnection.getConnection();
+                PreparedStatement statement = connection.prepareStatement(sql);
+        ) {
+
+            statement.setInt(1, currentUserId);
+            statement.setInt(2, currentUserId);
+            statement.setString(3,"%" + keyword + "%");
+
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+
+                Integer retweetOfId = getIntegerOrNull(resultSet, "retweet_of_id");
+
+                Tweet tweet = new Tweet(
+                        resultSet.getInt("id"),
+                        resultSet.getInt("user_id"),
+                        resultSet.getString("content"),
+                        resultSet.getTimestamp("created_at"),
+                        retweetOfId,
+                        getIntegerOrNull(resultSet, "reply_to_id"),
+                        resultSet.getString("display_name"),
+                        resultSet.getString("username"),
+                        resultSet.getInt("like_count"),
+                        resultSet.getBoolean("is_liked_by_user"),
+                        resultSet.getString("profile_image_url"),
+                        bookmarkDao.isBookmarked(currentUserId, resultSet.getInt("id")),
+                        resultSet.getInt("retweet_count"),
+                        retweetOfId != null,
+                        resultSet.getBoolean("is_retweeted_by_user")
+                );
+
+                if (retweetOfId != null) {
+                    Tweet originalTweet = getTweetById(retweetOfId, currentUserId);
+                    tweet.setOriginalTweet(originalTweet);
+                }
+
+                if (tweet.isRetweet() && tweet.getOriginalTweet() != null) {
+                    tweet.setMedia(mediaDao.getMediaByTweetId(tweet.getOriginalTweet().getId()));
+                } else {
+                    tweet.setMedia(mediaDao.getMediaByTweetId(tweet.getId()));
+                }
+
+                tweets.add(tweet);
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Get tweets error: " + e.getMessage());
+        }
+
+        return tweets;
+    }
+
     public List<Tweet> getTweetsByUserId(int userId, int currentUserId) {
         String sql = """
                 SELECT
