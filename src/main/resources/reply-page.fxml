@@ -5,6 +5,8 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.shape.Circle?>
 <BorderPane xmlns="http://javafx.com/javafx/21"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="ap404.xclone.Client.Controllers.ReplyController"
@@ -44,10 +46,14 @@
 
             <HBox spacing="15">
 
-                <ImageView fx:id="profileImage"
-                           fitWidth="48"
-                           fitHeight="48"
-                           preserveRatio="true"/>
+                <ImageView fx:id="profileImage" fitWidth="48" fitHeight="48" preserveRatio="false">
+                <clip>
+                    <Circle centerX="24" centerY="24" radius="24"/>
+                </clip>
+                <image>
+                    <Image url="@images/avatar.jpeg"/>
+                </image>
+                </ImageView>
 
                 <VBox spacing="10"
                       HBox.hgrow="ALWAYS">
