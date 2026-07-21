@@ -75,40 +75,7 @@ public class TweetDao {
             ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
-
-                Integer retweetOfId = getIntegerOrNull(resultSet, "retweet_of_id");
-
-                Tweet tweet = new Tweet(
-                        resultSet.getInt("id"),
-                        resultSet.getInt("user_id"),
-                        resultSet.getString("content"),
-                        resultSet.getTimestamp("created_at"),
-                        retweetOfId,
-                        getIntegerOrNull(resultSet, "reply_to_id"),
-                        resultSet.getString("display_name"),
-                        resultSet.getString("username"),
-                        resultSet.getInt("like_count"),
-                        resultSet.getBoolean("is_liked_by_user"),
-                        resultSet.getString("profile_image_url"),
-                        bookmarkDao.isBookmarked(currentUserId, resultSet.getInt("id")),
-                        resultSet.getInt("retweet_count"),
-                        retweetOfId != null,
-                        resultSet.getBoolean("is_retweeted_by_user"),
-                        resultSet.getInt("reply_count")
-                );
-
-                if (retweetOfId != null) {
-                    Tweet originalTweet = getTweetById(retweetOfId, currentUserId);
-                    tweet.setOriginalTweet(originalTweet);
-                }
-
-                if (tweet.isRetweet() && tweet.getOriginalTweet() != null) {
-                    tweet.setMedia(mediaDao.getMediaByTweetId(tweet.getOriginalTweet().getId()));
-                } else {
-                    tweet.setMedia(mediaDao.getMediaByTweetId(tweet.getId()));
-                }
-
-                tweets.add(tweet);
+                tweets.add(mapTweet(resultSet, currentUserId));
             }
 
         } catch (SQLException e) {
@@ -156,39 +123,7 @@ public class TweetDao {
 
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
-                    Integer retweetOfId = resultSet.getObject("retweet_of_id", Integer.class);
-
-                    Tweet tweet = new Tweet(
-                            resultSet.getInt("id"),
-                            resultSet.getInt("user_id"),
-                            resultSet.getString("content"),
-                            resultSet.getTimestamp("created_at"),
-                            retweetOfId,
-                            getIntegerOrNull(resultSet, "reply_to_id"),
-                            resultSet.getString("display_name"),
-                            resultSet.getString("username"),
-                            resultSet.getInt("like_count"),
-                            resultSet.getBoolean("is_liked_by_user"),
-                            resultSet.getString("profile_image_url"),
-                            bookmarkDao.isBookmarked(currentUserId, resultSet.getInt("id")),
-                            resultSet.getInt("retweet_count"),
-                            isRetweet(resultSet.getInt("id")),
-                            resultSet.getBoolean("is_retweeted_by_user"),
-                            resultSet.getInt("reply_count")
-                    );
-
-                    if (retweetOfId != null) {
-                        Tweet originalTweet = getTweetById(retweetOfId, currentUserId);
-                        tweet.setOriginalTweet(originalTweet);
-                    }
-
-                    if (tweet.isRetweet() && tweet.getOriginalTweet() != null) {
-                        tweet.setMedia(mediaDao.getMediaByTweetId(tweet.getOriginalTweet().getId()));
-                    } else {
-                        tweet.setMedia(mediaDao.getMediaByTweetId(tweet.getId()));
-                    }
-
-                    tweets.add(tweet);
+                    tweets.add(mapTweet(resultSet, currentUserId));
                 }
             }
 
@@ -285,40 +220,7 @@ public class TweetDao {
 
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
-
-                    Integer retweetOfId = resultSet.getObject("retweet_of_id", Integer.class);
-
-                    Tweet tweet = new Tweet(
-                            resultSet.getInt("id"),
-                            resultSet.getInt("user_id"),
-                            resultSet.getString("content"),
-                            resultSet.getTimestamp("created_at"),
-                            retweetOfId,
-                            getIntegerOrNull(resultSet, "reply_to_id"),
-                            resultSet.getString("display_name"),
-                            resultSet.getString("username"),
-                            resultSet.getInt("like_count"),
-                            resultSet.getBoolean("is_liked_by_user"),
-                            resultSet.getString("profile_image_url"),
-                            bookmarkDao.isBookmarked(currentUserId, resultSet.getInt("id")),
-                            resultSet.getInt("retweet_count"),
-                            isRetweet(resultSet.getInt("id")),
-                            resultSet.getBoolean("is_retweeted_by_user"),
-                            resultSet.getInt("reply_count")
-                    );
-
-                    if (retweetOfId != null) {
-                        Tweet originalTweet = getTweetById(retweetOfId, currentUserId);
-                        tweet.setOriginalTweet(originalTweet);
-                    }
-
-                    if (tweet.isRetweet() && tweet.getOriginalTweet() != null) {
-                        tweet.setMedia(mediaDao.getMediaByTweetId(tweet.getOriginalTweet().getId()));
-                    } else {
-                        tweet.setMedia(mediaDao.getMediaByTweetId(tweet.getId()));
-                    }
-
-                    tweets.add(tweet);
+                    tweets.add(mapTweet(resultSet, currentUserId));
                 }
 
                 return tweets;
@@ -373,39 +275,7 @@ public class TweetDao {
             {
                 while (resultSet.next())
                 {
-                    Integer retweetOfId = resultSet.getObject("retweet_of_id", Integer.class);
-
-                    Tweet tweet = new Tweet(
-                            resultSet.getInt("id"),
-                            resultSet.getInt("user_id"),
-                            resultSet.getString("content"),
-                            resultSet.getTimestamp("created_at"),
-                            retweetOfId,
-                            getIntegerOrNull(resultSet, "reply_to_id"),
-                            resultSet.getString("display_name"),
-                            resultSet.getString("username"),
-                            resultSet.getInt("like_count"),
-                            resultSet.getBoolean("is_liked_by_user"),
-                            resultSet.getString("profile_image_url"),
-                            bookmarkDao.isBookmarked(currentUserId, resultSet.getInt("id")),
-                            resultSet.getInt("retweet_count"),
-                            isRetweet(resultSet.getInt("id")),
-                            resultSet.getBoolean("is_retweeted_by_user"),
-                            resultSet.getInt("reply_count")
-                    );
-
-                    if (retweetOfId != null) {
-                        Tweet originalTweet = getTweetById(retweetOfId, currentUserId);
-                        tweet.setOriginalTweet(originalTweet);
-                    }
-
-                    if (tweet.isRetweet() && tweet.getOriginalTweet() != null) {
-                        tweet.setMedia(mediaDao.getMediaByTweetId(tweet.getOriginalTweet().getId()));
-                    } else {
-                        tweet.setMedia(mediaDao.getMediaByTweetId(tweet.getId()));
-                    }
-
-                    tweets.add(tweet);
+                    tweets.add(mapTweet(resultSet, currentUserId));
                 }
 
                 return tweets;
@@ -511,7 +381,7 @@ public class TweetDao {
 
         String sql = """
             SELECT t.*, 
-                   u.display_name AS name, 
+                   u.display_name, 
                    u.username,
                    u.profile_image_url,
                    (SELECT COUNT(*) FROM likes WHERE tweet_id = t.id) AS like_count,
@@ -534,40 +404,7 @@ public class TweetDao {
 
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
-                    Integer retweetOfId = resultSet.getObject("retweet_of_id", Integer.class);
-
-                    Tweet tweet = new Tweet(
-                            resultSet.getInt("id"),
-                            resultSet.getInt("user_id"),
-                            resultSet.getString("content"),
-                            resultSet.getTimestamp("created_at"),
-                            retweetOfId,
-                            resultSet.getObject("reply_to_id", Integer.class),
-                            resultSet.getString("name"),
-                            resultSet.getString("username"),
-                            resultSet.getInt("like_count"),
-                            resultSet.getBoolean("is_liked"),
-                            resultSet.getString("profile_image_url"),
-                            bookmarkDao.isBookmarked(currentUserId, resultSet.getInt("id")),
-                            resultSet.getInt("retweet_count"),
-                            retweetOfId != null,
-                            resultSet.getBoolean("is_retweeted_by_user"),
-                            resultSet.getInt("reply_count")
-
-                    );
-
-                    if (retweetOfId != null) {
-                        Tweet originalTweet = getTweetById(retweetOfId, currentUserId);
-                        tweet.setOriginalTweet(originalTweet);
-                    }
-
-                    if (tweet.isRetweet() && tweet.getOriginalTweet() != null) {
-                        tweet.setMedia(mediaDao.getMediaByTweetId(tweet.getOriginalTweet().getId()));
-                    } else {
-                        tweet.setMedia(mediaDao.getMediaByTweetId(tweet.getId()));
-                    }
-
-                    return tweet;
+                    return mapTweet(resultSet, currentUserId);
                 }
             }
         } catch (SQLException e) {
@@ -626,7 +463,7 @@ public class TweetDao {
             return false;
         }
     }
-
+    
     private Integer getIntegerOrNull(ResultSet resultSet, String columnName) throws SQLException {
         int value = resultSet.getInt(columnName);
 
@@ -635,5 +472,42 @@ public class TweetDao {
         }
 
         return value;
+    }
+
+    public Tweet mapTweet(ResultSet resultSet, int currentUserId) throws SQLException {
+
+        Integer retweetOfId = resultSet.getObject("retweet_of_id", Integer.class);
+
+        Tweet tweet = new Tweet(
+                resultSet.getInt("id"),
+                resultSet.getInt("user_id"),
+                resultSet.getString("content"),
+                resultSet.getTimestamp("created_at"),
+                retweetOfId,
+                resultSet.getObject("reply_to_id", Integer.class),
+                resultSet.getString("display_name"),
+                resultSet.getString("username"),
+                resultSet.getInt("like_count"),
+                resultSet.getBoolean("is_liked"),
+                resultSet.getString("profile_image_url"),
+                bookmarkDao.isBookmarked(currentUserId, resultSet.getInt("id")),
+                resultSet.getInt("retweet_count"),
+                retweetOfId != null,
+                resultSet.getBoolean("is_retweeted_by_user"),
+                resultSet.getInt("reply_count")
+        );
+
+        if (retweetOfId != null) {
+            Tweet originalTweet = getTweetById(retweetOfId, currentUserId);
+            tweet.setOriginalTweet(originalTweet);
+        }
+
+        if (tweet.isRetweet() && tweet.getOriginalTweet() != null) {
+            tweet.setMedia(mediaDao.getMediaByTweetId(tweet.getOriginalTweet().getId()));
+        } else {
+            tweet.setMedia(mediaDao.getMediaByTweetId(tweet.getId()));
+        }
+
+        return tweet;
     }
 }
