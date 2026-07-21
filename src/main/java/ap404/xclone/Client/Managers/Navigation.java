@@ -4,6 +4,7 @@ import ap404.xclone.Client.Controllers.ExploreController;
 import ap404.xclone.Client.Controllers.HomeController;
 import ap404.xclone.Client.Controllers.MainController;
 import ap404.xclone.Client.XApplication;
+import ap404.xclone.Shared.Models.Tweet;
 import ap404.xclone.Shared.Models.User;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -18,6 +19,7 @@ public class Navigation
     private static HomeController homeController;
     private static ExploreController exploreController;
     private static User selectedUser;
+    private static Tweet selectedTweet;
 
     private static double homeScroll = 0;
     private static double exploreScroll = 0;
@@ -38,9 +40,13 @@ public class Navigation
     public static void loadChangePassword() { load("change-password.fxml"); }
     public static void loadPrivacy() { load("privacy.fxml"); }
     public static void loadDeleteAccount() { load("delete-account.fxml"); }
+    public static void loadShowReplies() { load("show-replies.fxml"); }
 
     public static User getSelectedUser() { return selectedUser; }
     public static void setSelectedUser(User selectedUser) { Navigation.selectedUser = selectedUser;}
+
+    public static Tweet getSelectedTweet() { return selectedTweet; }
+    public static void setSelectedTweet(Tweet selectedTweet) { Navigation.selectedTweet = selectedTweet; }
 
     public static void setMainController(MainController controller) { mainController = controller; }
     public static MainController getMainController() { return mainController; }
