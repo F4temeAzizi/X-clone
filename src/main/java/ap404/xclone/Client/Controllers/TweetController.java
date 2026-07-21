@@ -34,8 +34,10 @@ import java.util.List;
 import java.util.Optional;
 
 
-public class TweetController
+public class  TweetController
 {
+    @FXML private Button commentBtn;
+    @FXML private Label commentCountLabel;
     @FXML private Label retweetCountLabel;
     @FXML private Button retweetBtn;
     @FXML private Label retweetedByLabel;
@@ -87,6 +89,8 @@ public class TweetController
                 retweetedByLabel.setText(tweet.getUsername() + " Retweeted");
             }
         }
+
+        commentCountLabel.setText(String.valueOf(target.getReplyCount()));
 
         updateRetweetUI();
         updateLikeUI();
@@ -405,4 +409,64 @@ public class TweetController
 
         return tweet;
     }
+    
+    public void handleReply() {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/reply-page.fxml"));
+        Parent root;
+
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        ReplyController controller = loader.getController();
+        controller.setTweet(target);
+
+        Stage stage = new Stage();
+        Scene scene = new Scene(root);
+        ThemeManager.applyTheme(scene);
+        stage.setScene(scene);
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setResizable(false);
+        stage.showAndWait();
+
+        String text = controller.getReplyText();
+
+        try {
+
+            Client client = Session.getClient();
+            ReplyRequest replyRequest = new ReplyRequest(Session.getCurrentUser().getId(), target.getId(), text);
+
+            client.sendRequest(new Request(RequestType.REPLY, replyRequest));
+
+            Response response = client.getResponse();
+
+            if (response.getType() == ResponseType.REPLY_SUCCESS) {
+
+                target.setReplyCount(target.getReplyCount() + 1);
+                commentCountLabel.setText(String.valueOf(target.getReplyCount()));
+            }
+        } catch (IOException e) {
+
+        } catch (ClassNotFoundException e) {
+
+        }
+    }
+    
+    public void openComments() {
+        
+    }
+
+    public void setReadOnly(boolean readOnly) {
+
+        commentBtn.setMouseTransparent(readOnly);
+        retweetBtn.setMouseTransparent(readOnly);
+        likeBtn.setMouseTransparent(readOnly);
+        bookmarkBtn.setMouseTransparent(readOnly);
+
+        moreBtn.setVisible(!readOnly);
+        moreBtn.setManaged(!readOnly);
+    }
+    
 }
