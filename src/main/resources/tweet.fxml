@@ -20,6 +20,7 @@
       maxHeight="-Infinity"
       styleClass="tweet-item"
       fx:id="tweetRoot"
+      onMouseClicked="#showReplies"
       stylesheets="@css/tweet.css">
 
     <ImageView fx:id="avatarImage" fitWidth="60" fitHeight="60" preserveRatio="false" onMouseClicked="#showProfile">
@@ -59,7 +60,7 @@
                 <graphic>
                     <HBox spacing="6" alignment="CENTER">
                         <FontIcon iconLiteral="fas-comment" styleClass="tweet-icon"/>
-                        <Label fx:id="commentCountLabel" text="0" styleClass="tweet-count" onMouseClicked="#openComments"/>
+                        <Label fx:id="commentCountLabel" text="0" styleClass="tweet-count"/>
                     </HBox>
                 </graphic>
             </Button>
