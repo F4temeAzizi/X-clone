@@ -43,7 +43,8 @@ public class ReplyController {
         replyingToLabel.setText("Replying to @" + tweet.getUsername());
 
         try {
-            TweetUtil.addTweet(tweetContainer, tweet);
+            TweetController tweetController = TweetUtil.addTweet(tweetContainer, tweet);
+            tweetController.setReadOnly(true);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
