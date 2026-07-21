@@ -4,6 +4,7 @@ import ap404.xclone.Server.Database.*;
 import ap404.xclone.Shared.DTO.request.*;
 import ap404.xclone.Shared.DTO.response.Response;
 import ap404.xclone.Shared.DTO.enums.ResponseType;
+import ap404.xclone.Shared.Models.FollowCounts;
 import ap404.xclone.Shared.Models.Media;
 import ap404.xclone.Shared.Models.Tweet;
 import ap404.xclone.Shared.Models.User;
@@ -446,15 +447,34 @@ public class ClientHandler implements Runnable {
 
                 FollowDao followDao = new FollowDao();
 
-                boolean isFollowing = followDao.isFollowing(
-                        followRequest.getFollowerId(),
-                        followRequest.getFollowingId()
-                );
+                boolean isFollowing = followDao.isFollowing(followRequest.getFollowerId(), followRequest.getFollowingId());
 
                 outputStream.writeObject(
                         new Response(
                                 ResponseType.CHECK_FOLLOW_SUCCESS,
                                 isFollowing
+                        )
+                );
+
+                outputStream.flush();
+                break;
+            }
+            case GET_FOLLOW_COUNTS: {
+
+                GetFollowCountsRequest countsRequest = (GetFollowCountsRequest) request.getBody();
+
+                FollowDao followDao = new FollowDao();
+
+                int followersCount = followDao.getFollowersCount(countsRequest.getUserId());
+
+                int followingCount = followDao.getFollowingCount(countsRequest.getUserId());
+
+                FollowCounts followCounts = new FollowCounts(followersCount, followingCount);
+
+                outputStream.writeObject(
+                        new Response(
+                                ResponseType.GET_FOLLOW_COUNTS_SUCCESS,
+                                followCounts
                         )
                 );
 
