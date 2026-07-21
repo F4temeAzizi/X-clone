@@ -52,7 +52,7 @@ public class TweetDao {
                     u.profile_image_url,
                 
                     (SELECT COUNT(*) FROM likes l WHERE l.tweet_id = t.id) AS like_count,
-                    EXISTS (SELECT 1 FROM likes l WHERE l.tweet_id = t.id AND l.user_id = ?) AS is_liked_by_user,
+                    EXISTS (SELECT 1 FROM likes l WHERE l.tweet_id = t.id AND l.user_id = ?) AS is_liked,
                     (SELECT COUNT(*) FROM tweets r WHERE r.retweet_of_id = t.id) AS retweet_count,
                     EXISTS (SELECT 1 FROM tweets r WHERE r.retweet_of_id = t.id AND r.user_id = ?) AS is_retweeted_by_user,
                     (SELECT COUNT(*) FROM tweets r WHERE r.reply_to_id = t.id) AS reply_count
@@ -100,7 +100,7 @@ public class TweetDao {
                     u.profile_image_url,
                     
                     (SELECT COUNT(*) FROM likes l WHERE l.tweet_id = t.id) AS like_count,
-                    EXISTS (SELECT 1 FROM likes l WHERE l.tweet_id = t.id AND l.user_id = ?) AS is_liked_by_user,
+                    EXISTS (SELECT 1 FROM likes l WHERE l.tweet_id = t.id AND l.user_id = ?) AS is_liked,
                     (SELECT COUNT(*) FROM tweets r WHERE r.retweet_of_id = t.id) AS retweet_count,
                     EXISTS (SELECT 1 FROM tweets r WHERE r.retweet_of_id = t.id AND r.user_id = ?) AS is_retweeted_by_user,
                     (SELECT COUNT(*) FROM tweets r WHERE r.reply_to_id = t.id) AS reply_count
@@ -195,7 +195,7 @@ public class TweetDao {
                     u.profile_image_url,
                 
                     (SELECT COUNT(*) FROM likes WHERE tweet_id = t.id) AS like_count,
-                     EXISTS (SELECT 1 FROM likes WHERE tweet_id = t.id AND user_id = ?) AS is_liked_by_user,
+                     EXISTS (SELECT 1 FROM likes WHERE tweet_id = t.id AND user_id = ?) AS is_liked,
                     (SELECT COUNT(*) FROM tweets r WHERE r.retweet_of_id = t.id) AS retweet_count,
                     EXISTS (SELECT 1 FROM tweets r WHERE r.retweet_of_id = t.id AND r.user_id = ?) AS is_retweeted_by_user,
                     (SELECT COUNT(*) FROM tweets r WHERE r.reply_to_id = t.id) AS reply_count
@@ -248,7 +248,7 @@ public class TweetDao {
                     u.profile_image_url,
                 
                 (SELECT COUNT(*) FROM likes l WHERE l.tweet_id = t.id) AS like_count,
-                EXISTS (SELECT 1 FROM likes l WHERE l.tweet_id = t.id AND l.user_id = ?) AS is_liked_by_user,
+                EXISTS (SELECT 1 FROM likes l WHERE l.tweet_id = t.id AND l.user_id = ?) AS is_liked,
                 (SELECT COUNT(*) FROM tweets r WHERE r.retweet_of_id = t.id) AS retweet_count,
                 EXISTS (SELECT 1 FROM tweets r WHERE r.retweet_of_id = t.id AND r.user_id = ?) AS is_retweeted_by_user,
                 TRUE AS is_bookmarked_by_user,
@@ -499,7 +499,7 @@ public class TweetDao {
                 return tweets;
             }
         } catch (SQLException e) {
-            System.out.println("error finding tweet: " + e.getMessage());
+            System.out.println("error getting tweet replies: " + e.getMessage());
         }
         return null;
     }
