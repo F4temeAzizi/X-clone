@@ -10,7 +10,7 @@ import java.util.List;
 
 public class TweetUtil
 {
-    public static void addTweet (VBox container, Tweet tweet) throws Exception
+    public static TweetController addTweet (VBox container, Tweet tweet) throws Exception
     {
         FXMLLoader loader = new FXMLLoader(TweetUtil.class.getResource("/Tweet.fxml"));
 
@@ -20,6 +20,8 @@ public class TweetUtil
         controller.setTweet(tweet);
 
         container.getChildren().add(root);
+
+        return controller;
     }
 
     public static void loadTweets (VBox container, List<Tweet> tweets) throws Exception
