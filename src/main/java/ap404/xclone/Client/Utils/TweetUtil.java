@@ -4,13 +4,14 @@ import ap404.xclone.Client.Controllers.TweetController;
 import ap404.xclone.Shared.Models.Tweet;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
 import java.util.List;
 
 public class TweetUtil
 {
-    public static TweetController addTweet (VBox container, Tweet tweet) throws Exception
+    public static TweetController addTweet (Pane container, Tweet tweet) throws Exception
     {
         FXMLLoader loader = new FXMLLoader(TweetUtil.class.getResource("/Tweet.fxml"));
 
