@@ -496,11 +496,12 @@ public class TweetDao {
                 while (resultSet.next()) {
                     tweets.add(mapTweet(resultSet, currentUserId));
                 }
+                return tweets;
             }
         } catch (SQLException e) {
             System.out.println("error finding tweet: " + e.getMessage());
         }
-        return tweets;
+        return null;
     }
 
     private Integer getIntegerOrNull(ResultSet resultSet, String columnName) throws SQLException {
