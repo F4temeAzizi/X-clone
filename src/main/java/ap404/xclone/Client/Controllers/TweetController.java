@@ -19,6 +19,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -447,14 +448,23 @@ public class  TweetController
                 target.setReplyCount(target.getReplyCount() + 1);
                 commentCountLabel.setText(String.valueOf(target.getReplyCount()));
             }
-        } catch (IOException e) {
-
-        } catch (ClassNotFoundException e) {
-
+        } catch (IOException  | ClassNotFoundException e) {
+            e.printStackTrace();
         }
     }
     
-    public void openComments() {
+    public void showReplies(MouseEvent event) {
+
+        Object target = event.getTarget();
+
+        if (target instanceof Button ||
+                target instanceof ImageView ||
+                target instanceof Label) {
+            return;
+        }
+
+        Navigation.setSelectedTweet(this.target);
+        Navigation.loadShowReplies();
         
     }
 
