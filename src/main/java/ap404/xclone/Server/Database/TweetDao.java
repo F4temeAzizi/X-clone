@@ -8,7 +8,6 @@ import java.util.List;
 
 public class TweetDao {
 
-    private LikeDao likeDao = new LikeDao();
     private BookmarkDao bookmarkDao = new BookmarkDao();
     private MediaDao mediaDao = new MediaDao();
 
@@ -57,8 +56,9 @@ public class TweetDao {
                     EXISTS (SELECT 1 FROM tweets r WHERE r.retweet_of_id = t.id AND r.user_id = ?) AS is_retweeted_by_user,
                     (SELECT COUNT(*) FROM tweets r WHERE r.reply_to_id = t.id) AS reply_count
                 
-                FROM tweets t
+                FROM tweets t 
                 JOIN users u ON t.user_id = u.id
+                WHERE t.reply_to_id IS NULL
                 ORDER BY t.created_at DESC;
                 """;
 
@@ -107,7 +107,7 @@ public class TweetDao {
                 
                 FROM tweets t
                 JOIN users u ON t.user_id = u.id
-                WHERE t.user_id = ?
+                WHERE t.user_id = ? AND t.reply_to_id IS NULL
                 ORDER BY t.created_at DESC;
                 """;
 
@@ -257,7 +257,7 @@ public class TweetDao {
                 FROM tweets t
                 JOIN users u ON t.user_id = u.id
                 JOIN bookmarks b ON t.id = b.tweet_id
-                 WHERE b.user_id = ?
+                WHERE b.user_id = ?
                 ORDER BY b.created_at DESC
                 """;
 
