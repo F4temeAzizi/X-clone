@@ -1,16 +1,20 @@
 package ap404.xclone.Client.Controllers;
 
+import ap404.xclone.Client.Managers.Session;
 import ap404.xclone.Client.Utils.TweetUtil;
 import ap404.xclone.Shared.Models.Tweet;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class ReplyController {
 
+    @FXML private ImageView profileImage;
     @FXML private Label charCount;
     @FXML private Button replyBtn;
     @FXML private TextArea replyArea;
@@ -41,6 +45,7 @@ public class ReplyController {
         this.tweet = tweet;
 
         replyingToLabel.setText("Replying to @" + tweet.getUsername());
+        profileImage.setImage(new Image(Session.getCurrentUser().getProfileImageUrl()));
 
         try {
             TweetController tweetController = TweetUtil.addTweet(tweetContainer, tweet);
