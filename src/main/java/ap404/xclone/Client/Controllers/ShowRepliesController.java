@@ -26,7 +26,11 @@ public class ShowRepliesController {
     public void initialize() {
 
         try {
-            TweetUtil.addTweet(mainTweetContainer, Navigation.getSelectedTweet());
+            TweetController tweetController = TweetUtil.addTweet(
+                    mainTweetContainer,
+                    Navigation.getSelectedTweet()
+            );
+            tweetController.setReadOnly(true);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -54,5 +58,19 @@ public class ShowRepliesController {
         catch (Exception e) {
             System.out.println("error getting replies: " + e.getMessage());
         }
+    }
+
+    public void handleBack() {
+
+        Navigation.removeLastReply();
+        Tweet tweet = Navigation.getCurrentReply();
+
+        if(tweet == null) {
+            Navigation.loadHome();
+            return;
+        }
+
+        Navigation.setSelectedTweet(tweet);
+        Navigation.loadShowReplies();
     }
 }
