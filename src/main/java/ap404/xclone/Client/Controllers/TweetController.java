@@ -482,6 +482,7 @@ public class  TweetController
         retweetBtn.setMouseTransparent(readOnly);
         likeBtn.setMouseTransparent(readOnly);
         bookmarkBtn.setMouseTransparent(readOnly);
+        tweetRoot.setMouseTransparent(readOnly);
 
         boolean canShow = !readOnly && tweet.getUserId() == Session.getCurrentUser().getId();
         moreBtn.setVisible(canShow);
