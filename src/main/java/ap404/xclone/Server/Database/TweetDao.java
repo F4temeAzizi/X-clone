@@ -504,6 +504,55 @@ public class TweetDao {
         return null;
     }
 
+    public List<Tweet> getUserReplies(int userId, int currentUserId) {
+
+        String sql = """
+                SELECT
+                    t.id,
+                    t.user_id,
+                    t.content,
+                    t.created_at,
+                    t.is_retweet,
+                    t.retweet_of_id,
+                    t.reply_to_id,
+                    u.display_name,
+                    u.username,
+                    u.profile_image_url,
+                
+                    (SELECT COUNT(*) FROM likes WHERE tweet_id = t.id) AS like_count,
+                     EXISTS (SELECT 1 FROM likes WHERE tweet_id = t.id AND user_id = ?) AS is_liked,
+                    (SELECT COUNT(*) FROM tweets r WHERE r.retweet_of_id = t.id) AS retweet_count,
+                    EXISTS (SELECT 1 FROM tweets r WHERE r.retweet_of_id = t.id AND r.user_id = ?) AS is_retweeted_by_user,
+                    (SELECT COUNT(*) FROM tweets r WHERE r.reply_to_id = t.id) AS reply_count
+                
+                FROM tweets t
+                JOIN users u ON t.user_id = u.id
+                WHERE t.user_id = ? AND t.reply_to_id IS NOT NULL
+                ORDER BY t.created_at DESC;
+                """;
+
+        List<Tweet> replies = new ArrayList<>();
+
+        try (
+                Connection connection = DatabaseConnection.getConnection();
+                PreparedStatement statement = connection.prepareStatement(sql)
+        ) {
+            statement.setInt(1, currentUserId);
+            statement.setInt(2, currentUserId);
+            statement.setInt(3, userId);
+
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    replies.add(mapTweet(resultSet, currentUserId));
+                }
+                return replies;
+            }
+        } catch (SQLException e) {
+            System.out.println("error getting user replies: " + e.getMessage());
+        }
+        return null;
+    }
+
     private Integer getIntegerOrNull(ResultSet resultSet, String columnName) throws SQLException {
         int value = resultSet.getInt(columnName);
 
