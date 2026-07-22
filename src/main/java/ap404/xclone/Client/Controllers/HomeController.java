@@ -35,6 +35,8 @@ public class HomeController
     @FXML
     public void initialize() {
 
+        Navigation.clearHistory();
+
         tweetTextArea.setPrefHeight(60);
         tweetTextArea.textProperty().addListener((obs, o, n) -> {
 
