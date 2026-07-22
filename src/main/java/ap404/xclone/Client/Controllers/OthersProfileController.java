@@ -7,8 +7,7 @@ import ap404.xclone.Client.Utils.TweetUtil;
 import ap404.xclone.Client.Utils.UserUtil;
 import ap404.xclone.Shared.DTO.enums.RequestType;
 import ap404.xclone.Shared.DTO.enums.ResponseType;
-import ap404.xclone.Shared.DTO.request.GetLikedTweetsRequest;
-import ap404.xclone.Shared.DTO.request.GetTweetsByUserRequest;
+import ap404.xclone.Shared.DTO.request.GetProfileTweetsRequest;
 import ap404.xclone.Shared.DTO.request.Request;
 import ap404.xclone.Shared.DTO.response.Response;
 import ap404.xclone.Shared.Models.Tweet;
@@ -54,9 +53,9 @@ public class OthersProfileController
         {
             Client client = Session.getClient();
 
-            GetTweetsByUserRequest getTweetsByUserRequest = new GetTweetsByUserRequest(Navigation.getSelectedUser().getId(), Session.getCurrentUser().getId());
+            GetProfileTweetsRequest getProfileTweetsRequest= new GetProfileTweetsRequest(Navigation.getSelectedUser().getId(), Session.getCurrentUser().getId());
 
-            client.sendRequest(new Request(RequestType.GET_TWEETS_BY_USER, getTweetsByUserRequest));
+            client.sendRequest(new Request(RequestType.GET_TWEETS_BY_USER, getProfileTweetsRequest));
 
             Response response = client.getResponse();
 
@@ -88,12 +87,12 @@ public class OthersProfileController
         {
             Client client = Session.getClient();
 
-            GetLikedTweetsRequest getLikedTweetsRequest = new GetLikedTweetsRequest(
+            GetProfileTweetsRequest getProfileTweetsRequest = new GetProfileTweetsRequest(
                     Navigation.getSelectedUser().getId(),
                     Session.getCurrentUser().getId()
             );
 
-            client.sendRequest(new Request(RequestType.GET_LIKED_TWEETS, getLikedTweetsRequest));
+            client.sendRequest(new Request(RequestType.GET_LIKED_TWEETS, getProfileTweetsRequest));
 
             Response response = client.getResponse();
 

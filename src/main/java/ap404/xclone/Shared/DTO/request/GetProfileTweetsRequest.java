@@ -2,11 +2,11 @@ package ap404.xclone.Shared.DTO.request;
 
 import java.io.Serializable;
 
-public class GetLikedTweetsRequest implements Serializable {
+public class GetProfileTweetsRequest implements Serializable {
     private int userId;
     private int currentUserId;
 
-    public GetLikedTweetsRequest(int userId, int currentUserId) {
+    public GetProfileTweetsRequest(int userId, int currentUserId) {
         this.userId = userId;
         this.currentUserId = currentUserId;
     }

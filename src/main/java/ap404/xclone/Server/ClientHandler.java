@@ -212,13 +212,13 @@ public class ClientHandler implements Runnable {
 
             case GET_TWEETS_BY_USER: {
 
-                GetTweetsByUserRequest getTweetsByUserRequest = (GetTweetsByUserRequest) request.getBody();
+                GetProfileTweetsRequest getProfileTweetsRequest = (GetProfileTweetsRequest) request.getBody();
 
                 TweetDao tweetDao = new TweetDao();
 
 
-                List<Tweet> tweets = tweetDao.getTweetsByUserId(getTweetsByUserRequest.getUserId(),
-                                                                getTweetsByUserRequest.getCurrentUserId());
+                List<Tweet> tweets = tweetDao.getTweetsByUserId(getProfileTweetsRequest.getUserId(),
+                                                                getProfileTweetsRequest.getCurrentUserId());
 
                 if (tweets != null)
                 {
@@ -289,9 +289,9 @@ public class ClientHandler implements Runnable {
 
                 try {
                     TweetDao tweetDao = new TweetDao();
-                    GetLikedTweetsRequest getLikedTweetsRequest = (GetLikedTweetsRequest) request.getBody();
+                    GetProfileTweetsRequest getProfileTweetsRequest = (GetProfileTweetsRequest) request.getBody();
 
-                    List<Tweet> tweets = tweetDao.getLikedTweets(getLikedTweetsRequest.getUserId(), getLikedTweetsRequest.getCurrentUserId());
+                    List<Tweet> tweets = tweetDao.getLikedTweets(getProfileTweetsRequest.getUserId(), getProfileTweetsRequest.getCurrentUserId());
                     outputStream.writeObject(new Response(ResponseType.GET_LIKED_TWEETS_SUCCESS, tweets));
 
                 } catch (RuntimeException e) {
@@ -345,10 +345,10 @@ public class ClientHandler implements Runnable {
                 try
                 {
                     TweetDao tweetDao = new TweetDao();
-                    GetBookmarkedTweetsRequest getBookmarkedTweetsRequest = (GetBookmarkedTweetsRequest) request.getBody();
+                    GetProfileTweetsRequest getProfileTweetsRequest = (GetProfileTweetsRequest) request.getBody();
 
-                    List<Tweet> tweets = tweetDao.getBookmarkedTweets(getBookmarkedTweetsRequest.getUserId(),
-                            getBookmarkedTweetsRequest.getCurrentUserId());
+                    List<Tweet> tweets = tweetDao.getBookmarkedTweets(getProfileTweetsRequest.getUserId(),
+                            getProfileTweetsRequest.getCurrentUserId());
 
                     outputStream.writeObject(new Response(ResponseType.GET_BOOKMARKED_TWEETS_SUCCESS, tweets));
                 }

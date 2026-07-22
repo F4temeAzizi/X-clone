@@ -6,7 +6,7 @@ import ap404.xclone.Client.Managers.Session;
 import ap404.xclone.Client.Utils.TweetUtil;
 import ap404.xclone.Shared.DTO.enums.RequestType;
 import ap404.xclone.Shared.DTO.enums.ResponseType;
-import ap404.xclone.Shared.DTO.request.GetBookmarkedTweetsRequest;
+import ap404.xclone.Shared.DTO.request.GetProfileTweetsRequest;
 import ap404.xclone.Shared.DTO.request.Request;
 import ap404.xclone.Shared.DTO.response.Response;
 import ap404.xclone.Shared.Models.Tweet;
@@ -28,7 +28,7 @@ public class BookmarkController
             Client client = new Client();
 
             client.sendRequest(new Request(RequestType.GET_BOOKMARKED_TWEETS,
-                    new GetBookmarkedTweetsRequest(Session.getCurrentUser().getId(), Session.getCurrentUser().getId())));
+                    new GetProfileTweetsRequest(Session.getCurrentUser().getId(), Session.getCurrentUser().getId())));
 
             Response response = client.getResponse();
 
