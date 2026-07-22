@@ -491,6 +491,21 @@ public class ClientHandler implements Runnable {
                 outputStream.flush();
                 break;
             }
+
+            case GET_USER_REPLIES: {
+
+                GetProfileTweetsRequest getProfileTweetsRequest = (GetProfileTweetsRequest) request.getBody();
+
+                List<Tweet> tweets = tweetDao.getUserReplies(getProfileTweetsRequest.getUserId(), getProfileTweetsRequest.getCurrentUserId());
+
+                if(tweets != null) {
+                    outputStream.writeObject(new Response(ResponseType.GET_USER_REPLIES_SUCCESS, tweets));
+                }
+                else outputStream.writeObject(new Response(ResponseType.GET_TWEET_REPLIES_FAILED));
+
+                outputStream.flush();
+                break;
+            }
         }
     }
 }
