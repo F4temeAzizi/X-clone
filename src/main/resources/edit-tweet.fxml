@@ -11,6 +11,7 @@
 
 
 <?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.control.Label?>
 <VBox xmlns="http://javafx.com/javafx/18"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="ap404.xclone.Client.Controllers.EditTweetController"
@@ -77,7 +78,8 @@
                 </graphic>
             </Button>
             <Pane HBox.hgrow="ALWAYS"/>
-            <Button text="Save" styleClass="post-btn" onAction="#save"/>
+            <Label fx:id="charCount" text="0/280"/>
+            <Button fx:id="saveBtn" text="Save" styleClass="post-btn" onAction="#save"/>
         </HBox>
 
     </VBox>

@@ -75,3 +75,8 @@
 .option-icon-btn:hover .option-icon{
     -fx-icon-color:-color-icon-hover;
 }
+
+#charCount {
+    -fx-text-fill: -color-secondary;
+    -fx-font-size: 13px;
+}
