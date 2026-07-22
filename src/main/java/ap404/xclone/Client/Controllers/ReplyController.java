@@ -45,7 +45,9 @@ public class ReplyController {
         this.tweet = tweet;
 
         replyingToLabel.setText("Replying to @" + tweet.getUsername());
-        profileImage.setImage(new Image(Session.getCurrentUser().getProfileImageUrl()));
+        if (Session.getCurrentUser().getProfileImageUrl() != null){
+            profileImage.setImage(new Image(Session.getCurrentUser().getProfileImageUrl()));
+        }
 
         try {
             TweetController tweetController = TweetUtil.addTweet(tweetContainer, tweet);
