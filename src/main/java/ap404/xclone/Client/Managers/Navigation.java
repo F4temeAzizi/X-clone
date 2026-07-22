@@ -26,6 +26,7 @@ public class Navigation
     private static String profileTab = "posts";
 
     private static String composeText = "";
+    private static String selectedHashtag;
 
     public static void loadHome() { load("home.fxml"); }
     public static void loadProfile() { load("profile.fxml"); }
@@ -38,6 +39,12 @@ public class Navigation
     public static void loadChangePassword() { load("change-password.fxml"); }
     public static void loadPrivacy() { load("privacy.fxml"); }
     public static void loadDeleteAccount() { load("delete-account.fxml"); }
+
+    public static void showHashtag(String hashtag)
+    {
+        setSelectedHashtag(hashtag);
+        loadExplore();
+    }
 
     public static User getSelectedUser() { return selectedUser; }
     public static void setSelectedUser(User selectedUser) { Navigation.selectedUser = selectedUser;}
@@ -68,6 +75,9 @@ public class Navigation
 
     public static String getComposeText() { return composeText; }
     public static void setComposeText(String text) { composeText = text; }
+
+    public static String getSelectedHashtag() { return selectedHashtag; }
+    public static void setSelectedHashtag(String hashtag) { selectedHashtag = hashtag; }
 
     public static void setCenter(StackPane centerPane)
     {
