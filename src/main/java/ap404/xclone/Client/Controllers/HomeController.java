@@ -7,6 +7,8 @@ import ap404.xclone.Client.Utils.UserUtil;
 import ap404.xclone.Shared.Models.Media;
 import ap404.xclone.Shared.Models.Tweet;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
@@ -25,17 +27,32 @@ import java.util.List;
 
 public class HomeController
 {
+    @FXML private Label charCount;
+    @FXML private Button postBtn;
     @FXML private VBox tweetContainer;
     @FXML private ImageView composeAvatar;
     @FXML private TextArea tweetTextArea;
     @FXML private ScrollPane scrollPane;
     @FXML private FlowPane previewPane;
     private List<Media> mediaList = new ArrayList<>();
+    private final int MAX_TWEET_LENGTH = 280;
 
     @FXML
     public void initialize() {
 
         Navigation.clearHistory();
+
+        postBtn.setDisable(true);
+        charCount.setText("0/" + MAX_TWEET_LENGTH);
+
+        tweetTextArea.textProperty().addListener((observable, oldValue, newValue) -> {
+
+            int length = newValue.length();
+
+            charCount.setText(length + "/" + MAX_TWEET_LENGTH);
+
+            postBtn.setDisable(newValue.isBlank() || length > MAX_TWEET_LENGTH);
+        });
 
         tweetTextArea.setPrefHeight(60);
         tweetTextArea.textProperty().addListener((obs, o, n) -> {
