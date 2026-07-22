@@ -11,6 +11,8 @@ import javafx.scene.Parent;
 import javafx.scene.layout.StackPane;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Navigation
 {
@@ -26,6 +28,7 @@ public class Navigation
     private static double bookmarkScroll = 0;
     private static double profileScroll = 0;
     private static String profileTab = "posts";
+    private static List<Tweet> replyHistory = new ArrayList<>();
 
     private static String composeText = "";
 
@@ -41,6 +44,23 @@ public class Navigation
     public static void loadPrivacy() { load("privacy.fxml"); }
     public static void loadDeleteAccount() { load("delete-account.fxml"); }
     public static void loadShowReplies() { load("show-replies.fxml"); }
+    
+    public static void addReplyToHistory( Tweet tweet) { replyHistory.add(tweet); }
+
+    public static void removeLastReply() {
+        if (replyHistory.isEmpty() ) return;
+
+        replyHistory.remove(replyHistory.size() - 1);
+    }
+    public static Tweet getCurrentReply() {
+        if (replyHistory.isEmpty()) return null;
+
+        return replyHistory.get(replyHistory.size() - 1);
+    }
+
+    public static void clearHistory() {
+        replyHistory.clear();
+    }
 
     public static User getSelectedUser() { return selectedUser; }
     public static void setSelectedUser(User selectedUser) { Navigation.selectedUser = selectedUser;}
