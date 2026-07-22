@@ -33,6 +33,7 @@ public class ExploreController
         String hashtag = Navigation.getSelectedHashtag();
         if (hashtag != null)
         {
+            searchField.setText("#" + hashtag);
             showHashtag(hashtag);
             Navigation.setSelectedHashtag(null);
         }
@@ -40,6 +41,7 @@ public class ExploreController
 
         searchField.textProperty().addListener((obs, o, n) -> {
             if (n.isBlank()) loadTweets();
+            else if (n.startsWith("#")) showHashtag(n.substring(1));
             else searchTweets(n);
         });
 
