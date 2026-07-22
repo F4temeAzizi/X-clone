@@ -12,6 +12,8 @@ import ap404.xclone.Shared.DTO.request.Request;
 import ap404.xclone.Shared.DTO.response.Response;
 import ap404.xclone.Shared.Models.Media;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
@@ -21,15 +23,30 @@ import java.util.List;
 
 public class PostController
 {
+    @FXML private Label charCount;
+    @FXML private Button postBtn;
     @FXML private ImageView composeAvatar;
     @FXML private TextArea tweetArea;
     @FXML private FlowPane previewPane;
 
     private List<Media> mediaList = new ArrayList<>();
+    private final int MAX_TWEET_LENGTH = 280;
 
     @FXML
     public void initialize()
     {
+        postBtn.setDisable(true);
+        charCount.setText("0/" + MAX_TWEET_LENGTH);
+
+        tweetArea.textProperty().addListener((observable, oldValue, newValue) -> {
+
+            int length = newValue.length();
+
+            charCount.setText(length + "/" + MAX_TWEET_LENGTH);
+
+            postBtn.setDisable(newValue.isBlank() || length > MAX_TWEET_LENGTH);
+        });
+
         UserUtil.loadUser(Session.getCurrentUser(),
                 null, null,
                 null, composeAvatar,
