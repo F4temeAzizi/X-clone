@@ -89,7 +89,8 @@
                             </graphic>
                         </Button>
                         <Pane HBox.hgrow="ALWAYS"/>
-                        <Button text="Post" styleClass="post-btn" onAction="#postTweet"/>
+                        <Label fx:id="charCount" text="0/280"/>
+                        <Button fx:id="postBtn" text="Post" styleClass="post-btn" onAction="#postTweet"/>
                     </HBox>
 
                 </VBox>
