@@ -22,6 +22,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -32,6 +34,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 public class TweetController
@@ -46,7 +50,7 @@ public class TweetController
     @FXML private Button moreBtn;
     @FXML private Label nameLabel;
     @FXML private Label usernameLabel;
-    @FXML private Label contentLabel;
+    @FXML private TextFlow contentFlow;
     @FXML private ImageView avatarImage;
     @FXML private Label timeLabel;
     @FXML private HBox tweetRoot;
@@ -54,6 +58,8 @@ public class TweetController
 
     private Tweet tweet;
     private Tweet target;
+
+    private static Pattern hashtagPattern = Pattern.compile("#\\w+");
 
     public void setTweet(Tweet tweet)
     {
@@ -63,7 +69,7 @@ public class TweetController
 
         nameLabel.setText(target.getName());
         usernameLabel.setText(target.getUsername());
-        contentLabel.setText(target.getContent());
+        setText(target.getContent());
 
         if (target.getAvatarImageUrl() != null)
             avatarImage.setImage(new Image(target.getAvatarImageUrl()));
@@ -92,6 +98,45 @@ public class TweetController
         updateLikeUI();
         updateBookmarkUI();
         timeLabel.setText(formatTime(tweet.getCreatedAt()));
+    }
+
+    private void setText(String content)
+    {
+        contentFlow.getChildren().clear();
+        if (content == null) return;
+
+        Matcher matcher = hashtagPattern.matcher(content);
+
+        int lastEnd = 0;
+
+        while(matcher.find())
+        {
+            if (matcher.start() > lastEnd)
+            {
+                Text normalText = new Text(content.substring(lastEnd, matcher.start()));
+                normalText.getStyleClass().add("tweet-text");
+                contentFlow.getChildren().add(normalText);
+            }
+
+            String hashtag = matcher.group();
+            Text hashtagText = new Text(hashtag);
+
+            hashtagText.setOnMouseClicked(e -> {
+                String tag = hashtagText.getText().substring(1);
+                Navigation.showHashtag(tag);
+            });
+
+            hashtagText.getStyleClass().add("tweet-hashtag");
+            contentFlow.getChildren().add(hashtagText);
+            lastEnd = matcher.end();
+        }
+
+        if (lastEnd < content.length())
+        {
+            Text normalText = new Text(content.substring(lastEnd));
+            normalText.getStyleClass().add("tweet-text");
+            contentFlow.getChildren().add(normalText);
+        }
     }
 
     @FXML
@@ -185,7 +230,7 @@ public class TweetController
                 tweet.setContent(newContent);
                 tweet.setMedia(newMedia);
                 MediaUtil.showTweet(mediaContainer, newMedia);
-                contentLabel.setText(newContent);
+                setText(newContent);
             }
         }
         catch (IOException | ClassNotFoundException e)
@@ -404,5 +449,11 @@ public class TweetController
         }
 
         return tweet;
+    }
+
+    private boolean hasHashtag(String text)
+    {
+        if (text != null && text.contains("#")) return true;
+        return false;
     }
 }
