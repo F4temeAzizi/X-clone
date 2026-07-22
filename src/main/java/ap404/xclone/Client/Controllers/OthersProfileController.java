@@ -75,8 +75,28 @@ public class OthersProfileController
     @FXML public void showReplies ()
     {
         selectTab(repliesTab);
-        tweetContainer.getChildren().clear();
-        tweetContainer.getChildren().add(new Label("No replies yet"));
+
+        try {
+
+            Client client = Session.getClient();
+
+            GetProfileTweetsRequest getProfileTweetsRequest = new GetProfileTweetsRequest(
+                    Navigation.getSelectedUser().getId(),
+                    Session.getCurrentUser().getId()
+            );
+
+            client.sendRequest(new Request(RequestType.GET_USER_REPLIES, getProfileTweetsRequest));
+
+            Response response = client.getResponse();
+
+            if (response.getType() == ResponseType.GET_USER_REPLIES_SUCCESS) {
+                List<Tweet> replies = (List<Tweet>) response.getBody();
+                TweetUtil.loadTweets(tweetContainer, replies);
+            }
+
+        } catch (Exception e) {
+            System.out.println("Failed to load replies: " + e.getMessage());
+        }
     }
 
     @FXML public void showLikes ()
