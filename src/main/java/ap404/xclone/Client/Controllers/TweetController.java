@@ -463,6 +463,7 @@ public class  TweetController
             return;
         }
 
+        Navigation.addReplyToHistory(this.target);
         Navigation.setSelectedTweet(this.target);
         Navigation.loadShowReplies();
         
@@ -475,8 +476,9 @@ public class  TweetController
         likeBtn.setMouseTransparent(readOnly);
         bookmarkBtn.setMouseTransparent(readOnly);
 
-        moreBtn.setVisible(!readOnly);
-        moreBtn.setManaged(!readOnly);
+        boolean canShow = !readOnly && tweet.getUserId() == Session.getCurrentUser().getId();
+        moreBtn.setVisible(canShow);
+        moreBtn.setManaged(canShow);
     }
     
 }
