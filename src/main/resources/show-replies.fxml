@@ -25,7 +25,9 @@
 
             <Button fx:id="backButton"
                     text="←"
-                    styleClass="icon-button"/>
+                    styleClass="icon-button"
+                    onAction="#handleBack"
+            />
         </HBox>
     </top>
 
