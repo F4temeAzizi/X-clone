@@ -105,7 +105,14 @@ public class  TweetController
         ContextMenu contextMenu = new ContextMenu();
         MenuItem delete = new MenuItem("Delete");
         MenuItem edit = new MenuItem("Edit");
-        contextMenu.getItems().addAll(delete, edit);
+
+
+        if(tweet.isRetweet()) {
+            contextMenu.getItems().add(delete);
+        }
+        else {
+            contextMenu.getItems().addAll(delete, edit);
+        }
 
         contextMenu.getStyleClass().add("x-menu");
         contextMenu.show(moreBtn, javafx.geometry.Side.TOP, 0, 0);
