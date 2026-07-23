@@ -163,4 +163,6 @@ public class HomeController
     {
         MediaUtil.addVideos(previewPane, mediaList, tweetTextArea.getScene().getWindow());
     }
+
+    public VBox getTweetContainer() { return tweetContainer; }
 }
