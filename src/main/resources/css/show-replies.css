@@ -17,6 +17,7 @@
     -fx-background-radius: 100;
     -fx-cursor: hand;
     -fx-padding: 8;
+    -fx-icon-color:-color-text;
 }
 
 .icon-button:hover {
