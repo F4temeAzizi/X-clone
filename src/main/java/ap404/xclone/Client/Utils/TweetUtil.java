@@ -11,7 +11,7 @@ import java.util.List;
 
 public class TweetUtil
 {
-    public static TweetController addTweet (Pane container, Tweet tweet) throws Exception
+    public static TweetController addTweet (Pane container, Tweet tweet, int index) throws Exception
     {
         FXMLLoader loader = new FXMLLoader(TweetUtil.class.getResource("/Tweet.fxml"));
 
@@ -20,7 +20,10 @@ public class TweetUtil
         TweetController controller = loader.getController();
         controller.setTweet(tweet);
 
-        container.getChildren().add(root);
+        if (index < 0){
+            container.getChildren().add(root);
+        }
+        else container.getChildren().add(0, root);
 
         return controller;
     }
@@ -30,7 +33,7 @@ public class TweetUtil
         container.getChildren().clear();
         for (Tweet tweet: tweets)
         {
-            addTweet(container, tweet);
+            addTweet(container, tweet, -1);
         }
     }
 }
