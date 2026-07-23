@@ -399,13 +399,14 @@ public class TweetDao {
             throw new RuntimeException();
         }
     }
-    public boolean retweet(int userId, int tweetId) {
+    public Tweet retweet(int userId, int tweetId) {
 
-        if(!tweetExists(tweetId)) return false;
+        if(!tweetExists(tweetId)) return null;
 
         String sql = """
                 INSERT INTO tweets (user_id, content, retweet_of_id)
-                VALUES (?, NULL, ?)               
+                VALUES (?, NULL, ?)
+                RETURNING id;         
                 """;
 
         try (
@@ -415,13 +416,17 @@ public class TweetDao {
             statement.setInt(1, userId);
             statement.setInt(2, tweetId);
 
-            statement.executeUpdate();
-            return true;
+            try (ResultSet resultSet = statement.executeQuery()) {
+                
+                if (resultSet.next()) {
+                    return getTweetById(resultSet.getInt("id"), userId);
+                }
+            }
 
         } catch (SQLException e) {
             System.out.println("Retweet error: " + e.getMessage());
-            return false;
         }
+        return null;
     }
 
     public boolean tweetExists(int tweetId) {
