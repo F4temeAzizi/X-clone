@@ -5,11 +5,15 @@ import ap404.xclone.Shared.Models.Tweet;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class TweetDao {
 
     private BookmarkDao bookmarkDao = new BookmarkDao();
     private MediaDao mediaDao = new MediaDao();
+    private HashtagDao hashtagDao = new HashtagDao();
+    private TweetHashtagDao tweetHashtagDao = new TweetHashtagDao();
 
     public int createTweet(int userId, String content) {
         String sql = """
@@ -28,7 +32,11 @@ public class TweetDao {
 
             ResultSet resultSet = statement.getGeneratedKeys();
 
-            if (resultSet.next()) return resultSet.getInt(1);
+            if (resultSet.next()) {
+                int tweetId = resultSet.getInt(1);
+                saveHashtags(tweetId, content);
+                return tweetId;
+            }
 
         } catch (SQLException e) {
             System.out.println("Create tweet error: " + e.getMessage());
@@ -71,6 +79,111 @@ public class TweetDao {
 
             statement.setInt(1, currentUserId);
             statement.setInt(2, currentUserId);
+
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                tweets.add(mapTweet(resultSet, currentUserId));
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Get tweets error: " + e.getMessage());
+        }
+
+        return tweets;
+    }
+
+    public List<Tweet> getTweetsByHashtag(String hashtag, int currentUserId) {
+        String sql = """
+                SELECT
+                    t.id,
+                    t.user_id,
+                    t.content,
+                    t.created_at,
+                    t.is_retweet,
+                    t.retweet_of_id,
+                    t.reply_to_id,
+                    u.display_name,
+                    u.username,
+                    u.profile_image_url,
+                
+                    (SELECT COUNT(*) FROM likes l WHERE l.tweet_id = t.id) AS like_count,
+                    EXISTS (SELECT 1 FROM likes l WHERE l.tweet_id = t.id AND l.user_id = ?) AS is_liked,
+                    (SELECT COUNT(*) FROM tweets r WHERE r.retweet_of_id = t.id) AS retweet_count,
+                    EXISTS (SELECT 1 FROM tweets r WHERE r.retweet_of_id = t.id AND r.user_id = ?) AS is_retweeted_by_user,
+                    (SELECT COUNT(*) FROM tweets r WHERE r.reply_to_id = t.id) AS reply_count
+                
+                FROM tweets t
+                JOIN users u ON t.user_id = u.id                
+                JOIN tweet_hashtags th ON th.tweet_id = t.id              
+                JOIN hashtags h ON h.id = th.hashtag_id                
+                
+                WHERE h.name = ?
+                
+                ORDER BY t.created_at DESC;
+                """;
+
+        List<Tweet> tweets = new ArrayList<>();
+
+        try (
+                Connection connection = DatabaseConnection.getConnection();
+                PreparedStatement statement = connection.prepareStatement(sql);
+        ) {
+
+            statement.setInt(1, currentUserId);
+            statement.setInt(2, currentUserId);
+            statement.setString(3, hashtag.toLowerCase());
+
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                tweets.add(mapTweet(resultSet, currentUserId));
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Get tweets error: " + e.getMessage());
+        }
+
+        return tweets;
+    }
+
+
+    public List<Tweet> searchTweets(String keyword, int currentUserId) {
+        String sql = """
+                SELECT
+                    t.id,
+                    t.user_id,
+                    t.content,
+                    t.created_at,
+                    t.is_retweet,
+                    t.retweet_of_id,
+                    t.reply_to_id,
+                    u.display_name,
+                    u.username,
+                    u.profile_image_url,
+                
+                    (SELECT COUNT(*) FROM likes l WHERE l.tweet_id = t.id) AS like_count,
+                    EXISTS (SELECT 1 FROM likes l WHERE l.tweet_id = t.id AND l.user_id = ?) AS is_liked,
+                    (SELECT COUNT(*) FROM tweets r WHERE r.retweet_of_id = t.id) AS retweet_count,
+                    EXISTS (SELECT 1 FROM tweets r WHERE r.retweet_of_id = t.id AND r.user_id = ?) AS is_retweeted_by_user,
+                    (SELECT COUNT(*) FROM tweets r WHERE r.reply_to_id = t.id) AS reply_count
+                
+                FROM tweets t
+                JOIN users u ON t.user_id = u.id
+                WHERE t.content ILIKE ?
+                ORDER BY t.created_at DESC;
+                """;
+
+        List<Tweet> tweets = new ArrayList<>();
+
+        try (
+                Connection connection = DatabaseConnection.getConnection();
+                PreparedStatement statement = connection.prepareStatement(sql);
+        ) {
+
+            statement.setInt(1, currentUserId);
+            statement.setInt(2, currentUserId);
+            statement.setString(3,"%" + keyword + "%");
 
             ResultSet resultSet = statement.executeQuery();
 
@@ -551,6 +664,22 @@ public class TweetDao {
             System.out.println("error getting user replies: " + e.getMessage());
         }
         return null;
+    }
+
+    private void saveHashtags(int tweetId, String content)
+    {
+        if (content == null || content.isBlank()) return;
+
+        Pattern pattern = Pattern.compile("#(\\w+)");
+        Matcher matcher = pattern.matcher(content);
+
+        while (matcher.find())
+        {
+            String hashtag = matcher.group(1).toLowerCase();
+            int hashtagId = hashtagDao.createIfNotExists(hashtag);
+
+            if (hashtagId != -1) tweetHashtagDao.addHashtagToTweet(tweetId, hashtagId);
+        }
     }
 
     private Integer getIntegerOrNull(ResultSet resultSet, String columnName) throws SQLException {

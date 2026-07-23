@@ -25,5 +25,7 @@ public enum RequestType implements Serializable {
     CHECK_FOLLOW,
     REPLY,
     GET_TWEET_REPLIES,
-    GET_USER_REPLIES
+    GET_USER_REPLIES,
+    SEARCH_TWEETS,
+    SHOW_HASHTAG
 }

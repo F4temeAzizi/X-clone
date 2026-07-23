@@ -1,6 +1,7 @@
 package ap404.xclone.Server;
 
 import ap404.xclone.Server.Database.*;
+import ap404.xclone.Shared.DTO.enums.RequestType;
 import ap404.xclone.Shared.DTO.request.*;
 import ap404.xclone.Shared.DTO.response.Response;
 import ap404.xclone.Shared.DTO.enums.ResponseType;
@@ -503,6 +504,43 @@ public class ClientHandler implements Runnable {
                 }
                 else outputStream.writeObject(new Response(ResponseType.GET_TWEET_REPLIES_FAILED));
 
+                outputStream.flush();
+                break;
+            }
+
+            case SEARCH_TWEETS: {
+                try
+                {
+                    SearchTweetsRequest searchTweetsRequest = (SearchTweetsRequest) request.getBody();
+
+                    List<Tweet> tweets = tweetDao.searchTweets
+                            (searchTweetsRequest.getKeyword(), searchTweetsRequest.getUserId());
+
+                    outputStream.writeObject(new Response(ResponseType.SEARCH_TWEETS_SUCCESS, tweets));
+                }
+                catch (RuntimeException e)
+                {
+                    outputStream.writeObject(new Response(ResponseType.SEARCH_TWEETS_FAILED));
+                }
+
+                outputStream.flush();
+                break;
+            }
+
+            case SHOW_HASHTAG: {
+                try
+                {
+                    ShowHashtagRequest showHashtagRequest = (ShowHashtagRequest) request.getBody();
+
+                    List<Tweet> tweets = tweetDao.getTweetsByHashtag(
+                            showHashtagRequest.getHashtag(), showHashtagRequest.getUserId());
+
+                    outputStream.writeObject(new Response(ResponseType.SHOW_HASHTAG_SUCCESS, tweets));
+                }
+                catch (RuntimeException e)
+                {
+                    outputStream.writeObject(new Response(ResponseType.SHOW_HASHTAG_FAILED));
+                }
                 outputStream.flush();
                 break;
             }

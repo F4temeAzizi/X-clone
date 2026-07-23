@@ -31,6 +31,7 @@ public class Navigation
     private static List<Tweet> replyHistory = new ArrayList<>();
 
     private static String composeText = "";
+    private static String selectedHashtag;
 
     public static void loadHome() { load("home.fxml"); }
     public static void loadProfile() { load("profile.fxml"); }
@@ -60,6 +61,12 @@ public class Navigation
 
     public static void clearHistory() {
         replyHistory.clear();
+    }
+
+    public static void showHashtag(String hashtag)
+    {
+        setSelectedHashtag(hashtag);
+        loadExplore();
     }
 
     public static User getSelectedUser() { return selectedUser; }
@@ -94,6 +101,9 @@ public class Navigation
 
     public static String getComposeText() { return composeText; }
     public static void setComposeText(String text) { composeText = text; }
+
+    public static String getSelectedHashtag() { return selectedHashtag; }
+    public static void setSelectedHashtag(String hashtag) { selectedHashtag = hashtag; }
 
     public static void setCenter(StackPane centerPane)
     {

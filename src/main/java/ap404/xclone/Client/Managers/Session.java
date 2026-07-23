@@ -12,6 +12,5 @@ public class Session
     public static void setClient(Client client) { Session.client = client;}
 
     public static User getCurrentUser() { return currentUser; }
-
     public static void setCurrentUser(User user) { currentUser = user; }
 }
