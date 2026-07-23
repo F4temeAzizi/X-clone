@@ -511,7 +511,8 @@ public class  TweetController
 
         if (target instanceof Button ||
                 target instanceof ImageView ||
-                target instanceof Label) {
+                target instanceof Label ||
+                target instanceof Text) {
             return;
         }
 
