@@ -50,7 +50,7 @@ public class ReplyController {
         }
 
         try {
-            TweetController tweetController = TweetUtil.addTweet(tweetContainer, tweet);
+            TweetController tweetController = TweetUtil.addTweet(tweetContainer, tweet, -1);
             tweetController.setReadOnly(true);
         } catch (Exception e) {
             throw new RuntimeException(e);

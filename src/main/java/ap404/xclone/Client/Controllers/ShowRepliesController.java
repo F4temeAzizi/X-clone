@@ -28,7 +28,8 @@ public class ShowRepliesController {
         try {
             TweetController tweetController = TweetUtil.addTweet(
                     mainTweetContainer,
-                    Navigation.getSelectedTweet()
+                    Navigation.getSelectedTweet(),
+                    -1
             );
             tweetController.setReadOnly(true);
         } catch (Exception e) {

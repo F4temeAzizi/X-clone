@@ -4,6 +4,7 @@ import ap404.xclone.Client.Client;
 import ap404.xclone.Client.Managers.Session;
 import ap404.xclone.Client.Managers.ThemeManager;
 import ap404.xclone.Client.Utils.MediaUtil;
+import ap404.xclone.Client.Utils.TweetUtil;
 import ap404.xclone.Shared.DTO.enums.RequestType;
 import ap404.xclone.Shared.DTO.enums.ResponseType;
 import ap404.xclone.Shared.DTO.request.*;
@@ -395,7 +396,7 @@ public class  TweetController
         }
     }
 
-    public void handleRetweet() throws IOException, ClassNotFoundException {
+    public void handleRetweet() throws Exception {
 
         boolean isRetweetedByUser = target.isRetweetedByUser();
         Client client = Session.getClient();
@@ -416,6 +417,7 @@ public class  TweetController
                 target.setRetweetedByUser(true);
 
                 updateRetweetUI();
+                TweetUtil.addTweet(Navigation.getHomeController().getTweetContainer(), (Tweet) response.getBody(), 0);
             }
         }
 

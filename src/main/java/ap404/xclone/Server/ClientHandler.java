@@ -366,10 +366,10 @@ public class ClientHandler implements Runnable {
 
                 RetweetRequest retweetRequest = (RetweetRequest) request.getBody();
 
-                boolean retweeted = tweetDao.retweet(retweetRequest.getUserId(), retweetRequest.getTweetId());
+                Tweet retweet = tweetDao.retweet(retweetRequest.getUserId(), retweetRequest.getTweetId());
 
-                if(retweeted)
-                    outputStream.writeObject(new Response(ResponseType.RETWEET_SUCCESS));
+                if(retweet != null)
+                    outputStream.writeObject(new Response(ResponseType.RETWEET_SUCCESS, retweet));
                 else
                     outputStream.writeObject(new Response(ResponseType.RETWEET_FAILED));
 
