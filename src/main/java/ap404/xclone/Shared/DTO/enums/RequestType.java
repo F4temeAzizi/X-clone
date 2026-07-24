@@ -23,5 +23,7 @@ public enum RequestType implements Serializable {
     FOLLOW,
     UNFOLLOW,
     CHECK_FOLLOW,
-    GET_FOLLOW_COUNTS
+    GET_FOLLOW_COUNTS,
+    GET_FOLLOWERS,
+    GET_FOLLOWING
 }
