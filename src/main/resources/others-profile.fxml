@@ -71,8 +71,8 @@
                     </HBox>
 
                     <HBox spacing="25">
-                        <Label text="0 Following" styleClass="profile-follow"/>
-                        <Label text="0 Followers" styleClass="profile-follow"/>
+                        <Label fx:id="followingLabel" text="0 Following" styleClass="profile-follow"/>
+                        <Label fx:id="followersLabel" text="0 Followers" styleClass="profile-follow"/>
                     </HBox>
 
                 </VBox>
