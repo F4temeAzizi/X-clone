@@ -69,7 +69,7 @@ public class UserDao {
 
         try (
                 Connection connection = DatabaseConnection.getConnection();
-                PreparedStatement statement = connection.prepareStatement(sql);
+                PreparedStatement statement = connection.prepareStatement(sql)
         ) {
             statement.setString(1, usernameOrEmail);
             statement.setString(2, usernameOrEmail);
@@ -110,7 +110,7 @@ public class UserDao {
 
         try (
                 Connection connection = DatabaseConnection.getConnection();
-                PreparedStatement statement = connection.prepareStatement(sql);
+                PreparedStatement statement = connection.prepareStatement(sql)
         ) {
             statement.setString(1, name);
             statement.setString(2, username);
@@ -165,5 +165,46 @@ public class UserDao {
         }
 
         return null;
+    }
+
+    public boolean deleteAccount(String username, String password) {
+
+        String verifySql = """
+                SELECT password_hash
+                FROM users
+                WHERE username = ?
+                """;
+
+        String deleteAccountSql = """
+                DELETE FROM users
+                WHERE username = ?
+                """;
+
+        try (Connection connection = DatabaseConnection.getConnection()) {
+
+            try (PreparedStatement statement = connection.prepareStatement(verifySql)) {
+
+                statement.setString(1, username);
+
+                ResultSet resultSet = statement.executeQuery();
+
+                if (!resultSet.next()) return false;
+
+                String hashedPassword = resultSet.getString("password_hash");
+
+                if (!BCrypt.checkpw(password, hashedPassword)) return false;
+            }
+
+            try (PreparedStatement statement = connection.prepareStatement(deleteAccountSql)) {
+
+                statement.setString(1, username);
+
+                return statement.executeUpdate() == 1;
+            }
+
+        } catch (SQLException e) {
+            System.out.println("delete account error: " + e.getMessage());
+            return false;
+        }
     }
 }
