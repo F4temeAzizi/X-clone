@@ -23,6 +23,7 @@ public class ClientHandler implements Runnable {
     private final ObjectOutputStream outputStream;
     private final ObjectInputStream inputStream;
     private TweetDao tweetDao;
+    private UserDao userDao;
 
     public ClientHandler(Socket socket) throws IOException {
         this.socket = socket;
@@ -30,6 +31,7 @@ public class ClientHandler implements Runnable {
         inputStream = new ObjectInputStream(socket.getInputStream());
 
         tweetDao = new TweetDao();
+        userDao = new UserDao();
     }
 
 
@@ -53,8 +55,6 @@ public class ClientHandler implements Runnable {
 
                 CredentialsRequest credentialsRequest = (CredentialsRequest) request.getBody();
 
-                UserDao userDao = new UserDao();
-
                 boolean success = userDao.login(
                         credentialsRequest.getUsername(),
                         credentialsRequest.getPassword()
@@ -74,8 +74,6 @@ public class ClientHandler implements Runnable {
             case SIGNUP: {
 
                 SignupRequest signupRequest = (SignupRequest) request.getBody();
-
-                UserDao userDao = new UserDao();
 
                 boolean success = userDao.signup(
                         signupRequest.getName(),
@@ -125,7 +123,6 @@ public class ClientHandler implements Runnable {
 
                 CreateTweetRequest createTweetRequest = (CreateTweetRequest) request.getBody();
 
-                TweetDao tweetDao = new TweetDao();
                 MediaDao mediaDao = new MediaDao();
 
                 int id = tweetDao.createTweet(
@@ -148,7 +145,6 @@ public class ClientHandler implements Runnable {
 
             case GET_ALL_TWEETS: {
 
-                TweetDao tweetDao = new TweetDao();
                 int currentUserId = (Integer) request.getBody();
 
                 outputStream.writeObject(
@@ -199,8 +195,6 @@ public class ClientHandler implements Runnable {
 
                 GetUserByIdRequest getUserByIdRequest = (GetUserByIdRequest) request.getBody();
 
-                UserDao userDao = new UserDao();
-
                User user = userDao.getUserById(getUserByIdRequest.getUserId());
 
                if (user != null) outputStream.writeObject(new Response(ResponseType.GET_USER_BY_ID_SUCCESS, user));
@@ -213,9 +207,6 @@ public class ClientHandler implements Runnable {
             case GET_TWEETS_BY_USER: {
 
                 GetProfileTweetsRequest getProfileTweetsRequest = (GetProfileTweetsRequest) request.getBody();
-
-                TweetDao tweetDao = new TweetDao();
-
 
                 List<Tweet> tweets = tweetDao.getTweetsByUserId(getProfileTweetsRequest.getUserId(),
                                                                 getProfileTweetsRequest.getCurrentUserId());
@@ -237,8 +228,6 @@ public class ClientHandler implements Runnable {
 
                 DeleteTweetRequest deleteTweetRequest = (DeleteTweetRequest) request.getBody();
 
-                TweetDao tweetDao = new TweetDao();
-
                 boolean success = tweetDao.deleteTweet(deleteTweetRequest.getTweetId(), deleteTweetRequest.getUserId());
 
                 if (success)
@@ -258,7 +247,6 @@ public class ClientHandler implements Runnable {
 
                 EditTweetRequest editTweetRequest = (EditTweetRequest) request.getBody();
 
-                TweetDao tweetDao = new TweetDao();
                 MediaDao mediaDao = new MediaDao();
 
                 boolean success = tweetDao.editTweet(editTweetRequest.getTweetId(),
@@ -288,7 +276,6 @@ public class ClientHandler implements Runnable {
             case GET_LIKED_TWEETS: {
 
                 try {
-                    TweetDao tweetDao = new TweetDao();
                     GetProfileTweetsRequest getProfileTweetsRequest = (GetProfileTweetsRequest) request.getBody();
 
                     List<Tweet> tweets = tweetDao.getLikedTweets(getProfileTweetsRequest.getUserId(), getProfileTweetsRequest.getCurrentUserId());
@@ -344,7 +331,6 @@ public class ClientHandler implements Runnable {
 
                 try
                 {
-                    TweetDao tweetDao = new TweetDao();
                     GetProfileTweetsRequest getProfileTweetsRequest = (GetProfileTweetsRequest) request.getBody();
 
                     List<Tweet> tweets = tweetDao.getBookmarkedTweets(getProfileTweetsRequest.getUserId(),
@@ -540,6 +526,21 @@ public class ClientHandler implements Runnable {
                 {
                     outputStream.writeObject(new Response(ResponseType.SHOW_HASHTAG_FAILED));
                 }
+                outputStream.flush();
+                break;
+            }
+
+            case DELETE_ACCOUNT: {
+
+                CredentialsRequest credentialsRequest = (CredentialsRequest) request.getBody();
+
+                boolean accountDeleted = userDao.deleteAccount(credentialsRequest.getUsername(), credentialsRequest.getPassword());
+
+                if(accountDeleted)
+                    outputStream.writeObject(new Response(ResponseType.DELETE_ACCOUNT_SUCCESS));
+                else
+                    outputStream.writeObject(new Response(ResponseType.DELETE_ACCOUNT_FAILED));
+
                 outputStream.flush();
                 break;
             }
