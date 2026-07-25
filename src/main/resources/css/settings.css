@@ -63,3 +63,11 @@
 .radio-button:selected .dot{
     -fx-background-color:#1d9bf0;
 }
+
+.error-label {
+    -fx-text-fill: #ff0000;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-alignment: center;
+    -fx-padding: 5 0 5 0;
+}
