@@ -43,6 +43,8 @@
     <VBox spacing="8" >
         <Label text="Confirm password" styleClass="field-title"/>
         <TextField fx:id="confirmPasswordField" styleClass="text-field"/>
+
+        <Label fx:id="errorLabel" text="" styleClass="error-label" visible="false"/>
     </VBox>
 
     <Region VBox.vgrow="ALWAYS"/>
