@@ -45,6 +45,7 @@ public class Navigation
     public static void loadPrivacy() { load("privacy.fxml"); }
     public static void loadDeleteAccount() { load("delete-account.fxml"); }
     public static void loadShowReplies() { load("show-replies.fxml"); }
+    public static void loadLogin() { load("login.fxml");}
     
     public static void addReplyToHistory( Tweet tweet) { replyHistory.add(tweet); }
 
