@@ -1,7 +1,6 @@
 package ap404.xclone.Server;
 
 import ap404.xclone.Server.Database.*;
-import ap404.xclone.Shared.DTO.enums.RequestType;
 import ap404.xclone.Shared.DTO.request.*;
 import ap404.xclone.Shared.DTO.response.Response;
 import ap404.xclone.Shared.DTO.enums.ResponseType;
@@ -52,17 +51,17 @@ public class ClientHandler implements Runnable {
         switch (request.getType()) {
             case LOGIN: {
 
-                LoginRequest loginRequest = (LoginRequest) request.getBody();
+                CredentialsRequest credentialsRequest = (CredentialsRequest) request.getBody();
 
                 UserDao userDao = new UserDao();
 
                 boolean success = userDao.login(
-                        loginRequest.getUsername(),
-                        loginRequest.getPassword()
+                        credentialsRequest.getUsername(),
+                        credentialsRequest.getPassword()
                 );
 
                 if (success) {
-                    User user = userDao.getUser(loginRequest.getUsername());
+                    User user = userDao.getUser(credentialsRequest.getUsername());
                     outputStream.writeObject(new Response(ResponseType.LOGIN_SUCCESS, user));
                 } else {
 

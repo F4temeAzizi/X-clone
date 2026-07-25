@@ -3,7 +3,7 @@ package ap404.xclone.Client.Controllers;
 import ap404.xclone.Client.Client;
 import ap404.xclone.Client.Managers.Navigation;
 import ap404.xclone.Shared.DTO.response.Response;
-import ap404.xclone.Shared.DTO.request.LoginRequest;
+import ap404.xclone.Shared.DTO.request.CredentialsRequest;
 import ap404.xclone.Shared.DTO.enums.RequestType;
 import ap404.xclone.Shared.DTO.enums.ResponseType;
 import ap404.xclone.Shared.DTO.request.Request;
@@ -40,8 +40,8 @@ public class LoginController
 
             Client client = new Client();
 
-            LoginRequest loginRequest = new LoginRequest(username, password);
-            client.sendRequest(new Request(RequestType.LOGIN, loginRequest));
+            CredentialsRequest credentialsRequest = new CredentialsRequest(username, password);
+            client.sendRequest(new Request(RequestType.LOGIN, credentialsRequest));
 
             Response response = client.getResponse();
 

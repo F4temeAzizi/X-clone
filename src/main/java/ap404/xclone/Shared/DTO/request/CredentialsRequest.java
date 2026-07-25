@@ -2,12 +2,12 @@ package ap404.xclone.Shared.DTO.request;
 
 import java.io.Serializable;
 
-public class LoginRequest implements Serializable {
+public class CredentialsRequest implements Serializable {
 
     private String username;
     private String password;
 
-    public LoginRequest(String username, String password) {
+    public CredentialsRequest(String username, String password) {
         this.username = username;
         this.password = password;
     }
