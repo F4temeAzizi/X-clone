@@ -226,6 +226,7 @@ public class  TweetController
         stage.showAndWait();
 
         String newContent = controller.getEditedText();
+        if (newContent == null) return;
         List<Media> newMedia = controller.getEditedMedia();
 
         try
