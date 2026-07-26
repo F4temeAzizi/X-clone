@@ -167,5 +167,14 @@ public class ProfileController
             );
         }
     }
+    @FXML
+    public void showFollowing()
+    {
+        Navigation.setFollowListUser(Session.getCurrentUser());
+
+        Navigation.setFollowListType("following");
+
+        Navigation.loadFollowList();
+    }
 }
 
