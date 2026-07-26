@@ -41,6 +41,7 @@ public class Navigation
     public static void loadChangePassword() { load("change-password.fxml"); }
     public static void loadPrivacy() { load("privacy.fxml"); }
     public static void loadDeleteAccount() { load("delete-account.fxml"); }
+    public static void loadFollowList() {load("follow-list.fxml");}
 
     public static User getSelectedUser() { return selectedUser; }
     public static void setSelectedUser(User selectedUser) { Navigation.selectedUser = selectedUser;}
