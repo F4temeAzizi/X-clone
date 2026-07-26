@@ -4,6 +4,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import ap404.xclone.Shared.Models.User;
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class FollowDao {
 
@@ -127,5 +131,98 @@ public class FollowDao {
         }
 
         return 0;
+    }
+    public List<User> getFollowers(int userId)
+    {
+        List<User> followers = new ArrayList<>();
+
+        String sql = """
+            SELECT users.*
+            FROM follows
+            JOIN users
+              ON follows.follower_id = users.id
+            WHERE follows.following_id = ?
+            ORDER BY follows.created_at DESC
+            """;
+
+        try (
+                Connection connection = DatabaseConnection.getConnection();
+
+                PreparedStatement statement = connection.prepareStatement(sql)
+        )
+        {
+            statement.setInt(1, userId);
+
+            try (
+                    ResultSet resultSet = statement.executeQuery()
+            )
+            {
+                while (resultSet.next())
+                {
+                    followers.add(mapResultSetToUser(resultSet));
+                }
+            }
+        }
+        catch (SQLException e)
+        {
+            System.err.println("Get followers error: " + e.getMessage());
+        }
+
+        return followers;
+    }
+
+    public List<User> getFollowing(int userId)
+    {
+        List<User> following = new ArrayList<>();
+
+        String sql = """
+            SELECT users.*
+            FROM follows
+            JOIN users
+              ON follows.following_id = users.id
+            WHERE follows.follower_id = ?
+            ORDER BY follows.created_at DESC
+            """;
+
+        try (
+                Connection connection = DatabaseConnection.getConnection();
+
+                PreparedStatement statement = connection.prepareStatement(sql)
+        )
+        {
+            statement.setInt(1, userId);
+
+            try (
+                    ResultSet resultSet = statement.executeQuery()
+            )
+            {
+                while (resultSet.next())
+                {
+                    following.add(mapResultSetToUser(resultSet));
+                }
+            }
+        }
+        catch (SQLException e)
+        {
+            System.err.println("Get following error: " + e.getMessage());
+        }
+
+        return following;
+    }
+
+    private User mapResultSetToUser(ResultSet resultSet) throws SQLException
+    {
+        return new User(
+                resultSet.getInt("id"),
+                resultSet.getString("username"),
+                resultSet.getString("display_name"),
+                resultSet.getString("email"),
+                resultSet.getString("password_hash"),
+                resultSet.getString("bio"),
+                resultSet.getString("profile_image_url"),
+                resultSet.getString("banner_image_url"),
+                resultSet.getBoolean("is_private"),
+                resultSet.getTimestamp("created_at")
+        );
     }
 }
