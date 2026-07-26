@@ -170,6 +170,46 @@ public class FollowDao {
 
         return followers;
     }
+
+    public List<User> getFollowing(int userId)
+    {
+        List<User> following = new ArrayList<>();
+
+        String sql = """
+            SELECT users.*
+            FROM follows
+            JOIN users
+              ON follows.following_id = users.id
+            WHERE follows.follower_id = ?
+            ORDER BY follows.created_at DESC
+            """;
+
+        try (
+                Connection connection = DatabaseConnection.getConnection();
+
+                PreparedStatement statement = connection.prepareStatement(sql)
+        )
+        {
+            statement.setInt(1, userId);
+
+            try (
+                    ResultSet resultSet = statement.executeQuery()
+            )
+            {
+                while (resultSet.next())
+                {
+                    following.add(mapResultSetToUser(resultSet));
+                }
+            }
+        }
+        catch (SQLException e)
+        {
+            System.err.println("Get following error: " + e.getMessage());
+        }
+
+        return following;
+    }
+    
     private User mapResultSetToUser(ResultSet resultSet) throws SQLException
     {
         return new User(
