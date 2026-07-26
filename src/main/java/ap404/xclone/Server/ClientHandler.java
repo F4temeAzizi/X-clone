@@ -498,6 +498,24 @@ public class ClientHandler implements Runnable {
                 outputStream.flush();
                 break;
             }
+            case GET_FOLLOWING:
+            {
+                GetFollowingRequest followingRequest = (GetFollowingRequest) request.getBody();
+
+                FollowDao followDao = new FollowDao();
+
+                List<User> following = followDao.getFollowing(followingRequest.getUserId());
+
+                outputStream.writeObject(
+                        new Response(
+                                ResponseType.GET_FOLLOWING_SUCCESS,
+                                following
+                        )
+                );
+
+                outputStream.flush();
+                break;
+            }
         }
     }
 }
