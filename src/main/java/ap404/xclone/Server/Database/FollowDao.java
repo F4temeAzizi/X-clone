@@ -209,7 +209,7 @@ public class FollowDao {
 
         return following;
     }
-    
+
     private User mapResultSetToUser(ResultSet resultSet) throws SQLException
     {
         return new User(

@@ -8,15 +8,14 @@ import ap404.xclone.Shared.Models.FollowCounts;
 import ap404.xclone.Shared.Models.Media;
 import ap404.xclone.Shared.Models.Tweet;
 import ap404.xclone.Shared.Models.User;
-
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.List;
-
 import ap404.xclone.Server.Database.TweetDao;
 import ap404.xclone.Server.Database.FollowDao;
+
 
 public class ClientHandler implements Runnable {
 
@@ -475,6 +474,24 @@ public class ClientHandler implements Runnable {
                         new Response(
                                 ResponseType.GET_FOLLOW_COUNTS_SUCCESS,
                                 followCounts
+                        )
+                );
+
+                outputStream.flush();
+                break;
+            }
+            case GET_FOLLOWERS:
+            {
+                GetFollowersRequest followersRequest = (GetFollowersRequest) request.getBody();
+
+                FollowDao followDao = new FollowDao();
+
+                List<User> followers = followDao.getFollowers(followersRequest.getUserId());
+
+                outputStream.writeObject(
+                        new Response(
+                                ResponseType.GET_FOLLOWERS_SUCCESS,
+                                followers
                         )
                 );
 
