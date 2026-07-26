@@ -176,5 +176,15 @@ public class ProfileController
 
         Navigation.loadFollowList();
     }
+    
+    @FXML
+    public void showFollowers()
+    {
+        Navigation.setFollowListUser(Session.getCurrentUser());
+
+        Navigation.setFollowListType("followers");
+
+        Navigation.loadFollowList();
+    }
 }
 
