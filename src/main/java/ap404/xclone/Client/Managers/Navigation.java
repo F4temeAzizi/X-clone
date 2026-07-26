@@ -25,6 +25,9 @@ public class Navigation
     private static double profileScroll = 0;
     private static String profileTab = "posts";
 
+    private static User followListUser;
+    private static String followListType;
+
     private static String composeText = "";
 
     public static void loadHome() { load("home.fxml"); }
@@ -74,6 +77,14 @@ public class Navigation
         center = centerPane;
     }
 
+    public static User getFollowListUser() { return followListUser; }
+    public static void setFollowListUser(User user) { followListUser = user; }
+
+    public static String getFollowListType() { return followListType; }
+    public static void setFollowListType(String type) { followListType = type; }
+
+
+
     public static void load(String fxml)
     {
         try
@@ -91,4 +102,6 @@ public class Navigation
         Parent root = FXMLLoader.load(Navigation.class.getResource("/" + fxml));
         XApplication.getPrimaryStage().getScene().setRoot(root);
     }
+
+
 }
