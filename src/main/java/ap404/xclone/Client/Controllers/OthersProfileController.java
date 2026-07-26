@@ -255,4 +255,13 @@ public class OthersProfileController
             );
         }
     }
+    @FXML
+    public void showFollowing()
+    {
+        Navigation.setFollowListUser(Navigation.getSelectedUser());
+
+        Navigation.setFollowListType("following");
+
+        Navigation.loadFollowList();
+    }
 }

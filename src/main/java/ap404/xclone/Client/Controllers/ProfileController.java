@@ -176,7 +176,7 @@ public class ProfileController
 
         Navigation.loadFollowList();
     }
-    
+
     @FXML
     public void showFollowers()
     {
