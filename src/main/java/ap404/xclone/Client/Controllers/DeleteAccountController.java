@@ -60,6 +60,7 @@ public class DeleteAccountController
             }
         } catch (Exception e) {
             e.printStackTrace();
+            errorLabel.setVisible(true);
             errorLabel.setText("Connection to server failed.");
         }
     }
