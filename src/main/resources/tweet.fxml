@@ -35,8 +35,13 @@
 
     <VBox spacing="8" HBox.hgrow="ALWAYS">
 
+        <HBox fx:id="pinnedHeader" alignment="CENTER_LEFT" visible="false" managed="false">
+            <FontIcon iconLiteral="fas-thumbtack" styleClass="pinned-icon"/>
+            <Label text="Pinned" styleClass="pinned-label"/>
+        </HBox>
+
         <HBox fx:id="retweetHeader" spacing="6" alignment="CENTER_LEFT" visible="false" managed="false">
-            <FontIcon iconLiteral="fas-retweet" styleClass="retweet-icon" fill="#657786"/>
+            <FontIcon iconLiteral="fas-retweet" styleClass="retweet-icon"/>
             <Label fx:id="retweetedByLabel" text="Retweeted" styleClass="retweeted-by"/>
         </HBox>
 
