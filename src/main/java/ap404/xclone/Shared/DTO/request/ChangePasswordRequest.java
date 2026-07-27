@@ -5,10 +5,10 @@ import java.io.Serializable;
 public class ChangePasswordRequest implements Serializable {
 
     private int userId;
-    private int currentPassword;
-    private int newPassword;
+    private String currentPassword;
+    private String newPassword;
 
-    public ChangePasswordRequest(int userId, int currentPassword, int newPassword) {
+    public ChangePasswordRequest(int userId, String currentPassword, String newPassword) {
         this.userId = userId;
         this.currentPassword = currentPassword;
         this.newPassword = newPassword;
@@ -17,10 +17,10 @@ public class ChangePasswordRequest implements Serializable {
     public int getUserId() {
         return userId;
     }
-    public int getCurrentPassword() {
+    public String getCurrentPassword() {
         return currentPassword;
     }
-    public int getNewPassword() {
+    public String getNewPassword() {
         return newPassword;
     }
 }
