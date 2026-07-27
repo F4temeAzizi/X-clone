@@ -28,5 +28,6 @@ public enum RequestType implements Serializable {
     GET_USER_REPLIES,
     SEARCH_TWEETS,
     SHOW_HASHTAG,
-    DELETE_ACCOUNT
+    DELETE_ACCOUNT,
+    CHANGE_PASSWORD
 }
