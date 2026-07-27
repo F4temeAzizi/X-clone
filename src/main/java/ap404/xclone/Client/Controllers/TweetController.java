@@ -42,6 +42,7 @@ import java.util.regex.Pattern;
 
 public class  TweetController
 {
+    @FXML private HBox pinnedHeader;
     @FXML private Button commentBtn;
     @FXML private Label commentCountLabel;
     @FXML private Label retweetCountLabel;
@@ -85,6 +86,11 @@ public class  TweetController
         boolean isCurrentUser = (Session.getCurrentUser().getId() == tweet.getUserId());
         moreBtn.setVisible(isCurrentUser);
         moreBtn.setManaged(isCurrentUser);
+
+        if(tweet.isPinned()) {
+            pinnedHeader.setVisible(true);
+            pinnedHeader.setManaged(true);
+        }
 
         if(tweet.isRetweet()){
             retweetHeader.setVisible(true);
@@ -151,13 +157,23 @@ public class  TweetController
         ContextMenu contextMenu = new ContextMenu();
         MenuItem delete = new MenuItem("Delete");
         MenuItem edit = new MenuItem("Edit");
+        MenuItem pin = new MenuItem("Pin");
+        MenuItem unpin = new MenuItem("Unpin");
 
+        contextMenu.getItems().add(delete);
 
-        if(tweet.isRetweet()) {
-            contextMenu.getItems().add(delete);
+        if (tweet.getReplyToId() == null) { //replies cannot be pinned
+
+            if (!tweet.isPinned()){
+                contextMenu.getItems().add(pin);
+            }
+            else {
+                contextMenu.getItems().add(unpin);
+            }
         }
-        else {
-            contextMenu.getItems().addAll(delete, edit);
+
+        if(!tweet.isRetweet()) { //retweets cannot be edited
+            contextMenu.getItems().add(edit);
         }
 
         contextMenu.getStyleClass().add("x-menu");
@@ -165,6 +181,29 @@ public class  TweetController
 
         delete.setOnAction(event -> deleteTweet());
         edit.setOnAction(e -> editTweet());
+        pin.setOnAction(e -> pinTweet());
+        unpin.setOnAction(e -> unpinTweet());
+    }
+
+    public void unpinTweet() {
+
+    }
+    public void pinTweet() {
+        if(tweet.getUserId() != Session.getCurrentUser().getId()) return;
+
+        PinTweetRequest pinTweetRequest = new PinTweetRequest(
+                Session.getCurrentUser().getId(),
+                tweet.getId()
+        );
+
+        try {
+            Client client = Session.getClient();
+
+            client.sendRequest(new Request(RequestType.PIN_TWEET, pinTweetRequest));
+            Response response = client.getResponse();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void deleteTweet()
