@@ -137,6 +137,14 @@
     -fx-padding: 5 0 5 0;
 }
 
+.success-label {
+    -fx-text-fill: #2ecc71;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-alignment: center;
+    -fx-padding: 5 0 5 0;
+}
+
 .login-label {
     -fx-text-fill: #71767b;
     -fx-font-size: 14px;
