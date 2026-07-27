@@ -59,6 +59,7 @@ public class TweetDao {
                     u.profile_image_url,
                 
                     (SELECT COUNT(*) FROM likes l WHERE l.tweet_id = t.id) AS like_count,
+                    FALSE AS is_pinned,
                     EXISTS (SELECT 1 FROM likes l WHERE l.tweet_id = t.id AND l.user_id = ?) AS is_liked,
                     (SELECT COUNT(*) FROM tweets r WHERE r.retweet_of_id = t.id) AS retweet_count,
                     EXISTS (SELECT 1 FROM tweets r WHERE r.retweet_of_id = t.id AND r.user_id = ?) AS is_retweeted_by_user,
@@ -108,6 +109,7 @@ public class TweetDao {
                     u.profile_image_url,
                 
                     (SELECT COUNT(*) FROM likes l WHERE l.tweet_id = t.id) AS like_count,
+                    FALSE AS is_pinned,
                     EXISTS (SELECT 1 FROM likes l WHERE l.tweet_id = t.id AND l.user_id = ?) AS is_liked,
                     (SELECT COUNT(*) FROM tweets r WHERE r.retweet_of_id = t.id) AS retweet_count,
                     EXISTS (SELECT 1 FROM tweets r WHERE r.retweet_of_id = t.id AND r.user_id = ?) AS is_retweeted_by_user,
@@ -163,6 +165,7 @@ public class TweetDao {
                     u.profile_image_url,
                 
                     (SELECT COUNT(*) FROM likes l WHERE l.tweet_id = t.id) AS like_count,
+                    FALSE AS is_pinned,
                     EXISTS (SELECT 1 FROM likes l WHERE l.tweet_id = t.id AND l.user_id = ?) AS is_liked,
                     (SELECT COUNT(*) FROM tweets r WHERE r.retweet_of_id = t.id) AS retweet_count,
                     EXISTS (SELECT 1 FROM tweets r WHERE r.retweet_of_id = t.id AND r.user_id = ?) AS is_retweeted_by_user,
@@ -213,6 +216,7 @@ public class TweetDao {
                     u.profile_image_url,
                     
                     (SELECT COUNT(*) FROM likes l WHERE l.tweet_id = t.id) AS like_count,
+                    (t.id = u.pinned_tweet_id) AS is_pinned,
                     EXISTS (SELECT 1 FROM likes l WHERE l.tweet_id = t.id AND l.user_id = ?) AS is_liked,
                     (SELECT COUNT(*) FROM tweets r WHERE r.retweet_of_id = t.id) AS retweet_count,
                     EXISTS (SELECT 1 FROM tweets r WHERE r.retweet_of_id = t.id AND r.user_id = ?) AS is_retweeted_by_user,
@@ -221,7 +225,9 @@ public class TweetDao {
                 FROM tweets t
                 JOIN users u ON t.user_id = u.id
                 WHERE t.user_id = ? AND t.reply_to_id IS NULL
-                ORDER BY t.created_at DESC;
+                ORDER BY
+                    (t.id = u.pinned_tweet_id) DESC,
+                    t.created_at DESC;
                 """;
 
         List<Tweet> tweets = new ArrayList<>();
@@ -308,6 +314,7 @@ public class TweetDao {
                     u.profile_image_url,
                 
                     (SELECT COUNT(*) FROM likes WHERE tweet_id = t.id) AS like_count,
+                    FALSE AS is_pinned,
                      EXISTS (SELECT 1 FROM likes WHERE tweet_id = t.id AND user_id = ?) AS is_liked,
                     (SELECT COUNT(*) FROM tweets r WHERE r.retweet_of_id = t.id) AS retweet_count,
                     EXISTS (SELECT 1 FROM tweets r WHERE r.retweet_of_id = t.id AND r.user_id = ?) AS is_retweeted_by_user,
@@ -361,6 +368,7 @@ public class TweetDao {
                     u.profile_image_url,
                 
                 (SELECT COUNT(*) FROM likes l WHERE l.tweet_id = t.id) AS like_count,
+                FALSE AS is_pinned,
                 EXISTS (SELECT 1 FROM likes l WHERE l.tweet_id = t.id AND l.user_id = ?) AS is_liked,
                 (SELECT COUNT(*) FROM tweets r WHERE r.retweet_of_id = t.id) AS retweet_count,
                 EXISTS (SELECT 1 FROM tweets r WHERE r.retweet_of_id = t.id AND r.user_id = ?) AS is_retweeted_by_user,
@@ -503,6 +511,7 @@ public class TweetDao {
                    u.username,
                    u.profile_image_url,
                    (SELECT COUNT(*) FROM likes WHERE tweet_id = t.id) AS like_count,
+                   FALSE AS is_pinned,
                    (SELECT COUNT(*) > 0 FROM likes WHERE tweet_id = t.id AND user_id = ?) AS is_liked,
                    EXISTS (SELECT 1 FROM tweets r WHERE r.retweet_of_id = t.id AND r.user_id = ?) AS is_retweeted_by_user,
                    (SELECT COUNT(*) FROM tweets WHERE retweet_of_id = t.id) AS retweet_count,
@@ -590,6 +599,7 @@ public class TweetDao {
                 u.username,
                 u.profile_image_url,
                 (SELECT COUNT(*) FROM likes WHERE tweet_id = t.id) AS like_count,
+                FALSE AS is_pinned,
                 (SELECT COUNT(*) > 0 FROM likes WHERE tweet_id = t.id AND user_id = ?) AS is_liked,
                 EXISTS (SELECT 1 FROM tweets r WHERE r.retweet_of_id = t.id AND r.user_id = ?) AS is_retweeted_by_user,
                 (SELECT COUNT(*) FROM tweets WHERE retweet_of_id = t.id) AS retweet_count,
@@ -638,6 +648,7 @@ public class TweetDao {
                     u.profile_image_url,
                 
                     (SELECT COUNT(*) FROM likes WHERE tweet_id = t.id) AS like_count,
+                    FALSE as is_pinned,
                      EXISTS (SELECT 1 FROM likes WHERE tweet_id = t.id AND user_id = ?) AS is_liked,
                     (SELECT COUNT(*) FROM tweets r WHERE r.retweet_of_id = t.id) AS retweet_count,
                     EXISTS (SELECT 1 FROM tweets r WHERE r.retweet_of_id = t.id AND r.user_id = ?) AS is_retweeted_by_user,
@@ -717,7 +728,8 @@ public class TweetDao {
                 resultSet.getInt("retweet_count"),
                 retweetOfId != null,
                 resultSet.getBoolean("is_retweeted_by_user"),
-                resultSet.getInt("reply_count")
+                resultSet.getInt("reply_count"),
+                resultSet.getBoolean("is_pinned")
         );
 
         if (retweetOfId != null) {
