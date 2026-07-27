@@ -207,4 +207,50 @@ public class UserDao {
             return false;
         }
     }
+
+    public boolean changePassword(int userId, String currentPassword, String newPassword) {
+
+        String verifySql = """
+                SELECT password_hash
+                FROM users
+                WHERE id = ?
+                """;
+
+        String changePasswordSql = """
+                UPDATE users
+                SET password_hash = ?
+                WHERE id = ?
+                """;
+
+
+        try (Connection connection = DatabaseConnection.getConnection()) {
+
+            try (PreparedStatement statement = connection.prepareStatement(verifySql)) {
+
+                statement.setInt(1, userId);
+
+                ResultSet resultSet = statement.executeQuery();
+
+                if (!resultSet.next()) return false;
+
+                String hashedPassword = resultSet.getString("password_hash");
+
+                if (!BCrypt.checkpw(currentPassword, hashedPassword)) return false;
+            }
+
+            String newHashedPassword = BCrypt.hashpw(newPassword, BCrypt.gensalt());
+
+            try (PreparedStatement statement = connection.prepareStatement(changePasswordSql)) {
+
+                statement.setString(1, newHashedPassword);
+                statement.setInt(2, userId);
+
+                return statement.executeUpdate() == 1;
+            }
+
+        } catch (SQLException e) {
+            System.out.println("change password error: " + e.getMessage());
+            return false;
+        }
+    }
 }
