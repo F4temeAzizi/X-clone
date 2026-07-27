@@ -32,7 +32,7 @@ public class LoginController
 
         if (username.isBlank() || password.isBlank())
         {
-            MessageUtil.setErrorMessage(errorLabel, "fields cannot be empty!");
+            MessageUtil.showError(errorLabel, "fields cannot be empty!");
             return;
         }
 
@@ -52,11 +52,11 @@ public class LoginController
                 Navigation.navigate("main.fxml");
             }
             else {
-                MessageUtil.setErrorMessage(errorLabel, "invalid username or password");
+                MessageUtil.showError(errorLabel, "invalid username or password");
             }
 
         } catch (Exception e) {
-            MessageUtil.setErrorMessage(errorLabel, "Cannot connect to server!");
+            MessageUtil.showError(errorLabel, "Cannot connect to server!");
         }
     }
 

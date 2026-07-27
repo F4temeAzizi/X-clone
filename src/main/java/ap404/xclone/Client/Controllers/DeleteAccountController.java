@@ -3,6 +3,7 @@ package ap404.xclone.Client.Controllers;
 import ap404.xclone.Client.Client;
 import ap404.xclone.Client.Managers.Navigation;
 import ap404.xclone.Client.Managers.Session;
+import ap404.xclone.Client.Utils.MessageUtil;
 import ap404.xclone.Shared.DTO.enums.RequestType;
 import ap404.xclone.Shared.DTO.enums.ResponseType;
 import ap404.xclone.Shared.DTO.request.CredentialsRequest;
@@ -31,8 +32,7 @@ public class DeleteAccountController
         String password = confirmPasswordField.getText().trim();
 
         if(password.isEmpty()) {
-            errorLabel.setVisible(true);
-            errorLabel.setText("Please enter your password");
+            MessageUtil.showError(errorLabel, "Please enter your password");
             return;
         }
 
@@ -55,13 +55,11 @@ public class DeleteAccountController
                 Navigation.navigate("login.fxml");
             }
             else {
-                errorLabel.setVisible(true);
-                errorLabel.setText("Couldn't delete your account");
+                MessageUtil.showError(errorLabel, "Couldn't delete your account");
             }
         } catch (Exception e) {
             e.printStackTrace();
-            errorLabel.setVisible(true);
-            errorLabel.setText("Connection to server failed.");
+            MessageUtil.showError(errorLabel, "Connection to server failed.");
         }
     }
 }

@@ -37,12 +37,12 @@ public class SignupController
                 || email.isBlank()
                 || password.isBlank()
                 || confirmPassword.isBlank()) {
-            MessageUtil.setErrorMessage(errorLabel, "All fields are required!");
+            MessageUtil.showError(errorLabel, "All fields are required!");
             return;
         }
 
         if (!password.equals(confirmPassword)) {
-            MessageUtil.setErrorMessage(errorLabel, "Passwords do not match!");
+            MessageUtil.showError(errorLabel, "Passwords do not match!");
             return;
         }
 
@@ -56,14 +56,14 @@ public class SignupController
             Response response = client.getResponse();
 
             if (response.getType().equals(ResponseType.SIGNUP_SUCCESS)) {
-                MessageUtil.setErrorMessage(errorLabel, "Sign up succeed!");
+                MessageUtil.showSuccess(errorLabel, "Sign up succeed!");
             }
             else {
-                MessageUtil.setErrorMessage(errorLabel, "Sign up failed!");
+                MessageUtil.showError(errorLabel, "Sign up failed!");
             }
 
         } catch (Exception e) {
-            MessageUtil.setErrorMessage(errorLabel, "Cannot connect to server!");
+            MessageUtil.showError(errorLabel, "Cannot connect to server!");
         }
     }
 

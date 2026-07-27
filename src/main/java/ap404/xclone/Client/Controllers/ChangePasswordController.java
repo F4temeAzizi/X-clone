@@ -3,6 +3,7 @@ package ap404.xclone.Client.Controllers;
 import ap404.xclone.Client.Client;
 import ap404.xclone.Client.Managers.Navigation;
 import ap404.xclone.Client.Managers.Session;
+import ap404.xclone.Client.Utils.MessageUtil;
 import ap404.xclone.Shared.DTO.enums.RequestType;
 import ap404.xclone.Shared.DTO.enums.ResponseType;
 import ap404.xclone.Shared.DTO.request.ChangePasswordRequest;
@@ -32,17 +33,17 @@ public class ChangePasswordController
         String confirmNewPassword = confirmNewPasswordField.getText();
 
         if(currentPassword.isBlank() || newPassword.isBlank() || confirmNewPassword.isBlank()) {
-            showError("All fields are required!");
+            MessageUtil.showError(errorLabel,"All fields are required!");
             return;
         }
 
         if (!newPassword.equals(confirmNewPassword)) {
-            showError("Passwords do not match!");
+            MessageUtil.showError(errorLabel, "Passwords do not match!");
             return;
         }
 
         if (newPassword.equals(currentPassword)) {
-            showError("New password must be different from the current password.");
+            MessageUtil.showError(errorLabel, "New password must be different from the current password.");
             return;
         }
 
@@ -62,35 +63,19 @@ public class ChangePasswordController
 
             if (response.getType() == ResponseType.CHANGE_PASSWORD_SUCCESS) {
 
-                showSuccess("Password changed successfully.");
+                MessageUtil.showSuccess(errorLabel, "Password changed successfully.");
 
                 currentPasswordField.clear();
                 newPasswordField.clear();
                 confirmNewPasswordField.clear();
             }
             else {
-                showError("Changing password failed! ");
+                MessageUtil.showError(errorLabel ,"Changing password failed! ");
             }
 
         } catch (Exception e) {
             e.printStackTrace();
-            errorLabel.setVisible(true);
-            errorLabel.setText("Connection to server failed.");
+            MessageUtil.showError(errorLabel, "Connection to server failed.");
         }
-    }
-
-
-    private void showError(String message) {
-        errorLabel.getStyleClass().removeAll("success-label", "error-label");
-        errorLabel.getStyleClass().add("error-label");
-        errorLabel.setText(message);
-        errorLabel.setVisible(true);
-    }
-
-    private void showSuccess(String message) {
-        errorLabel.getStyleClass().removeAll("success-label", "error-label");
-        errorLabel.getStyleClass().add("success-label");
-        errorLabel.setText(message);
-        errorLabel.setVisible(true);
     }
 }
