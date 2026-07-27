@@ -18,6 +18,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import java.util.List;
+import ap404.xclone.Shared.DTO.request.GetFollowCountsRequest;
+import ap404.xclone.Shared.Models.FollowCounts;
 
 public class ProfileController
 {
@@ -32,11 +34,14 @@ public class ProfileController
     @FXML private Label likesTab;
     @FXML private VBox tweetContainer;
     @FXML private ScrollPane profileScroll;
+    @FXML private Label followingLabel;
+    @FXML private Label followersLabel;
 
 
     public void initialize ()
     {
         UserUtil.loadUser(Session.getCurrentUser(), nameLbl, usernameLbl, bioLbl, avatarImage, bannerRegion, createdAtLbl);
+        loadFollowCounts();
         switch (Navigation.getProfileTab())
         {
             case "replies":
@@ -150,6 +155,54 @@ public class ProfileController
         likesTab.getStyleClass().setAll("profile-tab");
 
         active.getStyleClass().setAll("profile-tab-active");
+    }
+    private void loadFollowCounts()
+    {
+        try
+        {
+            Client client = Session.getClient();
+
+            GetFollowCountsRequest requestBody = new GetFollowCountsRequest(Session.getCurrentUser().getId());
+
+            client.sendRequest(new Request(RequestType.GET_FOLLOW_COUNTS, requestBody));
+
+            Response response = client.getResponse();
+
+            if (response.getType() == ResponseType.GET_FOLLOW_COUNTS_SUCCESS)
+            {
+                FollowCounts counts = (FollowCounts) response.getBody();
+
+                followingLabel.setText(counts.getFollowingCount() + " Following");
+
+                followersLabel.setText(counts.getFollowersCount() + " Followers");
+            }
+        }
+        catch (Exception e)
+        {
+            System.err.println(
+                    "Failed to load follow counts: "
+                            + e.getMessage()
+            );
+        }
+    }
+    @FXML
+    public void showFollowing()
+    {
+        Navigation.setFollowListUser(Session.getCurrentUser());
+
+        Navigation.setFollowListType("following");
+
+        Navigation.loadFollowList();
+    }
+
+    @FXML
+    public void showFollowers()
+    {
+        Navigation.setFollowListUser(Session.getCurrentUser());
+
+        Navigation.setFollowListType("followers");
+
+        Navigation.loadFollowList();
     }
 }
 

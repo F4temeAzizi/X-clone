@@ -20,6 +20,8 @@ import javafx.scene.layout.VBox;
 import java.util.List;
 import ap404.xclone.Shared.DTO.request.FollowRequest;
 import javafx.scene.control.Button;
+import ap404.xclone.Shared.DTO.request.GetFollowCountsRequest;
+import ap404.xclone.Shared.Models.FollowCounts;
 
 public class OthersProfileController
 {
@@ -35,12 +37,15 @@ public class OthersProfileController
     @FXML private VBox tweetContainer;
     @FXML private Button followButton;
     private boolean following;
+    @FXML private Label followingLabel;
+    @FXML private Label followersLabel;
 
 
     public void initialize ()
     {
         UserUtil.loadUser(Navigation.getSelectedUser(), nameLbl, usernameLbl, bioLbl, avatarImage, bannerRegion, createdAtLbl);
         checkFollowStatus();
+        loadFollowCounts();
         showPosts();
     }
 
@@ -195,6 +200,7 @@ public class OthersProfileController
 
                 following = true;
                 updateFollowButton();
+                loadFollowCounts();
             }
 
         } catch (Exception e) {
@@ -221,6 +227,7 @@ public class OthersProfileController
 
                 following = false;
                 updateFollowButton();
+                loadFollowCounts();
             }
 
         } catch (Exception e) {
@@ -234,5 +241,57 @@ public class OthersProfileController
         } else {
             followButton.setText("Follow");
         }
+    }
+    private void loadFollowCounts()
+    {
+        try
+        {
+            Client client = Session.getClient();
+
+            GetFollowCountsRequest requestBody =
+                    new GetFollowCountsRequest(
+                            Navigation.getSelectedUser().getId()
+                    );
+
+            client.sendRequest(new Request(RequestType.GET_FOLLOW_COUNTS, requestBody));
+
+            Response response = client.getResponse();
+
+            if (response.getType() == ResponseType.GET_FOLLOW_COUNTS_SUCCESS)
+            {
+                FollowCounts counts = (FollowCounts) response.getBody();
+
+                followingLabel.setText(counts.getFollowingCount() + " Following");
+
+                followersLabel.setText(counts.getFollowersCount() + " Followers");
+            }
+        }
+        catch (Exception e)
+        {
+            System.err.println(
+                    "Failed to load follow counts: "
+                            + e.getMessage()
+            );
+        }
+    }
+
+    @FXML
+    public void showFollowing()
+    {
+        Navigation.setFollowListUser(Navigation.getSelectedUser());
+
+        Navigation.setFollowListType("following");
+
+        Navigation.loadFollowList();
+    }
+
+    @FXML
+    public void showFollowers()
+    {
+        Navigation.setFollowListUser(Navigation.getSelectedUser());
+
+        Navigation.setFollowListType("followers");
+
+        Navigation.loadFollowList();
     }
 }
