@@ -544,6 +544,23 @@ public class ClientHandler implements Runnable {
                 outputStream.flush();
                 break;
             }
+            
+            case CHANGE_PASSWORD: {
+                ChangePasswordRequest changePasswordRequest = (ChangePasswordRequest) request.getBody();
+
+                boolean changed = userDao.changePassword(changePasswordRequest.getUserId(),
+                        changePasswordRequest.getCurrentPassword(),
+                        changePasswordRequest.getNewPassword()
+                );
+
+                if(changed)
+                    outputStream.writeObject(new Response(ResponseType.CHANGE_PASSWORD_SUCCESS));
+                else
+                    outputStream.writeObject(new Response(ResponseType.CHANGE_PASSWORD_FAILED));
+
+                outputStream.flush();
+                break;
+            }
         }
     }
 }
