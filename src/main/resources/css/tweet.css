@@ -96,3 +96,30 @@
 .tweet-action-btn.retweeted .tweet-count {
     -fx-text-fill: #17bf63;
 }
+
+.retweet-icon {
+    -fx-icon-size: 13px;
+    -fx-icon-color: #657786;
+}
+
+.retweeted-by {
+    -fx-text-fill: #657786;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+}
+
+.pinned-header {
+    -fx-alignment: center-left;
+    -fx-spacing: 6;
+}
+
+.pinned-icon {
+    -fx-icon-size: 13px;
+    -fx-icon-color: -color-secondary;
+}
+
+.pinned-label {
+    -fx-text-fill: -color-secondary;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+}
