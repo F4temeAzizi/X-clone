@@ -30,13 +30,15 @@ public class Tweet implements Serializable {
 
     private boolean isBookmarkedByUser;
 
+    private boolean isPinned;
+
     private List<Media> media;
 
     public Tweet(int id, int userId, String content, Timestamp createdAt,
                  Integer retweetOfId, Integer replyToId,
                  String name, String username, int likeCount, boolean isLikedByUser,
                  String avatarImageUrl, boolean isBookmarkedByUser, int retweetCount, boolean isRetweet,
-                 boolean isRetweetedByUser, int replyCount
+                 boolean isRetweetedByUser, int replyCount, boolean isPinned
     ) {
         this.id = id;
         this.userId = userId;
@@ -55,6 +57,7 @@ public class Tweet implements Serializable {
         this.isRetweet = isRetweet;
         this.isRetweetedByUser = isRetweetedByUser;
         this.replyCount = replyCount;
+        this.isPinned = isPinned;
     }
 
     public String getAvatarImageUrl() { return avatarImageUrl; }
@@ -121,4 +124,7 @@ public class Tweet implements Serializable {
 
     public int getReplyCount() { return replyCount; }
     public void setReplyCount(int count) { this.replyCount = count; }
+
+    public boolean isPinned() { return isPinned; }
+    public void setIsPinned(boolean isPinned) { this.isPinned = isPinned; }
 }
