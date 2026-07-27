@@ -599,7 +599,7 @@ public class ClientHandler implements Runnable {
                 outputStream.flush();
                 break;
             }
-            
+
             case CHANGE_PASSWORD: {
                 ChangePasswordRequest changePasswordRequest = (ChangePasswordRequest) request.getBody();
 
@@ -612,6 +612,24 @@ public class ClientHandler implements Runnable {
                     outputStream.writeObject(new Response(ResponseType.CHANGE_PASSWORD_SUCCESS));
                 else
                     outputStream.writeObject(new Response(ResponseType.CHANGE_PASSWORD_FAILED));
+
+                outputStream.flush();
+                break;
+            }
+
+            case SEARCH_USERS: {
+                try
+                {
+                    SearchUsersRequest searchUsersRequest = (SearchUsersRequest) request.getBody();
+
+                    List<User> users = userDao.searchUser(searchUsersRequest.getKeyword(), searchUsersRequest.getCurrentUserId());
+
+                    outputStream.writeObject(new Response(ResponseType.SEARCH_USERS_SUCCESS, users));
+                }
+                catch (RuntimeException e)
+                {
+                    outputStream.writeObject(new Response(ResponseType.SEARCH_USERS_FAILED));
+                }
 
                 outputStream.flush();
                 break;

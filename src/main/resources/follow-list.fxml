@@ -8,47 +8,32 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
+<?import org.kordamp.ikonli.javafx.FontIcon?>
 <VBox xmlns="http://javafx.com/javafx/18"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="ap404.xclone.Client.Controllers.FollowListController"
+      stylesheets="@css/follow-list.css"
       spacing="0"
       VBox.vgrow="ALWAYS">
 
-    <HBox alignment="CENTER_LEFT"
-          spacing="15"
-          style="-fx-padding: 15; -fx-border-color: #e6e6e6; -fx-border-width: 0 0 1 0;">
-
-        <Button text="←"
-                onAction="#goBack"
-                style="-fx-background-color: transparent; -fx-font-size: 20;"/>
-
-        <Label fx:id="titleLabel"
-               text="Followers"
-               style="-fx-font-size: 20; -fx-font-weight: bold;"/>
-
+    <HBox alignment="CENTER_LEFT" spacing="15" styleClass="follow-header">
+        <Button fx:id="backButton" styleClass="icon-button" onAction="#goBack">
+            <graphic>
+                <FontIcon iconLiteral="fas-arrow-left" styleClass="icon-button"/>
+            </graphic>
+        </Button>
+        <Label fx:id="titleLabel" text="Followers" styleClass="follow-title"/>
         <Pane HBox.hgrow="ALWAYS"/>
-
     </HBox>
 
-    <ScrollPane fitToWidth="true"
-                hbarPolicy="NEVER"
-                VBox.vgrow="ALWAYS">
+    <ScrollPane fitToWidth="true" hbarPolicy="NEVER" VBox.vgrow="ALWAYS" styleClass="follow-scroll">
 
         <content>
-            <VBox fx:id="usersContainer"
-                  spacing="10"
-                  fillWidth="true">
-
+            <VBox fx:id="usersContainer" spacing="20" fillWidth="true">
                 <padding>
-                    <Insets top="10"
-                            right="15"
-                            bottom="10"
-                            left="15"/>
+                    <Insets top="0" right="0" bottom="0" left="0"/>
                 </padding>
-
             </VBox>
         </content>
-
     </ScrollPane>
-
 </VBox>

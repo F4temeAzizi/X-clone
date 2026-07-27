@@ -3,6 +3,7 @@ package ap404.xclone.Client.Controllers;
 import ap404.xclone.Client.Client;
 import ap404.xclone.Client.Managers.Navigation;
 import ap404.xclone.Client.Managers.Session;
+import ap404.xclone.Client.Utils.FollowUtil;
 import ap404.xclone.Client.Utils.TweetUtil;
 import ap404.xclone.Client.Utils.UserUtil;
 import ap404.xclone.Shared.DTO.enums.RequestType;
@@ -36,19 +37,23 @@ public class OthersProfileController
     @FXML private Label likesTab;
     @FXML private VBox tweetContainer;
     @FXML private Button followButton;
-    private boolean following;
     @FXML private Label followingLabel;
     @FXML private Label followersLabel;
 
 
     public void initialize ()
     {
+        Navigation.setOthersProfileController(this);
         UserUtil.loadUser(Navigation.getSelectedUser(), nameLbl, usernameLbl, bioLbl, avatarImage, bannerRegion, createdAtLbl);
-        checkFollowStatus();
+        FollowUtil.checkFollowStatus(Navigation.getSelectedUser(), followButton);
         loadFollowCounts();
         showPosts();
     }
 
+    public void refreshFollowStatus() {
+        FollowUtil.checkFollowStatus(Navigation.getSelectedUser(), followButton);
+        loadFollowCounts();
+    }
 
     @FXML public void showPosts ()
     {
@@ -141,107 +146,12 @@ public class OthersProfileController
         active.getStyleClass().setAll("profile-tab-active");
     }
 
-    private void checkFollowStatus() {
-
-        try {
-            Client client = Session.getClient();
-
-            FollowRequest followRequest = new FollowRequest(
-                    Session.getCurrentUser().getId(),
-                    Navigation.getSelectedUser().getId()
-            );
-
-            client.sendRequest(
-                    new Request(RequestType.CHECK_FOLLOW, followRequest)
-            );
-
-            Response response = client.getResponse();
-
-            if (response.getType() == ResponseType.CHECK_FOLLOW_SUCCESS) {
-
-                following = (Boolean) response.getBody();
-
-                updateFollowButton();
-            }
-
-        } catch (Exception e) {
-            System.out.println(
-                    "Check follow status failed: " + e.getMessage()
-            );
-        }
-    }
     @FXML
     public void handleFollow() {
-
-        if (following) {
-            unfollowUser();
-        } else {
-            followUser();
-        }
+        FollowUtil.handleFollow(Navigation.getSelectedUser(), followButton);
+        loadFollowCounts();
     }
 
-    private void followUser() {
-
-        try {
-            Client client = Session.getClient();
-
-            FollowRequest followRequest = new FollowRequest(
-                    Session.getCurrentUser().getId(),
-                    Navigation.getSelectedUser().getId()
-            );
-
-            client.sendRequest(
-                    new Request(RequestType.FOLLOW, followRequest)
-            );
-
-            Response response = client.getResponse();
-
-            if (response.getType() == ResponseType.FOLLOW_SUCCESS) {
-
-                following = true;
-                updateFollowButton();
-                loadFollowCounts();
-            }
-
-        } catch (Exception e) {
-            System.out.println("Follow failed: " + e.getMessage());
-        }
-    }
-    private void unfollowUser() {
-
-        try {
-            Client client = Session.getClient();
-
-            FollowRequest followRequest = new FollowRequest(
-                    Session.getCurrentUser().getId(),
-                    Navigation.getSelectedUser().getId()
-            );
-
-            client.sendRequest(
-                    new Request(RequestType.UNFOLLOW, followRequest)
-            );
-
-            Response response = client.getResponse();
-
-            if (response.getType() == ResponseType.UNFOLLOW_SUCCESS) {
-
-                following = false;
-                updateFollowButton();
-                loadFollowCounts();
-            }
-
-        } catch (Exception e) {
-            System.out.println("Unfollow failed: " + e.getMessage());
-        }
-    }
-    private void updateFollowButton() {
-
-        if (following) {
-            followButton.setText("Following");
-        } else {
-            followButton.setText("Follow");
-        }
-    }
     private void loadFollowCounts()
     {
         try
@@ -268,10 +178,7 @@ public class OthersProfileController
         }
         catch (Exception e)
         {
-            System.err.println(
-                    "Failed to load follow counts: "
-                            + e.getMessage()
-            );
+            System.err.println("Failed to load follow counts: " + e.getMessage());
         }
     }
 

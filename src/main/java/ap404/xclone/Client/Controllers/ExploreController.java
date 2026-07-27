@@ -33,11 +33,21 @@ public class ExploreController
         {
             searchField.setText("#" + hashtag);
             showHashtag(hashtag);
-            Navigation.setSelectedHashtag(null);
         }
-        else loadTweets();
+        else
+        {
+            String savedSearch = Navigation.getSearchTweetText();
+            if (!savedSearch.isBlank())
+            {
+                searchField.setText(savedSearch);
+                if (savedSearch.startsWith("#")) showHashtag(savedSearch.substring(1));
+                else searchTweets(savedSearch);
+            }
+            else loadTweets();
+        }
 
         searchField.textProperty().addListener((obs, o, n) -> {
+            Navigation.setSearchTweetText(n);
             if (n.isBlank()) loadTweets();
             else if (n.startsWith("#")) showHashtag(n.substring(1));
             else searchTweets(n);
