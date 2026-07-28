@@ -181,19 +181,19 @@ public class  TweetController
 
         delete.setOnAction(event -> deleteTweet());
         edit.setOnAction(e -> editTweet());
-        pin.setOnAction(e -> pinTweet());
-        unpin.setOnAction(e -> unpinTweet());
+        pin.setOnAction(e -> handlePinTweet(true));
+        unpin.setOnAction(e -> handlePinTweet(false));
     }
 
-    public void unpinTweet() {
+    public void handlePinTweet(boolean shouldPin) {
 
-    }
-    public void pinTweet() {
         if(tweet.getUserId() != Session.getCurrentUser().getId()) return;
+
+        Integer tweetId = shouldPin ? tweet.getId() : null;
 
         PinTweetRequest pinTweetRequest = new PinTweetRequest(
                 Session.getCurrentUser().getId(),
-                tweet.getId()
+                tweetId
         );
 
         try {
@@ -201,8 +201,14 @@ public class  TweetController
 
             client.sendRequest(new Request(RequestType.PIN_TWEET, pinTweetRequest));
             Response response = client.getResponse();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+
+            if(response.getType() == ResponseType.PIN_TWEET_SUCCESS) {
+                tweet.setIsPinned(shouldPin);
+                Navigation.loadProfile();
+            }
+        }
+        catch (Exception e) {
+            System.out.println("error handling pin tweet: " + e.getMessage());
         }
     }
 
