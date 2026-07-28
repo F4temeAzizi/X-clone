@@ -698,14 +698,54 @@ public class TweetDao {
         }
     }
 
-    private Integer getIntegerOrNull(ResultSet resultSet, String columnName) throws SQLException {
-        int value = resultSet.getInt(columnName);
+    public boolean handlePinTweet(int userId, Integer tweetId) {
 
-        if (resultSet.wasNull()) {
-            return null;
+        if(tweetId == null) {
+
+            String sql = """
+                    UPDATE users
+                    SET pinned_tweet_id = NULL
+                    WHERE id = ?
+                    """;
+
+            try(
+                    Connection connection = DatabaseConnection.getConnection();
+                    PreparedStatement statement = connection.prepareStatement(sql)
+            ){
+                statement.setInt(1, userId);
+                return statement.executeUpdate() > 0;
+            }
+            catch (SQLException e) {
+                System.out.println("unpin error " + e.getMessage());
+                return false;
+            }
         }
 
-        return value;
+        String sql = """
+                UPDATE users
+                SET pinned_tweet_id = ?
+                WHERE id = ?
+                AND EXISTS(
+                    SELECT 1 FROM tweets
+                    WHERE id = ? AND user_id = ?
+                )
+                """;
+
+        try (
+                Connection connection = DatabaseConnection.getConnection();
+                PreparedStatement statement = connection.prepareStatement(sql)
+        ) {
+            statement.setInt(1, tweetId);
+            statement.setInt(2, userId);
+            statement.setInt(3, tweetId);
+            statement.setInt(4, userId);
+
+            return statement.executeUpdate() == 1;
+
+        } catch (SQLException e) {
+            System.out.println("pin tweet error: " + e.getMessage());
+            return false;
+        }
     }
 
     public Tweet mapTweet(ResultSet resultSet, int currentUserId) throws SQLException {
