@@ -151,14 +151,22 @@ public class FollowListController
         Region spacer = new Region();
         HBox.setHgrow(spacer, Priority.ALWAYS);
 
-        Button followButton = new Button();
-        followButton.getStyleClass().add("follow-btn");
+        HBox row;
 
-        HBox row = new HBox(12,avatar, userInformation, spacer, followButton);
+        if (user.getId() == Session.getCurrentUser().getId())
+        {
+            row = new HBox(12,avatar, userInformation, spacer);
+        }
+        else
+        {
+            Button followButton = new Button();
+            followButton.getStyleClass().add("follow-btn");
+            row = new HBox(12,avatar, userInformation, spacer, followButton);
+            FollowUtil.checkFollowStatus(user, followButton);
+            followButton.setOnAction(e -> { e.consume();FollowUtil.handleFollow(user, followButton);});
+        }
 
         row.setOnMouseClicked(e -> openUserProfile(user));
-        FollowUtil.checkFollowStatus(user, followButton);
-        followButton.setOnAction(e -> { e.consume();FollowUtil.handleFollow(user, followButton);});
 
         row.getStyleClass().add("follow-user-row");
         displayNameLabel.getStyleClass().add("follow-display-name");
