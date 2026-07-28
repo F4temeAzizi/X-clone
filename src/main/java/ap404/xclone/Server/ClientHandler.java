@@ -616,6 +616,24 @@ public class ClientHandler implements Runnable {
                 outputStream.flush();
                 break;
             }
+
+            case PIN_TWEET: {
+
+                PinTweetRequest pinTweetRequest = (PinTweetRequest) request.getBody();
+
+                boolean isPinned = tweetDao.handlePinTweet(
+                        pinTweetRequest.getUserId(),
+                        pinTweetRequest.getTweetId()
+                );
+
+                if (isPinned)
+                    outputStream.writeObject(new Response(ResponseType.PIN_TWEET_SUCCESS));
+                else
+                    outputStream.writeObject(new Response(ResponseType.PIN_TWEET_FAILED));
+
+                outputStream.flush();
+                break;
+            }
         }
     }
 }
