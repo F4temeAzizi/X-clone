@@ -3,6 +3,8 @@ package ap404.xclone.Client.Controllers;
 import ap404.xclone.Client.Client;
 import ap404.xclone.Client.Managers.Navigation;
 import ap404.xclone.Client.Managers.Session;
+import ap404.xclone.Client.Utils.FollowUtil;
+import ap404.xclone.Client.Utils.UserUtil;
 import ap404.xclone.Shared.DTO.enums.RequestType;
 import ap404.xclone.Shared.DTO.enums.ResponseType;
 import ap404.xclone.Shared.DTO.request.GetFollowersRequest;
@@ -13,10 +15,13 @@ import ap404.xclone.Shared.Models.User;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Circle;
 
 import java.util.List;
 
@@ -126,39 +131,39 @@ public class FollowListController
 
     private HBox createUserRow(User user)
     {
-        Label displayNameLabel =
-                new Label(user.getDisplayName());
+        ImageView avatar = new ImageView();
+        avatar.setFitWidth(60);
+        avatar.setFitHeight(60);
 
-        displayNameLabel.setStyle(
-                "-fx-font-weight: bold;"
-        );
+        avatar.setImage(new Image(getClass().getResource("/images/avatar.jpeg").toExternalForm()));
 
-        Label usernameLabel =
-                new Label("@" + user.getUsername());
+        Circle clip = new Circle(30,30,30);
+        avatar.setClip(clip);
 
-        VBox userInformation = new VBox(
-                4,
-                displayNameLabel,
-                usernameLabel
-        );
+        UserUtil.loadUser(user, null, null, null, avatar, null, null);
 
-        Region space = new Region();
-        HBox.setHgrow(space, Priority.ALWAYS);
+        Label displayNameLabel = new Label(user.getDisplayName());
 
-        Button profileButton = new Button("View profile");
+        Label usernameLabel = new Label("@" + user.getUsername());
 
-        profileButton.setOnAction(event ->
-                openUserProfile(user)
-        );
+        VBox userInformation = new VBox(4, displayNameLabel, usernameLabel);
 
-        HBox row = new HBox(
-                12,
-                userInformation,
-                space,
-                profileButton
-        );
+        Region spacer = new Region();
+        HBox.setHgrow(spacer, Priority.ALWAYS);
 
-        row.setStyle("-fx-padding: 12;" + "-fx-alignment: center-left;" + "-fx-border-color: " + "transparent transparent " + "#dddddd transparent;");
+        Button followButton = new Button();
+        followButton.getStyleClass().add("follow-btn");
+
+        HBox row = new HBox(12,avatar, userInformation, spacer, followButton);
+
+        row.setOnMouseClicked(e -> openUserProfile(user));
+        FollowUtil.checkFollowStatus(user, followButton);
+        followButton.setOnAction(e -> { e.consume();FollowUtil.handleFollow(user, followButton);});
+
+        row.getStyleClass().add("follow-user-row");
+        displayNameLabel.getStyleClass().add("follow-display-name");
+        usernameLabel.getStyleClass().add("follow-username");
+        avatar.getStyleClass().add("follow-avatar");
 
         return row;
     }

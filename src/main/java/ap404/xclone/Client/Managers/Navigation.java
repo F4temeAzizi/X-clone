@@ -3,6 +3,7 @@ package ap404.xclone.Client.Managers;
 import ap404.xclone.Client.Controllers.ExploreController;
 import ap404.xclone.Client.Controllers.HomeController;
 import ap404.xclone.Client.Controllers.MainController;
+import ap404.xclone.Client.Controllers.OthersProfileController;
 import ap404.xclone.Client.XApplication;
 import ap404.xclone.Shared.Models.Tweet;
 import ap404.xclone.Shared.Models.User;
@@ -20,6 +21,7 @@ public class Navigation
     private static MainController mainController;
     private static HomeController homeController;
     private static ExploreController exploreController;
+    private static OthersProfileController othersProfileController;
     private static User selectedUser;
     private static Tweet selectedTweet;
 
@@ -35,6 +37,7 @@ public class Navigation
 
     private static String composeText = "";
     private static String selectedHashtag;
+    private static String searchTweetText = "";
 
     public static void loadHome() { load("home.fxml"); }
     public static void loadProfile() { load("profile.fxml"); }
@@ -89,7 +92,11 @@ public class Navigation
     public static void setExploreController(ExploreController controller) { exploreController = controller; }
     public static ExploreController getExploreController() { return exploreController; }
 
-    public static double getHomeScroll() { return homeScroll; }
+    public static void setOthersProfileController(OthersProfileController controller) { othersProfileController = controller; }
+    public static OthersProfileController getOthersProfileController() { return othersProfileController; }
+
+
+        public static double getHomeScroll() { return homeScroll; }
     public static void setHomeScroll(double value) { homeScroll = value; }
 
     public static double getExploreScroll() { return exploreScroll; }
@@ -106,6 +113,9 @@ public class Navigation
 
     public static String getComposeText() { return composeText; }
     public static void setComposeText(String text) { composeText = text; }
+
+    public static String getSearchTweetText() { return searchTweetText; }
+    public static void setSearchTweetText(String searchTweetText) { Navigation.searchTweetText = searchTweetText; }
 
     public static String getSelectedHashtag() { return selectedHashtag; }
     public static void setSelectedHashtag(String hashtag) { selectedHashtag = hashtag; }
@@ -140,6 +150,4 @@ public class Navigation
         Parent root = FXMLLoader.load(Navigation.class.getResource("/" + fxml));
         XApplication.getPrimaryStage().getScene().setRoot(root);
     }
-
-
 }

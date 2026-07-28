@@ -1,5 +1,5 @@
 .root {
-    -fx-background-color: -color-bg;
+    -fx-background-color: -color-bg !important;
 }
 
 .border-pane {
@@ -78,6 +78,10 @@
     -fx-background-radius: 30px;
     -fx-cursor: hand;
     -fx-alignment: CENTER_LEFT;
+}
+
+.name {
+    -fx-text-fill: -color-text;
 }
 
 .profile-btn:hover {
@@ -182,4 +186,11 @@
     -fx-text-fill: white;
     -fx-font-size: 14px;
     -fx-font-weight: bold;
+}
+
+.search-result-ui,
+.search-result-ui .viewport {
+    -fx-background-color: -color-bg;
+    -fx-background: -color-bg;
+    -fx-border-color: transparent;
 }

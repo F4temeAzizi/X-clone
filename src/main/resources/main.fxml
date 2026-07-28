@@ -10,7 +10,7 @@
 <BorderPane xmlns="http://javafx.com/javafx/18"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="ap404.xclone.Client.Controllers.MainController"
-            stylesheets="@css/main.css">
+            stylesheets="@css/main.css, @css/follow-list.css">
     <left>
         <VBox styleClass="nav-column" prefWidth="300" minWidth="300" maxWidth="300"
               VBox.vgrow="ALWAYS">
@@ -82,7 +82,7 @@
                                 </image>
                             </ImageView>
                             <VBox spacing="2">
-                                <Label fx:id="sidebarName" style="-fx-text-fill: #ffffff; -fx-font-weight: bold;"/>
+                                <Label fx:id="sidebarName" styleClass="name"/>
                                 <Label fx:id="sidebarUsername" style="-fx-text-fill: #71767b; -fx-font-size: 12px;"/>
                             </VBox>
 
@@ -105,10 +105,15 @@
 
     <right>
         <VBox styleClass="widget-column" spacing="15" alignment="TOP_CENTER"
-              prefWidth="400" minWidth="400" maxWidth="400">
+              prefWidth="400" minWidth="400" maxWidth="400" >
             <padding><Insets top="20" right="12" bottom="20" left="12"/></padding>
-            <TextField promptText="🔍 Search" styleClass="search-field"/>
+            <TextField fx:id="searchField" promptText="🔍 Search" styleClass="search-field"/>
+
+            <ScrollPane fitToWidth="true" hbarPolicy="NEVER" VBox.vgrow="ALWAYS" styleClass="search-result-ui">
+                <content>
+                    <VBox fx:id="searchResultContainer" spacing="0" styleClass="search-result-ui"/>
+                </content>
+            </ScrollPane>
         </VBox>
     </right>
-
 </BorderPane>

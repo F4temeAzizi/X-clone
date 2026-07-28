@@ -33,5 +33,6 @@ public enum RequestType implements Serializable {
     SHOW_HASHTAG,
     DELETE_ACCOUNT,
     CHANGE_PASSWORD,
-    PIN_TWEET
+    PIN_TWEET,
+    SEARCH_USERS
 }
