@@ -4,14 +4,14 @@ import java.io.Serializable;
 
 public class PinTweetRequest implements Serializable {
 
-    private final int tweetId;
+    private final Integer tweetId;
     private final int userId;
 
-    public PinTweetRequest(int userId, int tweetId) {
+    public PinTweetRequest(int userId, Integer tweetId) {
         this.userId = userId;
         this.tweetId = tweetId;
     }
 
     public int getUserId() { return userId; }
-    public int getTweetId() { return tweetId; }
+    public Integer getTweetId() { return tweetId; }
 }
