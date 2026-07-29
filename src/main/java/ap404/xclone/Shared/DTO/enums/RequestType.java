@@ -8,6 +8,7 @@ public enum RequestType implements Serializable {
     UPDATE_PROFILE,
     CREATE_TWEET,
     GET_ALL_TWEETS,
+    GET_FEED,
     LIKE,
     UNLIKE,
     GET_USER_BY_ID,
@@ -34,5 +35,5 @@ public enum RequestType implements Serializable {
     DELETE_ACCOUNT,
     CHANGE_PASSWORD,
     PIN_TWEET,
-    SEARCH_USERS
+    SEARCH_USERS,
 }
