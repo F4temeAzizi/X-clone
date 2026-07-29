@@ -127,7 +127,7 @@ public class HomeController
         try {
             Client client = Session.getClient();
 
-            Request request = new Request(RequestType.GET_ALL_TWEETS, Session.getCurrentUser().getId());
+            Request request = new Request(RequestType.GET_FEED, Session.getCurrentUser().getId());
 
             client.sendRequest(request);
 
