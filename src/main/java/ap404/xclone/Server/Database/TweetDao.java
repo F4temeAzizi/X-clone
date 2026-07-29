@@ -93,6 +93,63 @@ public class TweetDao {
         return tweets;
     }
 
+    public List<Tweet> getFeedTweets(int currentUserId) {
+
+        String sql = """
+            SELECT
+                t.id,
+                t.user_id,
+                t.content,
+                t.created_at,
+                t.retweet_of_id,
+                t.reply_to_id,
+                u.display_name,
+                u.username,
+                u.profile_image_url,
+
+                (SELECT COUNT(*) FROM likes l WHERE l.tweet_id = t.id) AS like_count,
+                FALSE AS is_pinned,
+                EXISTS (SELECT 1 FROM likes l WHERE l.tweet_id = t.id AND l.user_id = ? ) AS is_liked,
+                (SELECT COUNT(*) FROM tweets r WHERE r.retweet_of_id = t.id) AS retweet_count,
+                EXISTS (SELECT 1 FROM tweets r WHERE r.retweet_of_id = t.id AND r.user_id = ? ) AS is_retweeted_by_user,
+                (SELECT COUNT(*) FROM tweets r WHERE r.reply_to_id = t.id) AS reply_count
+            FROM tweets t
+            JOIN users u ON t.user_id = u.id
+            WHERE t.reply_to_id IS NULL
+            AND (t.user_id = ? OR t.user_id IN (
+                      SELECT following_id FROM follows WHERE follower_id = ?
+                  )
+              )
+
+            ORDER BY t.created_at DESC
+            """;
+
+        List<Tweet> tweets = new ArrayList<>();
+
+        try (
+                Connection connection = DatabaseConnection.getConnection();
+                PreparedStatement statement = connection.prepareStatement(sql)
+        ) {
+
+            statement.setInt(1, currentUserId);
+            statement.setInt(2, currentUserId);
+            statement.setInt(3, currentUserId);
+            statement.setInt(4, currentUserId);
+
+            try (ResultSet resultSet = statement.executeQuery()) {
+
+                while (resultSet.next()) {
+                    tweets.add(mapTweet(resultSet, currentUserId));
+                }
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Get feed tweets error: " + e.getMessage());
+        }
+
+        return tweets;
+    }
+
     public List<Tweet> getTweetsByHashtag(String hashtag, int currentUserId) {
         String sql = """
                 SELECT
