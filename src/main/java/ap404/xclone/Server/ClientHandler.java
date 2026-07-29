@@ -155,6 +155,20 @@ public class ClientHandler implements Runnable {
                 break;
             }
 
+            case GET_FEED: {
+
+                int currentUserId = (Integer) request.getBody();
+
+                List<Tweet> tweets = tweetDao.getFeedTweets(currentUserId);
+
+                outputStream.writeObject(
+                        new Response(ResponseType.GET_TWEETS_SUCCESS, tweets)
+                );
+
+                outputStream.flush();
+                break;
+            }
+
             case LIKE: {
                 LikeDao likeDao = new LikeDao();
                 LikeRequest likeRequest = (LikeRequest) request.getBody();
