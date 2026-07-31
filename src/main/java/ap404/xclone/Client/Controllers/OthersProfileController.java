@@ -44,6 +44,7 @@ public class OthersProfileController
 
     public void initialize ()
     {
+        Navigation.setOthersProfileController(this);
         UserUtil.loadUser(Navigation.getSelectedUser(), nameLbl, usernameLbl, bioLbl, avatarImage, bannerRegion, createdAtLbl);
         FollowUtil.checkFollowStatus(Navigation.getSelectedUser(), followButton);
         loadFollowCounts();
