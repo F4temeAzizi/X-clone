@@ -84,11 +84,11 @@ public class FollowUtil {
 
             if (response.getType() == ResponseType.UNFOLLOW_SUCCESS) {
                 updateFollowButton(followButton, false);
-                if (Navigation.getOthersProfileController() != null) {
-                    Navigation.getOthersProfileController().refreshFollowStatus();
-                }
                 if (Navigation.getMainController() != null) {
                     Navigation.getMainController().refreshSearchResults();
+                }
+                if (Navigation.getOthersProfileController() != null) {
+                    Navigation.getOthersProfileController().refreshFollowStatus();
                 }
             }
         } catch (Exception e) {
