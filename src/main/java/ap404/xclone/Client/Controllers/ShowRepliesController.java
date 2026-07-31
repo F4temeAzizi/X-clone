@@ -4,6 +4,7 @@ import ap404.xclone.Client.Client;
 import ap404.xclone.Client.Managers.Navigation;
 import ap404.xclone.Client.Managers.Session;
 import ap404.xclone.Client.Utils.TweetUtil;
+import ap404.xclone.Shared.DTO.enums.PageType;
 import ap404.xclone.Shared.DTO.enums.RequestType;
 import ap404.xclone.Shared.DTO.request.GetTweetRepliesRequest;
 import ap404.xclone.Shared.DTO.request.Request;
@@ -67,8 +68,26 @@ public class ShowRepliesController {
         Tweet tweet = Navigation.getCurrentReply();
 
         if(tweet == null) {
-            Navigation.loadHome();
-            return;
+            PageType pageType = Navigation.getPreviousPage();
+
+            switch (pageType) {
+
+                case HOME :
+                    Navigation.loadHome();
+                    return;
+                case EXPLORE :
+                    Navigation.loadExplore();
+                    return;
+                case PROFILE :
+                    Navigation.loadProfile();
+                    return;
+                case OTHER_PROFILE :
+                    Navigation.loadOthersProfile();
+                    return;
+                case BOOKMARK :
+                    Navigation.loadBookmark();
+                    return;
+            }
         }
 
         Navigation.setSelectedTweet(tweet);
