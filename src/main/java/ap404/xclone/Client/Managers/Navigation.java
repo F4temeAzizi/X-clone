@@ -41,11 +41,19 @@ public class Navigation
     private static String searchTweetText = "";
 
     private static PageType previousPage;
+    private static PageType profileReturnPage;
+    private static Tweet profileReturnTweet;
 
     public static void setPreviousPage(PageType page) {
         previousPage = page;
     }
     public static PageType getPreviousPage() { return previousPage; }
+
+    public static PageType getProfileReturnPage() { return profileReturnPage; }
+    public static void setProfileReturnPage(PageType page) { profileReturnPage = page; }
+
+    public static Tweet getProfileReturnTweet() { return profileReturnTweet; }
+    public static void setProfileReturnTweet(Tweet profileReturnTweet) { Navigation.profileReturnTweet = profileReturnTweet; }
 
     public static void loadHome() { load("home.fxml"); }
     public static void loadProfile() { load("profile.fxml"); }
@@ -104,7 +112,7 @@ public class Navigation
     public static OthersProfileController getOthersProfileController() { return othersProfileController; }
 
 
-        public static double getHomeScroll() { return homeScroll; }
+    public static double getHomeScroll() { return homeScroll; }
     public static void setHomeScroll(double value) { homeScroll = value; }
 
     public static double getExploreScroll() { return exploreScroll; }

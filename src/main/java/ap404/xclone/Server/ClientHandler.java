@@ -648,6 +648,7 @@ public class ClientHandler implements Runnable {
                 outputStream.flush();
                 break;
             }
+
             case SEARCH_USERS: {
                 try
                 {

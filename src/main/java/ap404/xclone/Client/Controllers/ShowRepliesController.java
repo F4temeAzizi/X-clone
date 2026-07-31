@@ -87,6 +87,9 @@ public class ShowRepliesController {
                 case BOOKMARK :
                     Navigation.loadBookmark();
                     return;
+                case SHOW_REPLIES:
+                    Navigation.loadShowReplies();
+                    return;
             }
         }
 

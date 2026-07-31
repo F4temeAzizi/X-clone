@@ -42,8 +42,8 @@ public class HomeController
     public void initialize() {
 
         Navigation.setPreviousPage(PageType.HOME);
+        Navigation.setProfileReturnPage(PageType.HOME);
         Navigation.clearHistory();
-
         postBtn.setDisable(true);
         charCount.setText("0/" + MAX_TWEET_LENGTH);
 

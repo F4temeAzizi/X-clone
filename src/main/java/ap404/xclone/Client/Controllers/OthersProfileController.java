@@ -44,8 +44,6 @@ public class OthersProfileController
 
     public void initialize ()
     {
-        Navigation.setPreviousPage(PageType.OTHER_PROFILE);
-        Navigation.setOthersProfileController(this);
         UserUtil.loadUser(Navigation.getSelectedUser(), nameLbl, usernameLbl, bioLbl, avatarImage, bannerRegion, createdAtLbl);
         FollowUtil.checkFollowStatus(Navigation.getSelectedUser(), followButton);
         loadFollowCounts();
@@ -202,5 +200,32 @@ public class OthersProfileController
         Navigation.setFollowListType("followers");
 
         Navigation.loadFollowList();
+    }
+
+    @FXML
+    private void goBack()
+    {
+        switch (Navigation.getProfileReturnPage())
+        {
+            case HOME:
+                Navigation.loadHome();
+                break;
+
+            case EXPLORE:
+                Navigation.loadExplore();
+                break;
+
+            case BOOKMARK:
+                Navigation.loadBookmark();
+                break;
+
+            case SHOW_REPLIES:
+                Navigation.setSelectedTweet(Navigation.getProfileReturnTweet());
+                Navigation.loadShowReplies();
+                break;
+
+            default:
+                Navigation.loadHome();
+        }
     }
 }
