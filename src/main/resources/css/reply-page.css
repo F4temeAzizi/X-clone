@@ -1,0 +1,92 @@
+.reply-root {
+    -fx-background-color: -color-bg;
+}
+
+.reply-header {
+    -fx-background-color: -color-bg;
+    -fx-border-color: -color-border;
+    -fx-border-width: 0 0 1 0;
+    -fx-padding: 10 16;
+}
+
+.title {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -color-text;
+}
+
+#closeBtn:hover {
+    -fx-background-color: -color-surface;
+}
+
+.replying-to {
+    -fx-text-fill: -color-secondary;
+    -fx-font-size: 13px;
+}
+
+#tweetContainer {
+    -fx-background-color: -color-bg;
+}
+
+.text-area {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-background-insets: 0;
+    -fx-border-width: 0;
+    -fx-padding: 0;
+
+    -fx-font-size: 17px;
+    -fx-text-fill: -color-text;
+    -fx-prompt-text-fill: color-secondary;
+}
+
+.text-area .content {
+    -fx-background-color: -color-bg;
+    -fx-border-color: transparent;
+    -fx-background-radius: 0;
+    -fx-border-width: 0;
+}
+
+.text-area:focused {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+.bottom-bar {
+    -fx-border-color: -color-border;
+    -fx-border-width: 1 0 0 0;
+    -fx-padding: 12 16;
+    -fx-background-color: -color-bg;
+}
+
+#charCount {
+    -fx-text-fill: -color-secondary;
+    -fx-font-size: 13px;
+}
+
+#replyBtn {
+    -fx-background-color: -color-text;
+    -fx-text-fill: -color-bg;
+
+    -fx-font-weight: bold;
+    -fx-font-size: 15px;
+
+    -fx-background-radius: 30;
+    -fx-padding: 8 22;
+
+    -fx-cursor: hand;
+}
+
+#replyBtn:hover {
+    -fx-background-color: -color-surface;
+}
+
+#replyBtn:disabled {
+    -fx-opacity: 0.45;
+}
+
+.separator .line {
+    -fx-border-color: -color-border;
+}

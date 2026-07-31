@@ -1,0 +1,86 @@
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.Button?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.Image?>
+
+
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.control.Label?>
+<VBox xmlns="http://javafx.com/javafx/18"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="ap404.xclone.Client.Controllers.PostController"
+      stylesheets="@css/edit-tweet.css"
+      styleClass="main-center-container"
+      spacing="0">
+
+    <VBox styleClass="compose-section" spacing="8">
+        <padding>
+            <Insets top="8" right="16" bottom="12" left="16"/>
+        </padding>
+
+        <HBox spacing="12" alignment="TOP_LEFT">
+            <ImageView fx:id="composeAvatar" fitWidth="60" fitHeight="60" preserveRatio="false">
+                <clip>
+                    <Circle centerX="30" centerY="30" radius="30"/>
+                </clip>
+
+                <image>
+                    <Image url="@images/avatar.jpeg"/>
+                </image>
+
+            </ImageView>
+
+            <VBox spacing="8" HBox.hgrow="ALWAYS" >
+                <TextArea fx:id="tweetArea" promptText="What's happening?" styleClass="tweet-text-area"  prefHeight="600" prefWidth="700"/>
+                <FlowPane fx:id="previewPane" hgap="10" vgap="10"/>
+            </VBox>
+
+        </HBox>
+
+    </VBox>
+
+    <VBox styleClass="option-container">
+
+        <HBox styleClass="option-btn" spacing="20" alignment="CENTER_LEFT">
+            <Button styleClass="option-icon-btn" onAction="#addPhoto">
+                <graphic>
+                    <FontIcon iconLiteral="fas-image" styleClass="option-icon"/>
+                </graphic>
+            </Button>
+
+            <Button styleClass="option-icon-btn" onAction="#addVideo">
+                <graphic>
+                    <FontIcon iconLiteral="fas-video" styleClass="option-icon"/>
+                </graphic>
+            </Button>
+
+            <Button styleClass="option-icon-btn">
+                <graphic>
+                    <FontIcon iconLiteral="fas-microphone" styleClass="option-icon"/>
+                </graphic>
+            </Button>
+
+            <Button styleClass="option-icon-btn">
+                <graphic>
+                    <FontIcon iconLiteral="fas-chart-bar" styleClass="option-icon"/>
+                </graphic>
+            </Button>
+
+            <Button styleClass="option-icon-btn">
+                <graphic>
+                    <FontIcon iconLiteral="fas-paperclip" styleClass="option-icon"/>
+                </graphic>
+            </Button>
+            <Pane HBox.hgrow="ALWAYS"/>
+            <Label fx:id="charCount" text="0/280"/>
+            <Button fx:id="postBtn" text="Post" styleClass="post-btn" onAction="#post"/>
+        </HBox>
+
+    </VBox>
+</VBox>

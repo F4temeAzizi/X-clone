@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+<BorderPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="ap404.xclone.Client.Controllers.ShowRepliesController"
+            stylesheets="@css/show-replies.css">
+
+    <top>
+        <HBox fx:id="header"
+              alignment="CENTER_LEFT"
+              spacing="10"
+              styleClass="top-bar">
+
+            <padding>
+                <Insets top="12" right="15" bottom="12" left="15"/>
+            </padding>
+
+            <Button fx:id="backButton"
+                    styleClass="icon-button"
+                    onAction="#handleBack">
+            <graphic>
+                <FontIcon iconLiteral="fas-arrow-left" styleClass="icon-button"/>
+            </graphic>
+            </Button>
+        </HBox>
+    </top>
+
+    <center>
+        <ScrollPane fitToWidth="true"
+                    hbarPolicy="NEVER"
+                    vbarPolicy="AS_NEEDED"
+                    styleClass="conversation-scroll">
+
+            <VBox fx:id="contentBox"
+                  fillWidth="true">
+
+                <StackPane fx:id="mainTweetContainer"/>
+
+                <VBox fx:id="repliesContainer"
+                      fillWidth="true"/>
+
+            </VBox>
+
+        </ScrollPane>
+    </center>
+
+</BorderPane>

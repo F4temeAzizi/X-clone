@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.shape.Circle?>
+<BorderPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="ap404.xclone.Client.Controllers.ReplyController"
+            prefWidth="620"
+            prefHeight="500"
+            stylesheets="@css/profile.css,@css/reply-page.css"
+            styleClass="reply-root">
+
+    <top>
+        <VBox>
+
+            <HBox alignment="CENTER_LEFT"
+                  spacing="15"
+                  styleClass="reply-header">
+                <padding>
+                    <Insets top="15" right="20" bottom="15" left="20"/>
+                </padding>
+
+                <Label text="Reply"
+                       styleClass="title"/>
+            </HBox>
+
+            <Separator/>
+
+        </VBox>
+    </top>
+
+    <center>
+        <VBox spacing="20">
+            <padding>
+                <Insets top="20" right="20" bottom="20" left="20"/>
+            </padding>
+
+            <VBox fx:id="tweetContainer"/>
+
+            <Separator/>
+
+            <HBox spacing="15">
+
+                <ImageView fx:id="profileImage" fitWidth="48" fitHeight="48" preserveRatio="false">
+                <clip>
+                    <Circle centerX="24" centerY="24" radius="24"/>
+                </clip>
+                <image>
+                    <Image url="@images/avatar.jpeg"/>
+                </image>
+                </ImageView>
+
+                <VBox spacing="10"
+                      HBox.hgrow="ALWAYS">
+
+                    <Label fx:id="replyingToLabel"
+                           text="Replying to @username"
+                           styleClass="replying-to"/>
+
+                    <TextArea fx:id="replyArea"
+                              promptText="Post your reply..."
+                              wrapText="true"
+                              prefRowCount="6"
+                              maxWidth="Infinity"/>
+
+                </VBox>
+
+            </HBox>
+
+        </VBox>
+    </center>
+
+    <bottom>
+        <HBox alignment="CENTER_RIGHT"
+              spacing="15">
+            <padding>
+                <Insets top="10" right="20" bottom="15" left="20"/>
+            </padding>
+
+            <Label fx:id="charCount"
+                   text="0/280"/>
+
+            <Button fx:id="replyBtn"
+                    text="Reply"
+                    disable="true"
+                    onAction="#reply"/>
+        </HBox>
+    </bottom>
+
+</BorderPane>

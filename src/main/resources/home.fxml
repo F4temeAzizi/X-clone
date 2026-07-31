@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.Circle?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+
+<VBox xmlns="http://javafx.com/javafx/18"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="ap404.xclone.Client.Controllers.HomeController"
+      stylesheets="@css/home.css"
+      styleClass="main-center-container"
+      spacing="0">
+
+    <HBox styleClass="tab-container" spacing="25" alignment="TOP_CENTER">
+        <Label text="  For you  " styleClass="tab-label-active"/>
+    </HBox>
+
+    <ScrollPane fx:id="scrollPane"
+            fitToWidth="true"
+            hbarPolicy="NEVER"
+            vbarPolicy="NEVER"
+            VBox.vgrow="ALWAYS"
+            styleClass="tweet-scroll">
+
+        <content>
+
+            <VBox spacing="0">
+
+                <VBox styleClass="compose-section" spacing="8">
+                    <padding>
+                        <Insets top="8" right="16" bottom="12" left="16"/>
+                    </padding>
+
+                    <HBox spacing="12" alignment="TOP_LEFT">
+                        <ImageView fx:id="composeAvatar" fitWidth="60" fitHeight="60" preserveRatio="false">
+                            <clip>
+                                <Circle centerX="30" centerY="30" radius="30"/>
+                            </clip>
+
+                            <image>
+                                <Image url="@images/avatar.jpeg"/>
+                            </image>
+
+                        </ImageView>
+
+                        <VBox spacing="8" HBox.hgrow="ALWAYS">
+                            <TextArea fx:id="tweetTextArea" promptText="What's happening?" styleClass="tweet-text-area"/>
+                            <FlowPane fx:id="previewPane" hgap="10" vgap="10"/>
+                        </VBox>
+
+                    </HBox>
+
+                </VBox>
+
+                <VBox styleClass="option-container">
+
+                    <HBox styleClass="option-btn" spacing="20" alignment="CENTER_LEFT">
+                        <Button styleClass="option-icon-btn" onAction="#addPhoto">
+                            <graphic>
+                                <FontIcon iconLiteral="fas-image" styleClass="option-icon"/>
+                            </graphic>
+                        </Button>
+
+                        <Button styleClass="option-icon-btn" onAction="#addVideo">
+                            <graphic>
+                                <FontIcon iconLiteral="fas-video" styleClass="option-icon"/>
+                            </graphic>
+                        </Button>
+
+                        <Button styleClass="option-icon-btn">
+                            <graphic>
+                                <FontIcon iconLiteral="fas-microphone" styleClass="option-icon"/>
+                            </graphic>
+                        </Button>
+
+                        <Button styleClass="option-icon-btn">
+                            <graphic>
+                                <FontIcon iconLiteral="fas-chart-bar" styleClass="option-icon"/>
+                            </graphic>
+                        </Button>
+
+                        <Button styleClass="option-icon-btn">
+                            <graphic>
+                                <FontIcon iconLiteral="fas-paperclip" styleClass="option-icon"/>
+                            </graphic>
+                        </Button>
+                        <Pane HBox.hgrow="ALWAYS"/>
+                        <Label fx:id="charCount" text="0/280"/>
+                        <Button fx:id="postBtn" text="Post" styleClass="post-btn" onAction="#postTweet"/>
+                    </HBox>
+
+                </VBox>
+
+                <VBox fx:id="tweetContainer" spacing="18" VBox.vgrow="ALWAYS" styleClass="tweet-container"/>
+
+            </VBox>
+        </content>
+    </ScrollPane>
+</VBox>

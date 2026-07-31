@@ -1,0 +1,81 @@
+.root {
+    -fx-background-color: -color-bg;
+}
+
+
+.top-bar {
+    -fx-background-color: -color-bg;
+    -fx-border-color: -color-border;
+    -fx-border-width: 0 0 1 0;
+    -fx-pref-height: 56;
+}
+
+.icon-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: -color-text;
+    -fx-font-size: 18px;
+    -fx-background-radius: 100;
+    -fx-cursor: hand;
+    -fx-padding: 8;
+    -fx-icon-color:-color-text;
+}
+
+.icon-button:hover {
+    -fx-background-color: rgba(255,255,255,0.08);
+}
+
+
+.conversation-scroll {
+    -fx-background-color: -color-bg;
+    -fx-border-width: 0;
+    -fx-background-insets: 0;
+}
+
+.conversation-scroll > .viewport {
+    -fx-background-color: -color-bg;
+}
+
+.conversation-scroll .corner {
+    -fx-background-color: -color-bg;
+}
+
+
+#contentBox {
+    -fx-background-color: -color-bg;
+}
+
+#mainTweetContainer {
+    -fx-background-color: -color-bg;
+    -fx-border-color: -color-border;
+    -fx-border-width: 0 0 6 0;
+    -fx-padding: 6 0 6 0;
+}
+
+#repliesContainer {
+    -fx-background-color: -color-bg;
+}
+
+
+.tweet-item {
+    -fx-background-color: -color-bg;
+    -fx-border-color: -color-border;
+    -fx-border-width: 0 0 1 0;
+}
+
+.tweet-item:hover {
+    -fx-background-color: derive(-color-surface, 5%);
+}
+
+
+.scroll-bar:vertical {
+    -fx-background-color: -color-bg;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: -color-secondary;
+    -fx-background-radius: 10;
+}
+
+.scroll-bar .track {
+    -fx-background-color: -color-bg;
+}

@@ -1,0 +1,162 @@
+.root {
+    -fx-background-color: #000000;
+}
+
+.logo {
+    -fx-font-size: 600px;
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+}
+
+.title {
+-fx-font-size: 40px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffffff;
+}
+
+.name-field {
+    -fx-background-color: #ffffff;
+    -fx-text-fill: #000000;
+    -fx-prompt-text-fill: #71767b;
+    -fx-font-size: 16px;
+    -fx-padding: 15 15 15 15;
+    -fx-background-radius: 25px;
+    -fx-border-color: #2f3336;
+    -fx-border-radius: 25px;
+    -fx-border-width: 1.5px;
+    -fx-pref-height: 50px;
+}
+
+.name-field:focused {
+    -fx-border-color: #1d9bf0;
+    -fx-background-color: #ffffff;
+}
+
+.username-field {
+    -fx-background-color: #ffffff;
+    -fx-text-fill: #000000;
+    -fx-prompt-text-fill: #71767b;
+    -fx-font-size: 16px;
+    -fx-padding: 15 15 15 15;
+    -fx-background-radius: 25px;
+    -fx-border-color: #2f3336;
+    -fx-border-radius: 25px;
+    -fx-border-width: 1.5px;
+    -fx-pref-height: 50px;
+}
+
+.username-field:focused {
+    -fx-border-color: #1d9bf0;
+    -fx-background-color: #ffffff;
+}
+
+.email-field {
+    -fx-background-color: #ffffff;
+    -fx-text-fill: #000000;
+    -fx-prompt-text-fill: #71767b;
+    -fx-font-size: 16px;
+    -fx-padding: 15 15 15 15;
+    -fx-background-radius: 25px;
+    -fx-border-color: #2f3336;
+    -fx-border-radius: 25px;
+    -fx-border-width: 1.5px;
+    -fx-pref-height: 50px;
+}
+
+.email-field:focused {
+    -fx-border-color: #1d9bf0;
+    -fx-background-color: #ffffff;
+}
+
+.password-field {
+    -fx-background-color: #ffffff;
+    -fx-text-fill: #000000;
+    -fx-prompt-text-fill: #71767b;
+    -fx-font-size: 16px;
+    -fx-padding: 15 15 15 15;
+    -fx-background-radius: 25px;
+    -fx-border-color: #2f3336;
+    -fx-border-radius: 25px;
+    -fx-border-width: 1.5px;
+    -fx-pref-height: 50px;
+}
+
+.password-field:focused {
+    -fx-border-color: #1d9bf0;
+    -fx-background-color: #ffffff;
+}
+
+.confirmPassword-field {
+    -fx-background-color: #ffffff;
+    -fx-text-fill: #000000;
+    -fx-prompt-text-fill: #71767b;
+    -fx-font-size: 16px;
+    -fx-padding: 15 15 15 15;
+    -fx-background-radius: 25px;
+    -fx-border-color: #2f3336;
+    -fx-border-radius: 25px;
+    -fx-border-width: 1.5px;
+    -fx-pref-height: 50px;
+}
+
+.confirmPassword-field:focused {
+    -fx-border-color: #1d9bf0;
+    -fx-background-color: #ffffff;
+}
+
+.signup-btn {
+    -fx-background-color: #4a4a4a;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-pref-width: 400px;
+    -fx-pref-height: 50px;
+    -fx-background-radius: 25px;
+    -fx-cursor: hand;
+    -fx-border-width: 0;
+}
+
+.signup-btn:hover {
+    -fx-background-color: #606060;
+}
+
+.signup-btn:pressed {
+    -fx-background-color: #404040;
+}
+
+.separator .line {
+    -fx-border-color: #2f3336;
+    -fx-border-width: 1px;
+}
+
+.error-label {
+    -fx-text-fill: #ff0000;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-alignment: center;
+    -fx-padding: 5 0 5 0;
+}
+
+.success-label {
+    -fx-text-fill: #2ecc71;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-alignment: center;
+    -fx-padding: 5 0 5 0;
+}
+
+.login-label {
+    -fx-text-fill: #71767b;
+    -fx-font-size: 14px;
+}
+
+.login-link {
+    -fx-text-fill: #1d9bf0;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+.login-link:hover {
+    -fx-text-fill: #1a8cd8;
+    -fx-underline: true;
+}

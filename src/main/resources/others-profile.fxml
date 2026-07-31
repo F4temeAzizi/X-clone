@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.Circle?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+
+<VBox xmlns="http://javafx.com/javafx/18"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="ap404.xclone.Client.Controllers.OthersProfileController"
+      spacing="0"
+      stylesheets="@css/profile.css,@css/theme.css"
+      styleClass="profile-root"
+      VBox.vgrow="ALWAYS">
+
+
+    <ScrollPane fx:id="profileScroll"
+                fitToWidth="true"
+                hbarPolicy="NEVER"
+                vbarPolicy="NEVER"
+                styleClass="profile-scroll">
+
+        <content>
+            <VBox spacing="0">
+
+                <StackPane>
+                    <Region fx:id="bannerRegion" styleClass="profile-banner"/>
+                    <Button fx:id="backBtn" onAction="#goBack" StackPane.alignment="TOP_LEFT"
+                            translateX="15" translateY="15" styleClass="back-btn">
+                        <graphic>
+                            <FontIcon iconLiteral="fas-arrow-left"/>
+                        </graphic>
+                    </Button>
+                </StackPane>
+
+                <HBox alignment="CENTER_LEFT" spacing="15" styleClass="profile-header">
+
+                    <StackPane translateY="-80" styleClass="avatar-container">
+
+                        <ImageView fx:id="avatarImage" fitWidth="160" fitHeight="160" preserveRatio="false">
+
+                            <clip>
+                                <Circle centerX="80" centerY="80" radius="80"/>
+                            </clip>
+
+                            <image>
+                                <Image url="@images/avatar.jpeg"/>
+                            </image>
+
+                        </ImageView>
+
+                    </StackPane>
+
+                    <Pane HBox.hgrow="ALWAYS"/>
+
+                    <Button styleClass="edit-profile-btn" translateY="-35">
+                        <graphic>
+                            <FontIcon iconLiteral="fas-comment" styleClass="edit-profile-btn"/>
+                        </graphic>
+                    </Button>
+                    <Button fx:id="followButton" text="Follow" styleClass="edit-profile-btn" translateY="-35" onAction="#handleFollow"/>
+
+                </HBox>
+
+                <VBox spacing="5" styleClass="profile-info">
+
+                    <Label fx:id="nameLbl" text="Guest" styleClass="profile-name"/>
+                    <Label fx:id="usernameLbl" text="  @username" styleClass="profile-username"/>
+                    <Label fx:id="bioLbl" text="" wrapText="true" styleClass="profile-bio"/>
+
+                    <HBox spacing="5">
+                        <FontIcon iconLiteral="fas-calendar-alt" styleClass="profile-icon"/>
+                        <Label fx:id="createdAtLbl" styleClass="profile-meta"/>
+                    </HBox>
+
+                    <HBox spacing="25">
+                        <Label fx:id="followingLabel" text="0 Following" styleClass="profile-follow" onMouseClicked="#showFollowing"/>
+                        <Label fx:id="followersLabel" text="0 Followers" styleClass="profile-follow" onMouseClicked="#showFollowers"/>
+                    </HBox>
+
+                </VBox>
+
+                <HBox alignment="CENTER" styleClass="profile-tabs">
+                    <Label fx:id="postsTab" text="Posts" styleClass="profile-tab-active" onMouseClicked="#showPosts"/>
+                    <Label fx:id="repliesTab" text="Replies" styleClass="profile-tab" onMouseClicked="#showReplies"/>
+                    <Label fx:id="likesTab" text="Likes" styleClass="profile-tab" onMouseClicked="#showLikes"/>
+                </HBox>
+
+
+                <VBox fx:id="tweetContainer" spacing="10"/>
+
+            </VBox>
+        </content>
+    </ScrollPane>
+</VBox>

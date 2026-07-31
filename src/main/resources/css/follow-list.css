@@ -1,0 +1,99 @@
+.follow-user-row {
+     -fx-padding: 18 24;
+     -fx-alignment: center-left;
+     -fx-cursor: hand;
+     -fx-min-height:82;
+     -fx-background-color: transparent;
+     -fx-border-color: -color-border;
+     -fx-border-width: 0 0 1 0;
+}
+
+.follow-user-row:hover {
+     -fx-background-color: transparent;
+}
+
+.follow-username {
+     -fx-font-size: 15px;
+     -fx-text-fill: -color-secondary;
+}
+
+.follow-display-name {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -color-text;
+}
+
+.follow-avatar {
+    -fx-fit-width: 48;
+    -fx-fit-height: 48;
+}
+
+.follow-header{
+    -fx-padding:15;
+    -fx-background-color:-color-bg;
+
+    -fx-border-color: transparent transparent -color-border transparent;
+    -fx-border-width:0 0 1 0;
+}
+
+.follow-back-btn{
+    -fx-background-color:transparent;
+    -fx-text-fill:-color-text;
+    -fx-font-size:20px;
+    -fx-background-radius:30;
+    -fx-cursor:hand;
+}
+
+.follow-back-btn:hover{
+    -fx-background-color:-color-surface;
+}
+
+.follow-title{
+    -fx-font-size:20px;
+    -fx-font-weight:bold;
+    -fx-text-fill:-color-text;
+}
+
+.follow-scroll,
+.follow-scroll:focused,
+.follow-scroll .viewport{
+
+    -fx-background-color: -color-bg;
+    -fx-focus-color: -color-bg;
+    -fx-faint-focus-color: -color-bg;
+
+    -fx-background-insets: 0;
+    -fx-border-insets: 0;
+
+    -fx-border-color: -color-bg;
+}
+
+.icon-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: -color-text;
+    -fx-font-size: 18px;
+    -fx-background-radius: 100;
+    -fx-cursor: hand;
+    -fx-padding: 8;
+    -fx-icon-color:-color-text;
+}
+
+.icon-button:hover {
+    -fx-background-color: rgba(255,255,255,0.08);
+}
+
+.follow-btn{
+    -fx-background-color:transparent;
+    -fx-border-color:-color-border;
+    -fx-font-size: 18px;
+    -fx-border-radius:25;
+    -fx-background-radius:25;
+    -fx-padding:8 20;
+    -fx-text-fill:-color-text;
+    -fx-font-weight:bold;
+    -fx-icon-color:-color-text;
+}
+
+.follow-btn:hover{
+    -fx-background-color:-color-surface;
+}

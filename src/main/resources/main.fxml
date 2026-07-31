@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.Circle?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<BorderPane xmlns="http://javafx.com/javafx/18"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="ap404.xclone.Client.Controllers.MainController"
+            stylesheets="@css/main.css, @css/follow-list.css">
+    <left>
+        <VBox styleClass="nav-column" prefWidth="300" minWidth="300" maxWidth="300"
+              VBox.vgrow="ALWAYS">
+            <padding><Insets top="40" right="8" bottom="12" left="16"/></padding>
+
+            <HBox alignment="CENTER" prefWidth="196">
+                <padding><Insets left="0" right="0"/></padding>
+                <Label text="𝕏" styleClass="logo-small"/>
+            </HBox>
+
+            <VBox spacing="6" alignment="CENTER_LEFT" VBox.vgrow="ALWAYS">
+                <Button text="Home" graphicTextGap="12" styleClass="nav-btn" onAction="#goToHome">
+                    <graphic>
+                        <FontIcon iconLiteral="fas-home" iconSize="22" styleClass="nav-icon"/>
+                    </graphic>
+                </Button>
+
+                <Button text="Explore" graphicTextGap="12" styleClass="nav-btn" onAction="#goToExplore">
+                    <graphic>
+                        <FontIcon iconLiteral="fas-search" styleClass="nav-icon"/>
+                    </graphic>
+                </Button>
+
+                <Button text="Notifications" graphicTextGap="12" styleClass="nav-btn" onAction="#goToNotifications">
+                    <graphic>
+                        <FontIcon iconLiteral="fas-bell" styleClass="nav-icon"/>
+                    </graphic>
+                </Button>
+
+                <Button text="Chat" graphicTextGap="12" styleClass="nav-btn" onAction="#goToChat">
+                    <graphic>
+                        <FontIcon iconLiteral="fas-comment" styleClass="nav-icon"/>
+                    </graphic>
+                </Button>
+
+                <Button text="Bookmarks" graphicTextGap="12" styleClass="nav-btn" onAction="#goToBookmarks">
+                    <graphic>
+                        <FontIcon iconLiteral="fas-bookmark" styleClass="nav-icon"/>
+                    </graphic>
+                </Button>
+
+                <Button text="Profile" graphicTextGap="12" styleClass="nav-btn" onAction="#goToProfile">
+                    <graphic>
+                        <FontIcon iconLiteral="fas-user" styleClass="nav-icon"/>
+                    </graphic>
+                </Button>
+
+                <Button text="Settings" graphicTextGap="12" styleClass="nav-btn" onAction="#goToSettings">
+                    <graphic>
+                        <FontIcon iconLiteral="fas-cog" styleClass="nav-icon"/>
+                    </graphic>
+                </Button>
+
+                <Region VBox.vgrow="ALWAYS"/>
+
+                <Button text="Post" styleClass="tweet-nav-btn" onAction="#openPostPage"/>
+
+                <Separator/>
+
+                <Button  styleClass="profile-btn" VBox.vgrow="ALWAYS">
+                    <graphic>
+                        <HBox spacing="10" alignment="CENTER_LEFT">
+                            <ImageView fx:id="sidebarAvatar" fitWidth="36" fitHeight="36" preserveRatio="false">
+                                <clip>
+                                    <Circle centerX="18" centerY="18" radius="18"/>
+                                </clip>
+                                <image>
+                                    <Image url="@images/avatar.jpeg"/>
+                                </image>
+                            </ImageView>
+                            <VBox spacing="2">
+                                <Label fx:id="sidebarName" styleClass="name"/>
+                                <Label fx:id="sidebarUsername" style="-fx-text-fill: #71767b; -fx-font-size: 12px;"/>
+                            </VBox>
+
+                            <Button fx:id="moreOptionsBtn" styleClass="more-options-btn" onAction="#showMoreOptions">
+                                <graphic>
+                                    <FontIcon iconLiteral="fas-ellipsis-h" iconSize="20" styleClass="nav-icon"/>
+                                </graphic>
+                            </Button>
+                        </HBox>
+                    </graphic>
+                </Button>
+
+            </VBox>
+        </VBox>
+    </left>
+
+    <center>
+        <StackPane fx:id="center"/>
+    </center>
+
+    <right>
+        <VBox styleClass="widget-column" spacing="15" alignment="TOP_CENTER"
+              prefWidth="400" minWidth="400" maxWidth="400" >
+            <padding><Insets top="20" right="12" bottom="20" left="12"/></padding>
+            <TextField fx:id="searchField" promptText="🔍 Search" styleClass="search-field"/>
+
+            <ScrollPane fitToWidth="true" hbarPolicy="NEVER" VBox.vgrow="ALWAYS" styleClass="search-result-ui">
+                <content>
+                    <VBox fx:id="searchResultContainer" spacing="0" styleClass="search-result-ui"/>
+                </content>
+            </ScrollPane>
+        </VBox>
+    </right>
+</BorderPane>
