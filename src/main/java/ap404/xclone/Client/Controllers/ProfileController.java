@@ -5,6 +5,7 @@ import ap404.xclone.Client.Managers.Navigation;
 import ap404.xclone.Client.Managers.Session;
 import ap404.xclone.Client.Utils.TweetUtil;
 import ap404.xclone.Client.Utils.UserUtil;
+import ap404.xclone.Shared.DTO.enums.PageType;
 import ap404.xclone.Shared.DTO.enums.RequestType;
 import ap404.xclone.Shared.DTO.enums.ResponseType;
 import ap404.xclone.Shared.DTO.request.GetProfileTweetsRequest;
@@ -40,6 +41,7 @@ public class ProfileController
 
     public void initialize ()
     {
+        Navigation.setPreviousPage(PageType.PROFILE);
         UserUtil.loadUser(Session.getCurrentUser(), nameLbl, usernameLbl, bioLbl, avatarImage, bannerRegion, createdAtLbl);
         loadFollowCounts();
         switch (Navigation.getProfileTab())

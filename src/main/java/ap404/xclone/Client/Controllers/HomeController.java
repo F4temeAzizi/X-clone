@@ -4,6 +4,7 @@ import ap404.xclone.Client.Managers.Navigation;
 import ap404.xclone.Client.Utils.MediaUtil;
 import ap404.xclone.Client.Utils.TweetUtil;
 import ap404.xclone.Client.Utils.UserUtil;
+import ap404.xclone.Shared.DTO.enums.PageType;
 import ap404.xclone.Shared.Models.Media;
 import ap404.xclone.Shared.Models.Tweet;
 import javafx.fxml.FXML;
@@ -40,6 +41,7 @@ public class HomeController
     @FXML
     public void initialize() {
 
+        Navigation.setPreviousPage(PageType.HOME);
         Navigation.clearHistory();
 
         postBtn.setDisable(true);

@@ -4,6 +4,7 @@ import ap404.xclone.Client.Client;
 import ap404.xclone.Client.Managers.Navigation;
 import ap404.xclone.Client.Managers.Session;
 import ap404.xclone.Client.Utils.TweetUtil;
+import ap404.xclone.Shared.DTO.enums.PageType;
 import ap404.xclone.Shared.DTO.enums.RequestType;
 import ap404.xclone.Shared.DTO.enums.ResponseType;
 import ap404.xclone.Shared.DTO.request.Request;
@@ -27,6 +28,7 @@ public class ExploreController
     @FXML
     public void initialize()
     {
+        Navigation.setPreviousPage(PageType.EXPLORE);
         Navigation.setExploreController(this);
         String hashtag = Navigation.getSelectedHashtag();
         if (hashtag != null)

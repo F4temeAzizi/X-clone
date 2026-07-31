@@ -6,6 +6,7 @@ import ap404.xclone.Client.Managers.Session;
 import ap404.xclone.Client.Utils.FollowUtil;
 import ap404.xclone.Client.Utils.TweetUtil;
 import ap404.xclone.Client.Utils.UserUtil;
+import ap404.xclone.Shared.DTO.enums.PageType;
 import ap404.xclone.Shared.DTO.enums.RequestType;
 import ap404.xclone.Shared.DTO.enums.ResponseType;
 import ap404.xclone.Shared.DTO.request.GetProfileTweetsRequest;
@@ -43,6 +44,7 @@ public class OthersProfileController
 
     public void initialize ()
     {
+        Navigation.setPreviousPage(PageType.OTHER_PROFILE);
         Navigation.setOthersProfileController(this);
         UserUtil.loadUser(Navigation.getSelectedUser(), nameLbl, usernameLbl, bioLbl, avatarImage, bannerRegion, createdAtLbl);
         FollowUtil.checkFollowStatus(Navigation.getSelectedUser(), followButton);
