@@ -77,9 +77,7 @@ public class  TweetController
         usernameLabel.setText(target.getUsername());
         setText(target.getContent());
 
-        if (target.getAvatarImageUrl() != null)
-            avatarImage.setImage(new Image(target.getAvatarImageUrl()));
-
+        if (target.getAvatarImageUrl() != null) avatarImage.setImage(new Image(target.getAvatarImageUrl()));
 
         if (tweet.getMedia() != null && !tweet.getMedia().isEmpty()) MediaUtil.showTweet(mediaContainer, tweet.getMedia());
         else mediaContainer.getChildren().clear();

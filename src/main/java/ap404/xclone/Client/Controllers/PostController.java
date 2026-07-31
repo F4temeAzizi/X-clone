@@ -44,7 +44,7 @@ public class PostController
 
             charCount.setText(length + "/" + MAX_TWEET_LENGTH);
 
-            postBtn.setDisable(newValue.isBlank() || length > MAX_TWEET_LENGTH);
+            updatePostButton();
         });
 
         UserUtil.loadUser(Session.getCurrentUser(),
@@ -52,6 +52,14 @@ public class PostController
                 null, composeAvatar,
                 null, null
         );
+    }
+
+    private void updatePostButton()
+    {
+        boolean hasText = !tweetArea.getText().trim().isBlank();
+        boolean hasMedia = !mediaList.isEmpty();
+
+        postBtn.setDisable((!hasText && !hasMedia) || tweetArea.getText().length() > MAX_TWEET_LENGTH);
     }
 
     @FXML
@@ -83,6 +91,7 @@ public class PostController
                 tweetArea.clear();
                 mediaList = new ArrayList<>();
                 MediaUtil.showPreview(previewPane, mediaList);
+                updatePostButton();
                 Navigation.setComposeText("");
                 ((Stage) tweetArea.getScene().getWindow()).close();
                 if (Navigation.getHomeController() != null) {
@@ -99,11 +108,13 @@ public class PostController
     public void addPhoto()
     {
         MediaUtil.addPhotos(previewPane, mediaList, tweetArea.getScene().getWindow());
+        updatePostButton();
     }
 
     @FXML
     public void addVideo()
     {
         MediaUtil.addVideos(previewPane, mediaList, tweetArea.getScene().getWindow());
+        updatePostButton();
     }
 }

@@ -53,7 +53,7 @@ public class HomeController
 
             charCount.setText(length + "/" + MAX_TWEET_LENGTH);
 
-            postBtn.setDisable(newValue.isBlank() || length > MAX_TWEET_LENGTH);
+            updatePostButton();
         });
 
         tweetTextArea.setPrefHeight(60);
@@ -87,6 +87,14 @@ public class HomeController
                 Navigation.setHomeScroll(n.doubleValue()));
     }
 
+    private void updatePostButton()
+    {
+        boolean hasText = !tweetTextArea.getText().trim().isBlank();
+        boolean hasMedia = !mediaList.isEmpty();
+
+        postBtn.setDisable((!hasText && !hasMedia) || tweetTextArea.getText().length() > MAX_TWEET_LENGTH);
+    }
+
     @FXML
     private void postTweet() {
         String content = tweetTextArea.getText();
@@ -115,6 +123,7 @@ public class HomeController
                 tweetTextArea.clear();
                 mediaList = new ArrayList<>();
                 MediaUtil.showPreview(previewPane, mediaList);
+                updatePostButton();
                 Navigation.setComposeText("");
                 loadTweets();
             }
@@ -158,12 +167,14 @@ public class HomeController
     public void addPhoto()
     {
         MediaUtil.addPhotos(previewPane, mediaList, tweetTextArea.getScene().getWindow());
+        updatePostButton();
     }
 
     @FXML
     public void addVideo()
     {
         MediaUtil.addVideos(previewPane, mediaList, tweetTextArea.getScene().getWindow());
+        updatePostButton();
     }
 
     public VBox getTweetContainer() { return tweetContainer; }

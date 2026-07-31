@@ -39,9 +39,18 @@ public class EditTweetController
 
             charCount.setText(length + "/" + MAX_TWEET_LENGTH);
 
-            saveBtn.setDisable(newValue.isBlank() || length > MAX_TWEET_LENGTH);
+            updateSaveButton();
         });
     }
+
+    private void updateSaveButton()
+    {
+        boolean hasText = !tweetArea.getText().trim().isBlank();
+        boolean hasMedia = !mediaList.isEmpty();
+
+        saveBtn.setDisable((!hasText && !hasMedia) || tweetArea.getText().length() > MAX_TWEET_LENGTH);
+    }
+
     public void setTweet(Tweet tweet)
     {
         UserUtil.loadUser(Session.getCurrentUser(),
@@ -53,6 +62,7 @@ public class EditTweetController
 
         if (tweet.getMedia() != null) mediaList.addAll(tweet.getMedia());
         MediaUtil.showPreview(previewPane, mediaList);
+        updateSaveButton();
     }
 
     public String getEditedText() { return editedText; }
@@ -69,11 +79,13 @@ public class EditTweetController
     private void addPhoto()
     {
         MediaUtil.addPhotos(previewPane, mediaList, tweetArea.getScene().getWindow());
+        updateSaveButton();
     }
 
     @FXML
     private void addVideo()
     {
         MediaUtil.addVideos(previewPane, mediaList, tweetArea.getScene().getWindow());
+        updateSaveButton();
     }
 }
