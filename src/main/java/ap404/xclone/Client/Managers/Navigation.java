@@ -41,11 +41,21 @@ public class Navigation
     private static String searchTweetText = "";
 
     private static PageType previousPage;
+    private static PageType profileReturnPage;
+    private static Tweet profileReturnTweet;
+
 
     public static void setPreviousPage(PageType page) {
         previousPage = page;
     }
     public static PageType getPreviousPage() { return previousPage; }
+
+    public static PageType getProfileReturnPage() { return profileReturnPage; }
+    public static void setProfileReturnPage(PageType page) { profileReturnPage = page; }
+
+    public static Tweet getProfileReturnTweet() { return profileReturnTweet; }
+    public static void setProfileReturnTweet(Tweet profileReturnTweet) { Navigation.profileReturnTweet = profileReturnTweet; }
+
 
     public static void loadHome() { load("home.fxml"); }
     public static void loadProfile() { load("profile.fxml"); }
@@ -59,23 +69,25 @@ public class Navigation
     public static void loadPrivacy() { load("privacy.fxml"); }
     public static void loadDeleteAccount() { load("delete-account.fxml"); }
     public static void loadShowReplies() { load("show-replies.fxml"); }
+    public static void loadFollowList() {load("follow-list.fxml");}
     public static void loadLogin() { load("login.fxml");}
 
     public static void addReplyToHistory( Tweet tweet) { replyHistory.add(tweet); }
-
-    public static void removeLastReply() {
-        if (replyHistory.isEmpty() ) return;
-
-        replyHistory.remove(replyHistory.size() - 1);
-    }
-    public static Tweet getCurrentReply() {
-        if (replyHistory.isEmpty()) return null;
-
-        return replyHistory.get(replyHistory.size() - 1);
-    }
-
     public static void clearHistory() {
         replyHistory.clear();
+    }
+
+
+    public static void removeLastReply()
+    {
+        if (replyHistory.isEmpty() ) return;
+        replyHistory.remove(replyHistory.size() - 1);
+    }
+
+    public static Tweet getCurrentReply()
+    {
+        if (replyHistory.isEmpty()) return null;
+        return replyHistory.get(replyHistory.size() - 1);
     }
 
     public static void showHashtag(String hashtag)
@@ -83,7 +95,7 @@ public class Navigation
         setSelectedHashtag(hashtag);
         loadExplore();
     }
-    public static void loadFollowList() {load("follow-list.fxml");}
+
 
     public static User getSelectedUser() { return selectedUser; }
     public static void setSelectedUser(User selectedUser) { Navigation.selectedUser = selectedUser;}
@@ -103,8 +115,7 @@ public class Navigation
     public static void setOthersProfileController(OthersProfileController controller) { othersProfileController = controller; }
     public static OthersProfileController getOthersProfileController() { return othersProfileController; }
 
-
-        public static double getHomeScroll() { return homeScroll; }
+    public static double getHomeScroll() { return homeScroll; }
     public static void setHomeScroll(double value) { homeScroll = value; }
 
     public static double getExploreScroll() { return exploreScroll; }
@@ -140,7 +151,6 @@ public class Navigation
     public static void setFollowListType(String type) { followListType = type; }
 
 
-
     public static void load(String fxml)
     {
         try
@@ -157,5 +167,36 @@ public class Navigation
     public static void navigate(String fxml) throws IOException {
         Parent root = FXMLLoader.load(Navigation.class.getResource("/" + fxml));
         XApplication.getPrimaryStage().getScene().setRoot(root);
+    }
+
+    public static void clear()
+    {
+        selectedUser = null;
+        selectedTweet = null;
+
+        homeController = null;
+        exploreController = null;
+        othersProfileController = null;
+        mainController = null;
+
+        followListUser = null;
+        followListType = null;
+
+        selectedHashtag = null;
+
+        previousPage = null;
+        profileReturnPage = null;
+        profileReturnTweet = null;
+
+        homeScroll = 0;
+        exploreScroll = 0;
+        bookmarkScroll = 0;
+        profileScroll = 0;
+
+        profileTab = "posts";
+        composeText = "";
+        searchTweetText = "";
+
+        replyHistory.clear();
     }
 }

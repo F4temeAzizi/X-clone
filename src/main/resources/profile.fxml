@@ -26,6 +26,12 @@
             <VBox spacing="0">
                 <StackPane>
                     <Region fx:id="bannerRegion" styleClass="profile-banner"/>
+                    <Button fx:id="backBtn" onAction="#goBack" StackPane.alignment="TOP_LEFT"
+                            translateX="15" translateY="15" styleClass="back-btn">
+                    <graphic>
+                        <FontIcon iconLiteral="fas-arrow-left"/>
+                    </graphic>
+                    </Button>
                 </StackPane>
 
                 <HBox alignment="CENTER_LEFT" spacing="15" styleClass="profile-header">

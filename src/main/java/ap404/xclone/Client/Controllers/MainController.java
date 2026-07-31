@@ -71,6 +71,7 @@ public class MainController
             try {
                 Session.setClient(null);
                 Session.setCurrentUser(null);
+                Navigation.clear();
                 Navigation.navigate("login.fxml");
             } catch (IOException ex) {
                 System.out.println(ex.getMessage());

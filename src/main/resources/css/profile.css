@@ -125,3 +125,29 @@
     -fx-padding: 4;
     -fx-alignment: center;
 }
+
+.back-btn {
+    -fx-background-color: transparent;
+    -fx-background-radius: 50;
+    -fx-pref-width: 40;
+    -fx-pref-height: 40;
+    -fx-min-width: 40;
+    -fx-min-height: 40;
+    -fx-max-width: 40;
+    -fx-max-height: 40;
+    -fx-cursor: hand;
+    -fx-padding: 0;
+}
+
+.back-btn:hover {
+    -fx-background-color: -color-icon-hover;
+}
+
+.back-btn:pressed {
+    -fx-background-color: derive(-hover-color, -10%);
+}
+
+.back-btn .ikonli-font-icon {
+    -fx-icon-color: -color-text;
+    -fx-icon-size: 18;
+}

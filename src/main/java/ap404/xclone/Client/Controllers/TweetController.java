@@ -5,6 +5,7 @@ import ap404.xclone.Client.Managers.Session;
 import ap404.xclone.Client.Managers.ThemeManager;
 import ap404.xclone.Client.Utils.MediaUtil;
 import ap404.xclone.Client.Utils.TweetUtil;
+import ap404.xclone.Shared.DTO.enums.PageType;
 import ap404.xclone.Shared.DTO.enums.RequestType;
 import ap404.xclone.Shared.DTO.enums.ResponseType;
 import ap404.xclone.Shared.DTO.request.*;
@@ -76,9 +77,7 @@ public class  TweetController
         usernameLabel.setText(target.getUsername());
         setText(target.getContent());
 
-        if (target.getAvatarImageUrl() != null)
-            avatarImage.setImage(new Image(target.getAvatarImageUrl()));
-
+        if (target.getAvatarImageUrl() != null) avatarImage.setImage(new Image(target.getAvatarImageUrl()));
 
         if (tweet.getMedia() != null && !tweet.getMedia().isEmpty()) MediaUtil.showTweet(mediaContainer, tweet.getMedia());
         else mediaContainer.getChildren().clear();
@@ -230,7 +229,7 @@ public class  TweetController
 
             if (result.isEmpty() || result.get() != ButtonType.OK) return;
 
-            Client client = new Client();
+            Client client = Session.getClient();
 
             DeleteTweetRequest deleteTweetRequest = new DeleteTweetRequest(tweet.getId(), tweet.getUserId());
 
@@ -276,7 +275,7 @@ public class  TweetController
 
         try
         {
-            Client client = new Client();
+            Client client = Session.getClient();
 
             EditTweetRequest editTweetRequest = new EditTweetRequest(tweet.getId(), tweet.getUserId(), newContent, newMedia);
 
@@ -415,12 +414,15 @@ public class  TweetController
     @FXML
     private void showProfile() {
 
+        Navigation.setProfileReturnPage(PageType.SHOW_REPLIES);
+        Navigation.setProfileReturnTweet(Navigation.getSelectedTweet());
+
         if (target.getUserId() == Session.getCurrentUser().getId()) Navigation.loadProfile();
         else
         {
             try
             {
-                Client client = new Client();
+                Client client = Session.getClient();
                 GetUserByIdRequest getUserByIdRequest = new GetUserByIdRequest(target.getUserId());
                 client.sendRequest(new Request(RequestType.GET_USER_BY_ID, getUserByIdRequest));
 
@@ -581,11 +583,5 @@ public class  TweetController
         boolean canShow = !readOnly && tweet.getUserId() == Session.getCurrentUser().getId();
         moreBtn.setVisible(canShow);
         moreBtn.setManaged(canShow);
-    }
-
-    private boolean hasHashtag(String text)
-    {
-        if (text != null && text.contains("#")) return true;
-        return false;
     }
 }

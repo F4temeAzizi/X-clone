@@ -4,6 +4,7 @@ import ap404.xclone.Client.Managers.ThemeManager;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 public class XApplication extends Application
@@ -25,6 +26,9 @@ public class XApplication extends Application
 
         stage.setMaximized(true);      
         stage.setResizable(false);
+
+        Image icon = new Image(getClass().getResourceAsStream("/images/icon.png"));
+        stage.getIcons().add(icon);
 
         stage.show();
     }

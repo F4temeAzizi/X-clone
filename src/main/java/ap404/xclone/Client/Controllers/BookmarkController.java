@@ -24,7 +24,6 @@ public class BookmarkController
     @FXML
     public void initialize()
     {
-
         Navigation.setPreviousPage(PageType.BOOKMARK);
         try
         {
