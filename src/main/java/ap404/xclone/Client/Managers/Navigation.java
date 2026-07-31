@@ -5,6 +5,7 @@ import ap404.xclone.Client.Controllers.HomeController;
 import ap404.xclone.Client.Controllers.MainController;
 import ap404.xclone.Client.Controllers.OthersProfileController;
 import ap404.xclone.Client.XApplication;
+import ap404.xclone.Shared.DTO.enums.PageType;
 import ap404.xclone.Shared.Models.Tweet;
 import ap404.xclone.Shared.Models.User;
 import javafx.fxml.FXMLLoader;
@@ -38,6 +39,13 @@ public class Navigation
     private static String composeText = "";
     private static String selectedHashtag;
     private static String searchTweetText = "";
+
+    private static PageType previousPage;
+
+    public static void setPreviousPage(PageType page) {
+        previousPage = page;
+    }
+    public static PageType getPreviousPage() { return previousPage; }
 
     public static void loadHome() { load("home.fxml"); }
     public static void loadProfile() { load("profile.fxml"); }
