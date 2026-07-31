@@ -5,5 +5,6 @@ public enum PageType {
     EXPLORE,
     PROFILE,
     OTHER_PROFILE,
-    BOOKMARK
+    BOOKMARK,
+    SHOW_REPLIES
 }
