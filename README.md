@@ -215,8 +215,6 @@ git clone https://github.com/F4temeAzizi/X-clone.git
 # 📸 Screenshots
 
 
-## 📸 Screenshots
-
 <table>
   <tr>
     <td align="center">
