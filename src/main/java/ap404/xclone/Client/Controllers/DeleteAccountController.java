@@ -52,6 +52,7 @@ public class DeleteAccountController
             if (response.getType() == ResponseType.DELETE_ACCOUNT_SUCCESS) {
                 Session.setClient(null);
                 Session.setCurrentUser(null);
+                Navigation.clear();
                 Navigation.navigate("login.fxml");
             }
             else {
