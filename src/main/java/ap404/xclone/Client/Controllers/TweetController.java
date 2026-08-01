@@ -79,7 +79,7 @@ public class  TweetController
 
         if (target.getAvatarImageUrl() != null) avatarImage.setImage(new Image(target.getAvatarImageUrl()));
 
-        if (tweet.getMedia() != null && !tweet.getMedia().isEmpty()) MediaUtil.showTweet(mediaContainer, tweet.getMedia());
+        if (target.getMedia() != null && !target.getMedia().isEmpty()) MediaUtil.showTweet(mediaContainer, target.getMedia());
         else mediaContainer.getChildren().clear();
 
         boolean isCurrentUser = (Session.getCurrentUser().getId() == tweet.getUserId());
