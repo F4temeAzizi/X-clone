@@ -75,8 +75,10 @@ public class ShowRepliesController {
                 case HOME :
                     Navigation.loadHome();
                     return;
-                case EXPLORE :
+                case EXPLORE : {
+                    Navigation.setSelectedHashtag(null);
                     Navigation.loadExplore();
+                }
                     return;
                 case PROFILE :
                     Navigation.loadProfile();
