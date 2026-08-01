@@ -399,5 +399,26 @@ Responsibilities are divided among:
 This improves readability and maintainability.
 
 ---
+# 4.AI Usage
+
+during the development of this project we used ChatGpt(GPT-5.5) and DeepSeek as a supporting tool.
+
+AI assistance was used in the following areas:
+
+- Assisting with debugging video playback issues.
+- Providing suggestions for implementing media preview.
+- Reviewing the implementation of hashtag-to-tweet relationships.
+- Suggesting approaches for detecting, highlighting, and making hashtags clickable.
+- Assisting with preserving page state during navigation.
+- Providing styling suggestions for the `theme.css` file.
+- Assisting with implementing the back button for the profile and reply pages.
+- Suggesting solutions for automatically resizing the compose text area.
+- Reviewing the implementation of the follow/unfollow feature.
+- Assisting with debugging follower/following lists and counters.
+- Reviewing DAO class implementations and database queries.
+- Explaining client-server communication using DTOs.
+- Assisting with debugging login and BCrypt password verification.
+- Providing guidance for resolving Git merge conflicts.
+- Assisting with writing and improving the project documentation.
 
 
