@@ -259,7 +259,7 @@ Attributes:
 ## Entity Relationship Diagram
 
 <p align="center">
-  <img src="Screenshots/ERD.png" alt="X-Clone Entity Relationship Diagram" width="900">
+  <img src="Screenshots/ERD.jpeg" alt="X-Clone Entity Relationship Diagram" width="900">
 </p>
 
 # 3. Object-Oriented Design
