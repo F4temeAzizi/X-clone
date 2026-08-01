@@ -119,7 +119,7 @@ Used inside the client application.
 - **View:** FXML files
 - **Controller:** JavaFX Controllers
 
-This separation keeps the UI independent from application logic.
+This separation keeps the UI independent of application logic.
 
 ---
 
@@ -258,11 +258,9 @@ Attributes:
 
 ## Entity Relationship Diagram
 
-```
-
-
-
-```
+<p align="center">
+  <img src="Screenshots/ERD.png" alt="X-Clone Entity Relationship Diagram" width="900">
+</p>
 
 # 3. Object-Oriented Design
 
@@ -401,7 +399,7 @@ This improves readability and maintainability.
 ---
 # 4.AI Usage
 
-during the development of this project we used ChatGpt(GPT-5.5) and DeepSeek as a supporting tool.
+during the development of this project we used ChatGPT(GPT-5.5) and DeepSeek as a supporting tool.
 
 AI assistance was used in the following areas:
 
